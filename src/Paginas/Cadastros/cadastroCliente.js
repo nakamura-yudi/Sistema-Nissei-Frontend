@@ -27,9 +27,8 @@ function Formulario()
             alterarPessoa();
         }
     },[]);
-    function voltarHome(){
-        if(localStorage.getItem('cod_cli')!==null)
-            localStorage.removeItem('cod_cli');
+    function voltar(){
+     
         history.goBack();
     } 
     async function alterarPessoa(){
@@ -227,7 +226,6 @@ function Formulario()
                 })
 
                 alert('Alterado');
-                localStorage.removeItem('cod_cli');
                 history.goBack();
             }
         }
@@ -333,7 +331,7 @@ function Formulario()
                              
                         <button type="submit" id="btnForm">{button}</button>
                     </form>
-                    <button type="button" onClick={voltarHome}>Sair</button>
+                    <button type="button" onClick={voltar}>Voltar</button>
                 </aside>    
             </div>
         </div>

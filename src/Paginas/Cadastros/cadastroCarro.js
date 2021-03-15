@@ -22,8 +22,9 @@ function FormularioCarro()
     },[]);
 
 function voltar(){
-    localStorage.removeItem('car_id');
-    history.push('/infoCliente');
+    if(localStorage.getItem('car_id'))
+        localStorage.removeItem('car_id');
+    history.goBack();
 }
 
     async function alterarCarro(){
@@ -104,7 +105,7 @@ function voltar(){
                 })
                 alert('Carro Alterado');
                 localStorage.removeItem('car_id');
-                history.push('/infoCliente');
+                history.goBack();
             }
             
             setPlaca('');

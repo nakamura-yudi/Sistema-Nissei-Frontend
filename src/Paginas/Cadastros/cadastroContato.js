@@ -39,7 +39,7 @@ function CadastroContatos(){
     }
     async function voltarPerfil(){
    
-        history.push("/infoCliente");
+        history.goBack();
     }
     async function cadastrarContato(e){
         e.preventDefault();

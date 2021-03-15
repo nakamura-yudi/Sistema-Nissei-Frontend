@@ -202,8 +202,8 @@ function Formulario()
                     setUf('');
                     setCep('');
                     setNumero('');
-                    localStorage.clear();
-                    history.push('/');
+                
+                    history.goBack();
                 } 
                 else
                 {
@@ -227,8 +227,8 @@ function Formulario()
                 })
 
                 alert('Alterado');
-                localStorage.clear();
-                history.push('/listaClientes');
+                localStorage.removeItem('cod_cli');
+                history.goBack();
             }
         }
         else

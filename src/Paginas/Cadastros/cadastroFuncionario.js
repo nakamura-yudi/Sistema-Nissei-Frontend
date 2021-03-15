@@ -134,7 +134,7 @@ function FormularioFuncionario()
                     setSexo('');
                     setEmail('');
                     setAno(0);
-                    history.push('/');
+                    history.goBack();
                 } 
                 else
                 {
@@ -156,7 +156,7 @@ function FormularioFuncionario()
                 })
                 alert('Funcionário Alterado');
                 localStorage.clear();
-                history.push('/listaFuncionarios');
+                history.goBack();
             }
         }
         else

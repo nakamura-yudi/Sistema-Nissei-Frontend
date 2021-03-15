@@ -9,7 +9,7 @@ function ListaFuncionarios()
         listarFuncionarios();
     },[]);
     function voltarHome(){
-        localStorage.clear();
+
         history.goBack();
     }
     async function listarFuncionarios(){

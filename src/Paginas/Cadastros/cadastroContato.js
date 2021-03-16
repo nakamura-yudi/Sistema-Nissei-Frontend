@@ -31,7 +31,7 @@ function CadastroContatos(){
         return false;
       else
       {
-        if(/^\([1-9]{2}\) [0-9]{5}\-[0-9]{4}/.test(valor) || /^\([1-9]{2}\) [0-9]{4}\-[0-9]{4}/.test(valor))
+        if(/^\([1-9]{2}\)[0-9]{5}\-[0-9]{4}/.test(valor) || /^\([1-9]{2}\)[0-9]{4}\-[0-9]{4}/.test(valor))
           return true;
         else
           return false;
@@ -72,10 +72,13 @@ function CadastroContatos(){
                 <aside id="formulario" >
                     <h1>Cadastrar Contato</h1>
                     <form onSubmit={cadastrarContato} >
-                        <div className="input-block" id="block-tipo">
-                            <label htmlFor="tipo">Tipo</label>
-                            <input name="tipo" id="tipo" value={tipo} onChange={e=>setTipo(e.target.value)} required/>
-                        </div>
+                        <label htmlFor="tipoCont">Tipo de contato</label>
+                                    <select id="tipoCont" onChange={e=>setTipo(e.target.value)} value={tipo}>
+                                        <option id="op-vazio" valie=''>Selecione uma opção </option>
+                                        <option id="op-contA" value="Residencial">Residencial</option>
+                                        <option id="op-contB" value="Comercial">Comercial</option>
+                                        <option id="op-contC" value="Celular">Celular</option>
+                                    </select>
                         <div className="input-block" id="block-numeroContato">
                             <label htmlFor="numeroContato">Numero</label>
                             <input name="numeroContato" id="numeroContato" value={numero} onChange={e=>setNumero(e.target.value)} placeholder="(xx) xxxxx-xxxx" required/>

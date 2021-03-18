@@ -33,12 +33,12 @@ function Home()
     return (
     <div class="background">
         <div class="list">
-            <button type="button" onClick={listarClientes} class="button">Listar Clientes</button>
-            <button type="button" onClick={listarFuncionarios} class="button">Listar Funcionarios</button>
-            <button type="button" onClick={cadastrarPeca} class="button">Cadastrar Peça</button>
-            <button type="button" onClick={cadastrarFuncionario} class="button">Cadastrar Funcionário</button>
-            <button type="button" onClick={cadastrarCliente} class="button">Cadastrar Clientes</button>
-            <button type="button" onClick={logout} class="button">Sair</button>
+            <button type="button" onClick={listarClientes} class="button-home">Listar Clientes</button>
+            <button type="button" onClick={listarFuncionarios} class="button-home">Listar Funcionarios</button>
+            <button type="button" onClick={cadastrarPeca} class="button-home">Cadastrar Peça</button>
+            <button type="button" onClick={cadastrarFuncionario} class="button-home">Cadastrar Funcionário</button>
+            <button type="button" onClick={cadastrarCliente} class="button-home">Cadastrar Clientes</button>
+            <button type="button" onClick={logout} class="button-home">Sair</button>
         </div>
     </div>
     );

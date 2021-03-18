@@ -1,4 +1,4 @@
-#formulario{
+.formularioCli{
     width: 70%;
     background-color: rgb(0, 0, 0,.95);
     box-shadow: 0 0 14px 0 rgba(0 , 0 , 0, 0.02);
@@ -7,20 +7,20 @@
     color: #ffff;
    
 }
-#formulario p strong{
+.formularioCli p strong{
     font-size: 20px;
     color:  #ffffff;
 }
-#formulario p{
+.formularioCli p{
     margin-top: 7px;
 }
-#formulario h1{
+.formularioCli h1{
     font-size: 20px;
     text-align: center;
     display: block;
     color:  #ffffff;
 }
-#formulario form{
+.formularioCli form{
     width: 100%;
     margin-top: 20px;
     display: flex;
@@ -28,55 +28,55 @@
     flex-direction: row;
     justify-content: flex-start;
 }
-#formulario input{
+.formularioCli input{
     background-color: transparent;
 }
 
-#formulario form .input-block {
+.formularioCli form .input-block {
     margin-right: 3%;
 }
-#formulario form .input-block{
+.formularioCli form .input-block{
     margin-top: 20px;
 }
-#formulario form .input-block label{
+.formularioCli form .input-block label{
     color: #e0dfdf;
     font-size: 14px;
     font-weight: bold;
     display: block;
 }
-#formulario #block-tpContato{
+.formularioCli .blockCli-tpContato{
     width: 80%;
     display: flex;
     flex-flow: row wrap;
     flex-direction: row;
     justify-content: flex-start;
 }
-#formulario #block-tpContato label{width: 15%;}
-#formulario #block-foneContato{width: 30%;}
-#formulario #block-cpf{width: 22%;}
-#formulario #block-cep{width: 30%;}
-#formulario #block-fone{width: 50%;}
-#formulario #block-nome{width: 100%;}
-#formulario #block-email{width: 70%;}
-#formulario #block-cep{width: 20%;}
-#formulario #block-rua{width: 45%;}
-#formulario #block-bairro{width: 45%;}
-#formulario #block-cidade{width: 60%;}
-#formulario #block-uf{width: 10%;}
+.formularioCli .blockCli-tpContato label{width: 15%;}
+.formularioCli .blockCli-foneContato{width: 30%;}
+.formularioCli .blockCli-cpf{width: 22%;}
+.formularioCli .blockCli-cep{width: 30%;}
+ .blockCli-fone{width: 50%;}
+.formularioCli .blockCli-nome{width: 100%;}
+.formularioCli .blockCli-email{width: 70%;}
+.formularioCli .blockCli-cep{width: 20%;}
+.formularioCli .blockCli-rua{width: 45%;}
+.formularioCli .blockCli-bairro{width: 45%;}
+.formularioCli .blockCli-cidade{width: 60%;}
+.formularioCli .blockCli-uf{width: 10%;}
 
-#formulario #block-sexo{
+.formularioCli .blockCli-sexo{
     width: 93%;
     display: flex;
     flex-flow: row wrap;
     flex-direction: row;
     justify-content: flex-start;
 }
-#formulario #block-sexo label{width: 15%;}
-#formulario #block-sexo #sexo{
+.formularioCli .blockCli-sexo label{width: 15%;}
+.formularioCli .blockCli-sexo #sexo{
     width: 20%; 
     margin-left: 5%; 
 }
-#formulario form .input-block input{
+.formularioCli form .input-block input{
     width: 100%;
     height: 32px;
     font-size: 14px;
@@ -86,11 +86,11 @@
   
 }
 
-#formulario form div{
+.formularioCli form div{
     width: 100%;
     display: block;
 }
-#formulario form button[type=submit]{
+.formularioCli form button[type=submit]{
     width: 100%;
     border: 0;
 
@@ -107,12 +107,12 @@
 #btnFormAlt{
     width: 60%;
 }
-#formulario button[type=submit]:hover{
+.formularioCli button[type=submit]:hover{
     background: #fefffe;
     color:rgba(34, 33, 33, 0.849)
 }
 
-#formulario button[type=button]{
+.formularioCli button[type=button]{
     width: 100%;
     border: 0;
     margin-top: 30px;
@@ -126,31 +126,31 @@
     transition: background 0.5s;
 }
 
-#formulario button[type=button]:hover{
+.formularioCli button[type=button]:hover{
     background-color: #eeeeee;
     color: rgba(44, 42, 42, 0.555);
 }
-#formulario #mensagem{
+.formularioCli .mensagemCli{
     margin-top: 20px;
     width: 100%;
     background-color: #ffe6e6;
     color: #5f0404;
     border-radius: 10px;
 }
-#formulario #mensagem p{
+.formularioCli .mensagemCli p{
     margin-top: 10px;
     margin-left: 10px;
 }
 
-#formulario #formSenha{
+.formularioCli #formSenha{
     justify-content: center;
 }
-#formulario form #btnFormAlt{
+.formularioCli form #btnFormAlt{
     width:70%;
 }
 
 /**************Cadastro de contato no formulario de cliente******************/
-#cadastroContato{
+.cadastroCliContato{
     margin-top: 10px;
     width: 100%;
     display: flex;
@@ -160,7 +160,7 @@
 
 }
 
-#cadastroContato button[type=button]{
+.cadastroCliContato button[type=button]{
     width: 100%;
     border: 0;
     margin-top: 30px;
@@ -173,13 +173,13 @@
     cursor: pointer;
     transition: background 0.5s;
 }
-#cadastroContato .input-block label{
+.cadastroCliContato .input-block label{
     color: #9a9a9a;
     font-size: 14px;
     font-weight: bold;
     display: block;
 }
-#cadastroContato .input-block input{
+.cadastroCliContato .input-block input{
     width: 100%;
     height: 32px;
     font-size: 14px;
@@ -188,7 +188,7 @@
     border-bottom: 3px solid #ccc;
   
 }
-#cadastroContato #btnFormContato {
+.cadastroCliContato #btnFormContato {
     width: 70%;
     border: 0;
     margin-top: 30px;
@@ -202,11 +202,11 @@
     cursor: pointer;
     transition: background 0.5s;
 }
-#formulario #btnFormContato:hover{
+.formularioCli #btnFormContato:hover{
     background: #fefffe;
     color: rgba(44, 42, 42, 0.555);
 }
-#cadastroContato #divTable{
+.cadastroCliContato #divTable{
     width: 100%;
 }
 #divTable{
@@ -234,14 +234,14 @@
 #tabelaCont tbody tr:hover{
     background-color: rgb(90, 87, 87);
 }
-#cadastroContato #mensagemContato{
+.cadastroCliContato #mensagemContato{
     margin-top: 20px;
     width: 100%;
     background-color: #ffe6e6;
     color: #5f0404;
     border-radius: 10px;
 }
-#cadastroContato #mensagemContato p{
+.cadastroCliContato #mensagemContato p{
     margin-top: 10px;
     margin-left: 10px;
 }

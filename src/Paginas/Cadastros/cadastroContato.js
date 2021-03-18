@@ -61,15 +61,17 @@ function CadastroContatos(){
                 setNumero('');
                 setTipo('');
             }
-            else
+            else{
                 mensagem.innerHTML="<p>Telefone inválido</p>";
+                console.log('entrei para erro');
+            }
         }
     }
 
     return(
         <div id="tela" className="background">    
             <div id="app">
-                <aside id="formulario" >
+                <aside className="formularioCont" >
                     <h1>Cadastrar Contato</h1>
                     <form onSubmit={cadastrarContato} >
 
@@ -92,7 +94,7 @@ function CadastroContatos(){
 
                         </div>
                         <button type="submit" id="btnForm">Cadastrar</button>
-                        <button type="button" onClick={voltarPerfil}>Voltar ao perfil</button>
+                        <button type="button" className="btnVoltarPerf" onClick={voltarPerfil}>Voltar ao perfil</button>
                     </form>
                     <div id="divTable">
                         <table id="tabelaCont">

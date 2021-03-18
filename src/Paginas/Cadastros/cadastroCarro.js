@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
+import '../../app.css'
+import './cadastroCarro.css'
 function FormularioCarro()
 {
     const [marca,setMarca] = useState('');
@@ -117,43 +119,46 @@ function voltar(){
 
     }
     return (
-    <div id="tela">
-        <h1 id="titulo">{titulo}</h1>
-        <form onSubmit={adicionarCarro} >
-            <div className="input-block" id="block-nome">
-                <label htmlFor="placa">Placa</label>
-                <input name="placa" id="placa" value={placa} onChange={e=>setPlaca(e.target.value)} required/>
-            </div>
-            <div className="input-block" id="block-ano">
-              <label htmlFor="ano">Ano</label>
-              <input type="number" name="ano" id="ano" value={ano} onChange={e=>setAno(e.target.value)} required/>
-            </div>
-            <div className="input-block" id="block-modelo">
-              <label htmlFor="modelo">Modelo</label>
-              <input type="text" name="modelo" id="modelo" value={modelo} onChange={e=>setModelo(e.target.value)} required/>
-            </div>
-            <div className="input-block" id="block-km">
-              <label htmlFor="km">Km</label>
-              <input type="number" name="km" id="km" value={km} onChange={e=>setKm(e.target.value)} required/>
-            </div>
-            <div className="input-block" id="block-marca">
-                <select id="select-marca" value={marca} onChange={e=>setMarca(e.target.value)}>
-                        <option id="op-selecione" value="">
-                            Selecione uma opcao
-                        </option>
-                        {marcas.map(mar=>(
-                            <option key={mar.mar_cod} value={mar.mar_cod} >
-                                {mar.mar_descricao}
+    <div className="background">
+        <div className='div-carro'>
+            <h1 id="titulo">{titulo}</h1>
+            <form className='form-carro' onSubmit={adicionarCarro} >
+                <div className="block-placa" id="block-placa">
+                    <label htmlFor="placa">Placa: </label>
+                    <input name="placa" id="placa" value={placa} onChange={e=>setPlaca(e.target.value)} required/>
+                </div>
+                <div className="block-ano" id="block-ano">
+                    <label htmlFor="ano">Ano: </label>
+                    <input type="number" name="ano" id="ano" value={ano} onChange={e=>setAno(e.target.value)} required/>
+                </div>
+                <div className="block-modelo" id="block-modelo">
+                    <label htmlFor="modelo">Modelo: </label>
+                    <input type="text" name="modelo" id="modelo" value={modelo} onChange={e=>setModelo(e.target.value)} required/>
+                </div>
+                <div className="block-km" id="block-km">
+                    <label htmlFor="km">Km: </label>
+                    <input type="number" name="km" id="km" value={km} onChange={e=>setKm(e.target.value)} required/>
+                </div>
+                <div className="block-marca" id="block-marca">
+                    <label>Marca: </label>
+                    <select id="select-marca" value={marca} onChange={e=>setMarca(e.target.value)}>
+                            <option id="op-selecione" value="">
+                                Selecione uma opcao
                             </option>
-                        ))}
-                </select>
-            </div>
-            <div id="mensagem">
+                            {marcas.map(mar=>(
+                                <option key={mar.mar_cod} value={mar.mar_cod} >
+                                    {mar.mar_descricao}
+                                </option>
+                            ))}
+                    </select>
+                </div>
+                <div id="mensagem">
 
-            </div>
-            <button type="submit" id="btnForm">{button}</button>
-        </form>
-        <button type="button" onClick={voltar}>Voltar</button>
+                </div>
+                <button type="submit" className='button-carro' id="btnForm">{button}</button>
+            </form>
+            <button type="button" className='button-carro' onClick={voltar}>Voltar</button>
+        </div>
     </div>
     );
 }

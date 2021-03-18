@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
+import './cadastroPeca.css'
+import '../../app.css'
 function FormularioPeca()
 {
     const [descricao,setDescricao] = useState('');
@@ -46,19 +48,22 @@ function FormularioPeca()
         setDescricao('');
     }
     return (
-    <div id="tela">
-        <form onSubmit={adicionarPeca} >
-            <div className="input-block" id="block-descricao">
-                <label htmlFor="descricao">Descricao</label>
-                <input name="descricao" id="descricao" value={descricao} onChange={e=>setDescricao(e.target.value)} required/>
-            </div>
-            
-            <div id="mensagem">
+    <div className='background'>
+        <div className="div-peca"> 
+            <h1>Cadastrar Peças</h1>
+            <form className="form-peca" onSubmit={adicionarPeca} >
+                <div className="input-block" id="block-descricao">
+                    <label htmlFor="descricao">Descrição</label>
+                    <input className="input-descricao" id="descricao" value={descricao} onChange={e=>setDescricao(e.target.value)} required/>
+                </div>
+                
+                <div id="mensagem">
 
-            </div>
-            <button type="submit" id="btnForm">{button}</button>
-        </form>
-        <button type="button" onClick={voltarHome}>Voltar</button>
+                </div>
+                <button className="button-peca" type="submit" id="btnForm">{button}</button>
+            </form>
+            <button className="button-peca" type="button" onClick={voltarHome}>Voltar</button>
+        </div>
     </div>
     );
 }

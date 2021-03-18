@@ -1,7 +1,8 @@
 import api from '../../servicos/api';
 import React,{useState,useEffect} from 'react';
 import history from '../../history'
-
+import './cadastroContato.css'
+import '../../app.css'
 function CadastroContatos(){
     const [tipo,setTipo]=useState('');
     const [numero,setNumero]=useState('');
@@ -66,22 +67,25 @@ function CadastroContatos(){
     }
 
     return(
-        <div id="tela">    
-         
+        <div id="tela" className="background">    
             <div id="app">
                 <aside id="formulario" >
                     <h1>Cadastrar Contato</h1>
                     <form onSubmit={cadastrarContato} >
-                        <label htmlFor="tipoCont">Tipo de contato</label>
-                                    <select id="tipoCont" onChange={e=>setTipo(e.target.value)} value={tipo}>
-                                        <option id="op-vazio" valie=''>Selecione uma opção </option>
-                                        <option id="op-contA" value="Residencial">Residencial</option>
-                                        <option id="op-contB" value="Comercial">Comercial</option>
-                                        <option id="op-contC" value="Celular">Celular</option>
-                                    </select>
+
                         <div className="input-block" id="block-numeroContato">
                             <label htmlFor="numeroContato">Numero</label>
                             <input name="numeroContato" id="numeroContato" value={numero} onChange={e=>setNumero(e.target.value)} placeholder="(xx) xxxxx-xxxx" required/>
+                        </div>
+
+                        <div className="input-block" id="block-tpContato">
+                            <label htmlFor="tipoCont">Tipo de contato</label>
+                            <select id="tipoCont" onChange={e=>setTipo(e.target.value)} value={tipo}>
+                                <option id="op-vazio" valie=''>Selecione uma opção </option>
+                                <option id="op-contA" value="Residencial">Residencial</option>
+                                <option id="op-contB" value="Comercial">Comercial</option>
+                                <option id="op-contC" value="Celular">Celular</option>
+                            </select>
                         </div>
                  
                         <div id="mensagem">
@@ -91,7 +95,7 @@ function CadastroContatos(){
                         <button type="button" onClick={voltarPerfil}>Voltar ao perfil</button>
                     </form>
                     <div id="divTable">
-                        <table id="tabela">
+                        <table id="tabelaCont">
                             <thead>
                                 <tr>
                                     <td>Tipo</td>
@@ -105,7 +109,7 @@ function CadastroContatos(){
                                         <td>{contato.cont_tipo}</td>
                                         <td>{contato.cont_numero}</td>
                                         <td>
-                                            <button id="btexcluir" onClick={()=>Excluir(contato.cont_cod)} type="button">
+                                            <button id="btexcluir" className="btnExcluirCont" onClick={()=>Excluir(contato.cont_cod)} type="button">
                                                 Excluir
                                             </button>
                                         </td>

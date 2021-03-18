@@ -328,7 +328,7 @@ function Formulario()
                                 </div>
                                 <button type="button" onClick={addLista} id="btnFormContato">Cadastrar Contato</button>
                                 <div id="divTable">
-                                    <table id="tabela">
+                                    <table id="tabelaCont">
                                         <thead>
                                             <tr>
                                                 <td>Telefones</td>

@@ -16,7 +16,9 @@
   justify-content: center;
   width: 30vw;
   height: 60vh;
-  background-color: white;
+  background-color: rgba(0,0,0,.9);
+  box-shadow: 0 0 10px rgba(255,255,255,.3);
+  color: #fff;
   border-radius: 25px;
 }
 
@@ -28,7 +30,16 @@
   align-content: center;
   justify-content: space-between;
 }
-
+.avatar{
+  width: 20%;
+  height: 90%;
+}
+.input-user{
+  width: 70%;
+}
+.input-password{
+  width: 70%;
+}
 input[type="text"] {
   border: none;
   background-color: white;
@@ -44,8 +55,9 @@ input[type="password"] {
   border-bottom: 2px solid gray;
 }
 
-.button {
-  background-color: darkcyan; /* Green */
+.button-login {
+  background-color: #414040;
+  color: rgb(216, 216, 216);
   border: none;
   color: white;
   padding: 10px 35px;
@@ -56,7 +68,10 @@ input[type="password"] {
   border-radius: 25px;
   cursor: pointer;
 }
-
+.button-login:hover{
+  background: #fefffe;
+  color:rgba(34, 33, 33, 0.849)
+}
 .text-pointer {
   cursor: pointer;
 }

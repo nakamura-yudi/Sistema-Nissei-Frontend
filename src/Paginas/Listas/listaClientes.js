@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
+import '../../app.css'
+import './listaClientes.css'
+
 function ListaClientes()
 {
     const [pessoas,setPessoas]=useState([]);
@@ -24,16 +27,18 @@ function ListaClientes()
         history.push("/infoCliente");
     }
     return (
-    <div id="tela">
-        {pessoas.map(res=>(
-                <li key={res.pes_cod}>
-                    <header>
-                        {res.pes_nome}                           
-                    </header>
-                    <button onClick={()=>acessarCliente(res.pes_cod)}>Visualizar Clientes</button>
-                </li>
-            ))}
-        <button type="button" onClick={voltarHome}>Voltar</button>
+    <div id="tela" class="background">
+        <div class="list-clientes">
+            {pessoas.map(res=>(
+                    <div key={res.pes_cod} class="cliente-item">
+                        <div >
+                            {res.pes_nome}                           
+                        </div>
+                        <button onClick={()=>acessarCliente(res.pes_cod)} class="button-item">Visualizar Clientes</button>
+                    </div>
+                ))}
+        </div>
+        <button type="button" onClick={voltarHome} class="buttonBack">Voltar</button>
     </div>
     );
 }

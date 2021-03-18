@@ -25,7 +25,12 @@ function CadastroContatos(){
         const response = await api.delete('/contato/'+codigo);
         setContatos(contatos.filter(contatos=>contatos.cont_cod!==codigo));
     }
-
+     function vazio(valor){
+        let v=''+valor;
+        if(v.length<=0)
+            return true;
+        return false;
+     }
     function validarTelefone(valor)
     {
       if(/[a-zA-Z]/.test(valor))
@@ -48,7 +53,7 @@ function CadastroContatos(){
         mensagem.innerHTML="";
         if(tipo.length>0 && numero.length>0)
         {
-            if(validarTelefone(numero)){
+            if(validarTelefone(numero) && !vazio(tipo)){
                
                 const response=await api.post('/contatos',{
                     pes_cod: cod,
@@ -62,7 +67,10 @@ function CadastroContatos(){
                 setTipo('');
             }
             else{
-                mensagem.innerHTML="<p>Telefone inválido</p>";
+                if(!validarTelefone(numero))
+                    mensagem.innerHTML="<p>Telefone inválido</p>";
+                if(vazio(tipo))
+                    mensagem.innerHTML="<p>Escolha o tipo</p>";
                 console.log('entrei para erro');
             }
         }

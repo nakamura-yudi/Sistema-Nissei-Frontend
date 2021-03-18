@@ -1,0 +1,16 @@
+.list-funcionarios {
+  height: 100%;
+  width: 25%;
+  overflow-y: auto;
+  border-radius: 25px;
+  background-color: white;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.funcionario-item {
+  height: 70px;
+  text-align: center;
+  padding-top: 10px;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
+import './cadastroCliente.css'
 function Formulario()
 {
     const [cpf,setCpf] = useState('');
@@ -20,7 +21,7 @@ function Formulario()
 
     const [isOpen,setIsOpen]=useState(true);
     const [button,setButton]=useState('Salvar');
-    const [titulo,setTitulo]=useState('Cadastro');
+    const [titulo,setTitulo]=useState('Cadastro de cliente');
     useEffect(()=>{
         if(localStorage.getItem('cod_cli')!==null)
         {
@@ -251,39 +252,56 @@ function Formulario()
                 <aside id="formulario" >
                     <h1>{titulo}</h1>
                     <form onSubmit={confirmarDados} >
-                        <label htmlFor="nome">Nome</label>
-                        <input name="nome" id="nome" value={nome} onChange={e=>setNome(e.target.value)} required/>
+                        <div className="input-block" id="block-nome">
+                            <label htmlFor="nome">Nome</label>
+                            <input name="nome" id="nome" value={nome} onChange={e=>setNome(e.target.value)} required/>
+                        </div>
 
+                        <div className="input-block" id="block-cpf">
+                            <label htmlFor="cpf">CPF</label>
+                            <input name="cpf" id="cpf" value={cpf} onChange={e=>setCpf(e.target.value)} placeholder="xxx.xxx.xxx-xx" required/>
+                        </div>
 
-                        <label htmlFor="cpf">CPF</label>
-                        <input name="cpf" id="cpf" value={cpf} onChange={e=>setCpf(e.target.value)} placeholder="xxx.xxx.xxx-xx" required/>
+                        <div className="input-block" id="block-email">
+                            <label htmlFor="email">Email</label>
+                            <input name="email" id="email" value={email} onChange={e=>setEmail(e.target.value)} required/>
+                        </div>
 
+                        <div className="input-block" id="block-sexo">
+                            <label htmlFor="Sexo">Sexo</label>
+                            <label className="input-block">Feminino
+                                <input type="radio" name="Sexo" id="Sexo" value="F" checked={sexo==='F'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
+                            </label>
+                            <label className="input-block">Masculino
+                                <input type="radio" name="Sexo" id="Sexo" value="M" checked={sexo==='M'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
+                            </label>
+                        </div>
 
-                        <label htmlFor="email">Email</label>
-                        <input name="email" id="email" value={email} onChange={e=>setEmail(e.target.value)} required/>
+                        <div className="input-block" id="block-cep">
+                            <label htmlFor="cep">CEP</label>
+                            <input name="cep" id="cep" value={cep} onChange={e=>setCep(e.target.value)} required/>
+                        </div>
 
-                        <label htmlFor="Sexo">Sexo</label>
-                        <label className="input-block">Feminino
-                            <input type="radio" name="Sexo" id="Sexo" value="F" checked={sexo==='F'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
-                        </label>
-                        <label className="input-block">Masculino
-                            <input type="radio" name="Sexo" id="Sexo" value="M" checked={sexo==='M'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
-                        </label>
+                        <div className="input-block" id="block-cidade">
+                            <label htmlFor="cidade">Cidade</label>
+                            <input name="cidade" id="cidade" value={cidade} onChange={e=>setCidade(e.target.value)} required/>
+                        </div>
 
-                        <label htmlFor="cep">CEP</label>
-                        <input name="cep" id="cep" value={cep} onChange={e=>setCep(e.target.value)} required/>
+                        <div className="input-block" id="block-uf">
+                            <label htmlFor="uf">UF</label>
+                            <input name="uf" id="uf" value={uf} onChange={e=>setUf(e.target.value)} required/>
+                        </div>
 
-                        <label htmlFor="rua">Rua</label>
-                        <input name="rua" id="rua" value={rua} onChange={e=>setRua(e.target.value)} required/>
-                        
-                        <label htmlFor="bairro">Bairro</label>
-                        <input name="bairro" id="bairro" value={bairro} onChange={e=>setBairro(e.target.value)} required/>
+                        <div className="input-block" id="block-rua">
+                            <label htmlFor="rua">Rua</label>
+                            <input name="rua" id="rua" value={rua} onChange={e=>setRua(e.target.value)} required/>
+                        </div>
 
-                        <label htmlFor="cidade">Cidade</label>
-                        <input name="cidade" id="cidade" value={cidade} onChange={e=>setCidade(e.target.value)} required/>
-                        
-                        <label htmlFor="uf">UF</label>
-                        <input name="uf" id="uf" value={uf} onChange={e=>setUf(e.target.value)} required/>
+                        <div className="input-block" id="block-bairro">
+                            <label htmlFor="bairro">Bairro</label>
+                            <input name="bairro" id="bairro" value={bairro} onChange={e=>setBairro(e.target.value)} required/>
+                        </div>
+
                         <div id="mensagem">
 
                         </div>
@@ -294,7 +312,9 @@ function Formulario()
                                 <div className="input-block" id="block-foneContato">
                                     <label htmlFor="numero">Número de contato</label>
                                     <input name="numero" id="numero" value={numero} onChange={e=>setNumero(e.target.value)} placeholder="(xx)xxxxx-xxxx" />
+                                </div>
 
+                                <div className="input-block" id="block-tpContato">
                                     <label htmlFor="tipoCont">Tipo de contato</label>
                                     <select id="tipoCont" onChange={e=>setTpCont(e.target.value)} value={tpCont}>
                                         <option id="op-vazio" valie=''>Selecione uma opção</option>

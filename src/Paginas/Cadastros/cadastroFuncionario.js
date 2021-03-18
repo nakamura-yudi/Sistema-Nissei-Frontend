@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
+import './cadastroFuncionario.css'
 function FormularioFuncionario()
 {
     const [cpf,setCpf] = useState('');
@@ -180,35 +181,45 @@ function FormularioFuncionario()
                 <aside id="formulario" >
                     <h1>{titulo}</h1>
                     <form onSubmit={adicionarFunc}>
-                        <label htmlFor="nome">Nome</label>
-                        <input name="nome" id="nome" value={nome} onChange={e=>setNome(e.target.value)} required/>
+                        <div className="input-block" id="block-nome">
+                            <label htmlFor="nome">Nome</label>
+                            <input name="nome" id="nome" value={nome} onChange={e=>setNome(e.target.value)} required/>
+                        </div>
 
+                        <div className="input-block" id="block-cpf">
+                            <label htmlFor="cpf">CPF</label>
+                            <input name="cpf" id="cpf" value={cpf} onChange={e=>setCpf(e.target.value)} placeholder="xxx.xxx.xxx-xx" required/>
+                        </div>
 
-                        <label htmlFor="cpf">CPF</label>
-                        <input name="cpf" id="cpf" value={cpf} onChange={e=>setCpf(e.target.value)} placeholder="xxx.xxx.xxx-xx" required/>
+                        <div className="input-block" id="block-email">
+                            <label htmlFor="email">Email</label>
+                            <input name="email" id="email" value={email} onChange={e=>setEmail(e.target.value)} required/>
+                        </div>
 
-
-                        <label htmlFor="email">Email</label>
-                        <input name="email" id="email" value={email} onChange={e=>setEmail(e.target.value)} required/>
-
-                        <label htmlFor="Sexo">Sexo</label>
-                        <label className="input-block">Feminino
-                            <input type="radio" name="Sexo" id="Sexo" value="F" checked={sexo==='F'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
-                        </label>
-                        <label className="input-block">Masculino
-                            <input type="radio" name="Sexo" id="Sexo" value="M" checked={sexo==='M'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
-                        </label>
-
+                        <div className="input-block" id="block-sexo">
+                            <label htmlFor="Sexo">Sexo</label>
+                            <label className="input-block">Feminino
+                                <input type="radio" name="Sexo" id="Sexo" value="F" checked={sexo==='F'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
+                            </label>
+                            <label className="input-block">Masculino
+                                <input type="radio" name="Sexo" id="Sexo" value="M" checked={sexo==='M'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
+                            </label>
+                        </div>
                         
-                        <label htmlFor="uf">Ano de inicio</label>
-                        <input type="number" name="ano" id="ano" value={ano} onChange={e=>setAno(e.target.value)} required/>
-                        
-                        <label htmlFor="senha">Senha</label>
-                        <input type="password" name="senha" id="senha" value={senha} onChange={e=>setSenha(e.target.value)} placeholder="Digite a sua senha"required/>
-                        
-                        <label htmlFor="confSenha">Confirmar Senha</label>
-                        <input type="password" name="confSenha" id="confSenha" value={confSenha} onChange={e=>setConfSenha(e.target.value)} placeholder="Confirme a sua senha" required/>
+                        <div className="input-block" id="block-data">
+                            <label htmlFor="uf">Ano de inicio</label>
+                            <input type="number" name="ano" id="ano" value={ano} onChange={e=>setAno(e.target.value)} required/>
+                        </div>
 
+                        <div className="input-block" id="block-data">
+                            <label htmlFor="senha">Senha</label>
+                            <input type="password" name="senha" id="senha" value={senha} onChange={e=>setSenha(e.target.value)} placeholder="Digite a sua senha"required/>
+                        </div>
+
+                        <div className="input-block" id="block-data">
+                            <label htmlFor="confSenha">Confirmar Senha</label>
+                            <input type="password" name="confSenha" id="confSenha" value={confSenha} onChange={e=>setConfSenha(e.target.value)} placeholder="Confirme a sua senha" required/>
+                        </div>
                         <div id="mensagem">
 
                         </div>

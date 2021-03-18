@@ -16,25 +16,38 @@
     width: 70%;
     background-color: rgb(0, 0, 0,.95);
     box-shadow: 0 0 14px 0 rgba(0 , 0 , 0, 0.02);
-    border-radius: 5px;
+    border-radius: 25px;
     padding: 30px;
     color: #ffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 60vw;
+    height: 80%;
    
 }
-#formulario p strong{
+.form-funcionario{
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.form-funcionario p strong{
     font-size: 20px;
     color:  #ffffff;
 }
-#formulario p{
+.form-funcionario p{
     margin-top: 7px;
 }
-#formulario h1{
+.form-funcionario h1{
     font-size: 20px;
     text-align: center;
     display: block;
     color:  #ffffff;
 }
-#formulario form{
+.form-funcionario{
     width: 100%;
     margin-top: 20px;
     display: flex;
@@ -42,31 +55,31 @@
     flex-direction: row;
     justify-content: flex-start;
 }
-#formulario input{
+.form-funcionario input{
     background-color: transparent;
+    color:  #ffffff;
 }
 
-#formulario form .input-block {
+.form-funcionario .input-block {
     margin-right: 3%;
-}
-#formulario form .input-block{
     margin-top: 20px;
 }
-#formulario form .input-block label{
+
+.form-funcionario .input-block label{
     color: #e0dfdf;
     font-size: 14px;
     font-weight: bold;
     display: block;
 }
-#formulario #block-data{width: 25%;}
-#formulario #block-cpf{width: 30%;}
-#formulario #block-fone{width: 50%;}
-#formulario #block-nome{width: 68%;}
-#formulario #block-email{width: 64%;}
-#formulario #block-observacao{width:60%;}
-#formulario #block-codigo input{text-align: center;}
-#formulario #block-senha{width: 30%;}
-#formulario #block-sexo{
+.form-funcionario .block-data{width: 25%;}
+.form-funcionario .block-cpf{width: 30%;}
+.form-funcionario .block-fone{width: 50%;}
+.form-funcionario .block-nome{width: 66%;}
+.form-funcionario .block-email{width: 64%;}
+.form-funcionario .block-observacao{width:60%;}
+.form-funcionario .block-codigo input{text-align: center;}
+.form-funcionario .block-senha{width: 30%;}
+.form-funcionario .block-sexo{
     width: 93%;
     display: flex;
     flex-flow: row wrap;
@@ -74,15 +87,15 @@
     justify-content: flex-start;
 }
 
-#formulario #block-sexo label{width: 15%;}
-#formulario #block-unidade label{width: 15%;}
-#formulario #block-sexo #sexo{
+.form-funcionario .block-sexo label{width: 15%;}
+.form-funcionario .block-unidade label{width: 15%;}
+.form-funcionario .block-sexo #sexo{
     width: 20%; 
     margin-left: 5%; 
 }
 
-#formulario #block-formaPgto label{width: 25%;}
-#formulario form .input-block input{
+.form-funcionario .block-formaPgto label{width: 25%;}
+.form-funcionario .input-block input{
     width: 100%;
     height: 32px;
     font-size: 14px;
@@ -92,11 +105,11 @@
   
 }
 
-#formulario form div{
+.form-funcionario div{
     width: 100%;
     display: block;
 }
-#formulario form button[type=submit]{
+.form-funcionario button[type=submit]{
     width: 100%;
     border: 0;
 
@@ -113,12 +126,12 @@
 #btnFormAlt{
     width: 60%;
 }
-#formulario button[type=submit]:hover{
+.div-funcionario button[type=submit]:hover{
     background: #fefffe;
     color:rgba(34, 33, 33, 0.849)
 }
 
-#formulario button[type=button]{
+.div-funcionario button[type=button]{
     width: 100%;
     border: 0;
     margin-top: 30px;
@@ -132,26 +145,26 @@
     transition: background 0.5s;
 }
 
-#formulario button[type=button]:hover{
+.div-funcionario button[type=button]:hover{
     background-color: #eeeeee;
     color: rgba(44, 42, 42, 0.555);
 }
-#formulario #mensagem{
+.form-funcionario #mensagem{
     margin-top: 20px;
     width: 100%;
     background-color: #ffe6e6;
     color: #5f0404;
     border-radius: 10px;
 }
-#formulario #mensagem p{
+.form-funcionario #mensagem p{
     margin-top: 10px;
     margin-left: 10px;
 }
 
-#formulario #formSenha{
+.form-funcionario #formSenha{
     justify-content: center;
 }
-#formulario form #btnFormAlt{
+.form-funcionario #btnFormAlt{
     width:70%;
 }
 

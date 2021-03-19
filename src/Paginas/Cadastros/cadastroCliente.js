@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
 import './cadastroCliente.css'
+import '../../app.css'
 function Formulario()
 {
     const [cpf,setCpf] = useState('');
@@ -247,8 +248,8 @@ function Formulario()
     
     }
     return (
-        <div id="tela">
-            <div id='app'>
+        <div id="tela" >
+            <div id='app' className="background">
                 <aside className="formularioCli" >
                     <h1>{titulo}</h1>
                     <form onSubmit={confirmarDados} >

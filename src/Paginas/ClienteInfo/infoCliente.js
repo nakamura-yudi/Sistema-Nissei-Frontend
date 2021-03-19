@@ -53,7 +53,7 @@ function Home()
                 <p>CPF:{cpf}</p>
             </div>
             <div id="divTable" class="table-carro">
-                <table id="tabela">
+                <table id="tabelaCont">
                     <thead>
                         <tr>
                             <td>Placa</td>

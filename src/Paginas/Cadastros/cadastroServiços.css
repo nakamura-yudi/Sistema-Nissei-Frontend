@@ -62,12 +62,18 @@
 .formularioServico .block-desc{width:100%;}
 .formularioServico .block-quant{width:10%;}
 .formularioServico .block-carro{width:40%;}
+.formularioServico .block-peca{width:60%;}
 .formularioServico .block-valorUni{width:13%;}
 .formularioServico .block-codigo input{text-align: center;}
 
 .formularioServico .select-carro{
     height: 32px;
     font-size: 14px;
+}
+.formularioServico .select-peca{
+    height: 32px;
+    font-size: 14px;
+    width: 100%;
 }
 .formularioServico .block-unidade label{width: 15%;}
 .formularioServico .input-block input{
@@ -139,7 +145,8 @@
     width:70%;
 }
 
-.formulario .cadastroPecas{
+.formularioServico .cadastroPecas{
+    color: #e0dfdf;
     margin-top: 10px;
     width: 100%;
     display: flex;
@@ -147,7 +154,7 @@
     flex-direction: row;
     justify-content: flex-start;
 }
-.cadastroPecas .input-block label{
+.formularioServico .cadastroPecas .input-block label{
     color: #9a9a9a;
     font-size: 14px;
     font-weight: bold;
@@ -162,7 +169,7 @@
     border-bottom: 3px solid #ccc;
   
 }
-.cadastroPecas .btnFormPecas {
+.cadastroPecas button[type=button] {
     width: 70%;
     border: 0;
     margin-top: 30px;
@@ -175,6 +182,9 @@
     color: #fff;
     cursor: pointer;
     transition: background 0.5s;
+}
+.tituloPecas{
+    margin-top: 40px;
 }
 
 

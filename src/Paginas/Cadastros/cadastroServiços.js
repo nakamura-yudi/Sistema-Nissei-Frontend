@@ -10,32 +10,60 @@ function CadastroServicos(){
     const [carros,setCarros]=useState([]);
     const [descricao,setDescricao]=useState('');
     const [dtInicio,setDtInicio]=useState('');
-    const [maoObra,setMaoObra]=useState('');
-
     const [pecs,setPecs]=useState([]);
+
+    const [pecsUti,setPecsUti]=useState([]);
     const [quant,setQuant]=useState('');
     const [valorUni,setValorUni]=useState('');
+    const [peca,setPeca]=useState('');
 
     useEffect(()=>{
         setCodCli(localStorage.getItem('cod_cli'));
         listarCarros();
+        listarPecas();
     },[]);
+    
     async function listarCarros(){
         const response2 = await api.get(`/carroPes/${localStorage.getItem('cod_cli')}`).then((resp)=>{
             setCarros(resp.data);
         });
     }
+    
+    async function listarPecas(){
+        const response2 = await api.get(`/peca`).then((resp)=>{
+            setPecs(resp.data);
+        });
+    }
+
     async function cadastrarServico(e){
         e.preventDefault();
         let mensagem = document.querySelector("#mensagem");
     }
+
+    async function addLista(){
+        let mensagem = document.querySelector("#mensagemPecas");
+        mensagem.innerHTML="";
+            var tam=pecsUti.length;
+            const data= {
+                cod:tam,
+                uti_qtde:quant,
+                uti_precoUni: valorUni,
+                pec_desc:descricao
+            };
+            setQuant('');
+            setValorUni('');
+            setDescricao('');
+            setPecsUti([...pecsUti, data]); //contatos é um estado (do tipo vetor)    
+        
+    }
+    
     function voltar(){
         history.goBack();
     }
     return(
         <div id="tela" className="background">    
             <aside className="div-servico">
-                <h1>Cadastrar Contato</h1>
+                <h1>Cadastrar Serviços</h1>
                 <form className='formularioServico' onSubmit={cadastrarServico}>
                     <div className="input-block block-data" >
                         <label htmlFor="dtInicio">Data de inicio: </label>
@@ -61,9 +89,8 @@ function CadastroServicos(){
                         <input name="descricao" id="descricao" value={descricao} onChange={e=>setDescricao(e.target.value)} required/>
                     </div>
 
-                    
+                    <h1 className="tituloPecas">Adicionar peças Utilizadas</h1>
                     <div className="cadastroPecas">
-                        <h1>Adicionar peças Utilizadas</h1>
                         <div className="input-block block-quant">
                             <label htmlFor="quant">Quantidade:</label>
                             <input type="number" name="quant" id="quant" value={quant} onChange={e=>setQuant(e.target.value)} required/>
@@ -73,10 +100,23 @@ function CadastroServicos(){
                             <label htmlFor="valorUni">Valor Unitário:</label>
                             <input type="number" step="0.01" name="valorUni" id="valorUni" value={valorUni} onChange={e=>setValorUni(e.target.value)} required/>
                         </div>
-                        <div id="mensagemContato">
+                        <div className="input-block block-peca">
+                            <label>Peça: </label>
+                            <select className="select-peca" value={peca} onChange={e=>setPeca(e.target.value)}>
+                                    <option id="op-selecione" value="">
+                                        Selecione uma opcao
+                                    </option>
+                                    {pecs.map(pec=>(
+                                        <option key={pec.pec_cod} value={pec.pec_cod}>
+                                            {pec.pec_descricao}
+                                        </option>
+                                    ))}
+                            </select>
+                        </div>
+                        <div id="mensagemPecas">
 
                         </div>
-                        <button type="button" className="btnFormPecas">Adicionar Peças</button>
+                        <button type="button" onClick={addLista} className="btnFormPecas">Adicionar Peças</button>
                     </div>         
                     <div id="divTable">
                         <table id="tabelaCont">
@@ -88,11 +128,11 @@ function CadastroServicos(){
                                 </tr>
                             </thead>
                             <tbody>
-                                {pecs.map(pec=>(
-                                    <tr key={pec.pec_id}>
-                                        <td>{pec.pec_valorUni}</td>
+                                {pecsUti.map(pec=>(
+                                    <tr key={pec.cod}>
+                                        <td>{pec.uti_qtde}</td>
+                                        <td>R$ {pec.uti_precoUni}</td>
                                         <td>{pec.pec_desc}</td>
-                                        
                                     </tr>
                                 ))}
                             </tbody>

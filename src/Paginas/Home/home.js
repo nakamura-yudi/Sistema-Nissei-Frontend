@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
 import "./home.css"
-
+import Header from '../../Components/Header'
 function Home()
 {
     function logout(){
@@ -32,6 +32,7 @@ function Home()
 
     return (
     <div class="background">
+        <Header/>
         <div class="list">
             <button type="button" onClick={listarClientes} class="button-home">Listar Clientes</button>
             <button type="button" onClick={listarFuncionarios} class="button-home">Listar Funcionarios</button>

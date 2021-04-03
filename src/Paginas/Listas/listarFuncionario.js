@@ -4,7 +4,7 @@ import history from '../../history'
 import '../../app.css'
 import './listarFuncionario.css'
 import './listaClientes.css'
-
+import Header from '../../Components/Header'
 function ListaFuncionarios()
 {
     const [pessoas,setPessoas]=useState([]);
@@ -28,6 +28,7 @@ function ListaFuncionarios()
     }
     return (
     <div id="tela" class="background">
+        <Header/>
         <div class="list-funcionarios">
         {pessoas.map(res=>(
                 <div key={res.pes_cod} class="funcionario-item">

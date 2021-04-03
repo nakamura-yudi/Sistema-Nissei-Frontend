@@ -3,7 +3,7 @@ import api from '../../servicos/api';
 import history from '../../history'
 import '../../app.css'
 import './infoCliente.css'
-
+import Header from '../../Components/Header'
 function Home()
 {
     const [codigo,setCodigo]=useState('');
@@ -49,6 +49,7 @@ function Home()
     }
     return (
     <div class="background">
+        <Header/>
         <div class="card">
             <div>
                 <p>Nome:{nome}</p>

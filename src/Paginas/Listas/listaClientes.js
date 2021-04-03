@@ -3,7 +3,7 @@ import api from '../../servicos/api';
 import history from '../../history'
 import '../../app.css'
 import './listaClientes.css'
-
+import Header from '../../Components/Header'
 function ListaClientes()
 {
     const [pessoas,setPessoas]=useState([]);
@@ -28,6 +28,7 @@ function ListaClientes()
     }
     return (
     <div id="tela" class="background">
+        <Header/>
         <div class="list-clientes">
             {pessoas.map(res=>(
                     <div key={res.pes_cod} class="cliente-item">

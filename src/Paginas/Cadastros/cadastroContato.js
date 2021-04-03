@@ -3,6 +3,7 @@ import React,{useState,useEffect} from 'react';
 import history from '../../history'
 import './cadastroContato.css'
 import '../../app.css'
+import Header from '../../Components/Header'
 function CadastroContatos(){
     const [tipo,setTipo]=useState('');
     const [numero,setNumero]=useState('');
@@ -75,14 +76,15 @@ function CadastroContatos(){
     }
 
     return(
-        <div id="tela" className="background">    
+        <div id="tela" className="background">   
+            <Header/> 
             <aside className="formularioCont" >
                 <h1>Cadastrar Contato</h1>
                 <form onSubmit={cadastrarContato} >
 
                     <div className="input-block" id="block-numeroContato">
                         <label htmlFor="numeroContato">Numero</label>
-                        <input name="numeroContato" id="numeroContato" value={numero} onChange={e=>setNumero(e.target.value)} placeholder="(xx) xxxxx-xxxx" required/>
+                        <input name="numeroContato" id="numeroContato" value={numero} onChange={e=>setNumero(e.target.value)} placeholder="(xx)xxxxx-xxxx" required/>
                     </div>
 
                     <div className="input-block" id="block-tpContato">

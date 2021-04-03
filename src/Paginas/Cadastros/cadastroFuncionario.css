@@ -1,6 +1,7 @@
 
 .div-funcionario{
     width: 70%;
+    height: 60%;
     background-color: rgb(0, 0, 0,.95);
     box-shadow: 0 0 14px 0 rgba(0 , 0 , 0, 0.02);
     border-radius: 25px;
@@ -11,9 +12,7 @@
     align-items: center;
     align-content: center;
     justify-content: center;
-    width: 60vw;
     
-   
 }
 .form-funcionario{
     display: flex;

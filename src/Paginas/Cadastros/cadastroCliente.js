@@ -3,6 +3,7 @@ import api from '../../servicos/api';
 import history from '../../history'
 import './cadastroCliente.css'
 import '../../app.css'
+import Header from '../../Components/Header'
 function Formulario()
 {
     const [cpf,setCpf] = useState('');
@@ -249,6 +250,7 @@ function Formulario()
     }
     return (
         <div id="tela" >
+            <Header/>
             <div id='app' className="background">
                 <aside className="formularioCli" >
                     <h1>{titulo}</h1>

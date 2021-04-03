@@ -3,6 +3,7 @@ import api from '../../servicos/api';
 import history from '../../history'
 import '../../app.css'
 import './cadastroCarro.css'
+import Header from '../../Components/Header'
 function FormularioCarro()
 {
     const [marca,setMarca] = useState('');
@@ -120,6 +121,7 @@ function voltar(){
     }
     return (
     <div className="background">
+        <Header/>
         <div className='div-carro'>
             <h1 id="titulo">{titulo}</h1>
             <form className='form-carro' onSubmit={adicionarCarro} >

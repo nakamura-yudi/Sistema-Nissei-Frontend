@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react';
 import history from '../../history'
 import './cadastroServiços.css'
 import '../../app.css'
-
+import Header from '../../Components/Header'
 function CadastroServicos(){
     const [codCli,setCodCli]=useState('');
     const [carro,setCarro]=useState('');
@@ -61,7 +61,8 @@ function CadastroServicos(){
         history.goBack();
     }
     return(
-        <div id="tela" className="background">    
+        <div id="tela" className="background">   
+            <Header/> 
             <aside className="div-servico">
                 <h1>Cadastrar Serviços</h1>
                 <form className='formularioServico' onSubmit={cadastrarServico}>

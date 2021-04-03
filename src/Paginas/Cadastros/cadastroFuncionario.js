@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
 import './cadastroFuncionario.css'
+import Header from '../../Components/Header'
 function FormularioFuncionario()
 {
     const [cpf,setCpf] = useState('');
@@ -178,6 +179,7 @@ function FormularioFuncionario()
     return (
        
             <div className='background'>
+                <Header/>
                 <div className="div-funcionario" >
                     <h1>{titulo}</h1>
                     <form className='form-funcionario' onSubmit={adicionarFunc}>

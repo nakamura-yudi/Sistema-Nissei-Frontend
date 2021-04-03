@@ -3,6 +3,7 @@ import api from '../../servicos/api';
 import history from '../../history'
 import './cadastroPeca.css'
 import '../../app.css'
+import Header from '../../Components/Header'
 function FormularioPeca()
 {
     const [descricao,setDescricao] = useState('');
@@ -49,6 +50,7 @@ function FormularioPeca()
     }
     return (
     <div className='background'>
+        <Header/>
         <div className="div-peca"> 
             <h1>Cadastrar Peças</h1>
             <form className="form-peca" onSubmit={adicionarPeca} >

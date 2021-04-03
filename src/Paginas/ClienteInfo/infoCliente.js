@@ -44,6 +44,9 @@ function Home()
         localStorage.removeItem('cod_cli');
         history.goBack();
     }
+    function gerarServico(){
+        history.push('/cadastroServico');
+    }
     return (
     <div class="background">
         <div class="card">
@@ -76,9 +79,10 @@ function Home()
             </div>
 
             <div>
-            <button type="button" onClick={editarCliente} class="button-info-cliente">Editar Cliente</button>
+                <button type="button" onClick={editarCliente} class="button-info-cliente">Editar Cliente</button>
                 <button type="button" onClick={cadastrarCarro} class="button-info-cliente">Cadastrar Carros</button>
                 <button type="button" onClick={cadastrarContato} class="button-info-cliente">Cadastrar Contatos</button>
+                <button type="button" onClick={gerarServico} class="button-info-cliente">Gerar Serviço</button>
                 <button type="button" onClick={voltar} class="button-info-cliente">Voltar</button>
             </div>
         </div>

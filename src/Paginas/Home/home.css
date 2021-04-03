@@ -22,3 +22,8 @@
   cursor: pointer;
   transition: background 0.5s;
 }
+
+.button-home:hover{
+  background: #fefffe;
+  color:rgba(34, 33, 33, 0.849)
+}

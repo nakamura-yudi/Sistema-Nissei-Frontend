@@ -152,7 +152,7 @@ function voltar(){
                             ))}
                     </select>
                 </div>
-                <div id="mensagem">
+                <div className="mensagem" id="mensagem">
 
                 </div>
                 <button type="submit" className='button-carro' id="btnForm">{button}</button>

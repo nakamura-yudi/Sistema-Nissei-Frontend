@@ -30,7 +30,10 @@
   border-radius: 25px;
   cursor: pointer;
 }
-
+.button-item:hover{
+  background: #fefffe;
+  color:rgba(34, 33, 33, 0.849)
+}
 .buttonBack {
   background: #414040;
   border: none;
@@ -45,4 +48,8 @@
   margin-bottom: 10px;
   font-weight: bold;
   color: rgb(216, 216, 216);
+}
+.buttonBack:hover{
+  background: #fefffe;
+  color:rgba(34, 33, 33, 0.849)
 }

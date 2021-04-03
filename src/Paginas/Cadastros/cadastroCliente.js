@@ -151,7 +151,7 @@ function Formulario()
 
     async function confirmarDados(e){
         e.preventDefault();
-        let mensagem = document.querySelector("#mensagem");
+        let mensagem = document.querySelector("#mensagemCli");
         
         const respCPF= await validarCPFRepetido(cpf);
         var confere=false;
@@ -303,7 +303,7 @@ function Formulario()
                             <input name="bairro" id="bairro" value={bairro} onChange={e=>setBairro(e.target.value)} required/>
                         </div>
 
-                        <div id="mensagem">
+                        <div className="mensagemCli">
 
                         </div>
                         {isOpen &&

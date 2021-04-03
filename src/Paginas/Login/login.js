@@ -23,7 +23,7 @@ function Login(){
             history.push("/home");
         }
         else
-            mensagem.innerHTML='Dados não cadastrados';
+            mensagem.innerHTML='Email e/ou senha incorretos';
         }
         else
         mensagem.innerHTML='Dados vazios';

@@ -25,7 +25,10 @@
   margin: 5px;
   font-weight: bold;
 }
-
+.button-info-cliente:hover{
+  background: #fefffe;
+  color:rgba(34, 33, 33, 0.849)
+}
 .table-carro {
   display: flex;
   flex-direction: column;

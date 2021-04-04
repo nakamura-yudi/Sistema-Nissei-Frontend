@@ -53,16 +53,19 @@ function Home()
             return true;
         return false;
     }
+    function exibirServicos(){
+        history.push('/listarServicos');
+    }
     return (
-    <div class="background">
+    <div className="background">
         <Header/>
-        <div class="card">
+        <div className="card">
             <div>
                 <p>Nome:{nome}</p>
                 <p>Emal:{email}</p>
                 <p>CPF:{cpf}</p>
             </div>
-            <div id="divTable" class="table-carro">
+            <div id="divTable" className="table-carro">
                 <table id="tabelaCont">
                     <thead>
                         <tr>
@@ -78,7 +81,7 @@ function Home()
                                 <td>{carro.car_placa}</td>
                                 <td>{carro.car_modelo}</td>     
                                 <td>{carro.car_ano}</td>
-                                <td><button type="button" onClick={()=>editarCarro(carro.car_id)} class="table-edit-carro">Editar</button></td>          
+                                <td><button type="button" onClick={()=>editarCarro(carro.car_id)} className="table-edit-carro">Editar</button></td>          
                             </tr>
                         ))}
                     </tbody>
@@ -86,11 +89,12 @@ function Home()
             </div>
 
             <div>
-                <button type="button" onClick={editarCliente} class="button-info-cliente">Editar Cliente</button>
-                <button type="button" onClick={cadastrarCarro} class="button-info-cliente">Cadastrar Carros</button>
-                <button type="button" onClick={cadastrarContato} class="button-info-cliente">Cadastrar Contatos</button>
-                <button type="button" onClick={gerarServico} disabled={VerificarCarros(carros.length)} class="button-info-cliente">Gerar Serviço</button>
-                <button type="button" onClick={voltar} class="button-info-cliente">Voltar</button>
+                <button type="button" onClick={editarCliente} className="button-info-cliente">Editar Cliente</button>
+                <button type="button" onClick={cadastrarCarro} className="button-info-cliente">Cadastrar Carros</button>
+                <button type="button" onClick={cadastrarContato} className="button-info-cliente">Cadastrar Contatos</button>
+                <button type="button" onClick={exibirServicos} className="button-info-cliente">Exibir servicos</button>
+                <button type="button" onClick={gerarServico} disabled={VerificarCarros(carros.length)} className="button-info-cliente">Gerar Serviço</button>
+                <button type="button" onClick={voltar} className="button-info-cliente">Voltar</button>
             </div>
         </div>
     </div>

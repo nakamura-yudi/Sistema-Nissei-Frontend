@@ -27,9 +27,9 @@ function ListaClientes()
         history.push("/infoCliente");
     }
     return (
-    <div id="tela" class="background">
+    <div id="tela" className="background">
         <Header/>
-        <div class="table-clientes">
+        <div className="table-clientes">
         <table className='tableCli'>
                 <thead>
                     <tr>
@@ -44,14 +44,14 @@ function ListaClientes()
                             <td>{res.pes_cpf}</td>
                             <td>{res.pes_nome}</td>
                             <td>
-                            <button onClick={()=>acessarCliente(res.pes_cod)} class="button-item">Visualizar Cliente</button>
+                            <button onClick={()=>acessarCliente(res.pes_cod)} className="button-item">Visualizar Cliente</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-        <button type="button" onClick={voltarHome} class="buttonBack">Voltar</button>
+        <button type="button" onClick={voltarHome} className="buttonBack">Voltar</button>
     </div>
     );
 }

@@ -13,6 +13,7 @@ import CadastroFuncionario from './Paginas/Cadastros/cadastroFuncionario'
 import InfoCliente from './Paginas/ClienteInfo/infoCliente'
 import CadastroContato from './Paginas/Cadastros/cadastroContato'
 import CadastroServicos from './Paginas/Cadastros/cadastroServiços' 
+import ListaServicos from './Paginas/Listas/listarServicos'
 function App() {
   return (
     <Router history={history}>
@@ -28,6 +29,7 @@ function App() {
         <Route path="/cadastroContato" exact={true} component={CadastroContato}/>
         <Route path="/cadastroServico" exact={true} component={CadastroServicos}/>
         <Route path="/infoCliente" exact={true} component={InfoCliente}/>
+        <Route path="/listarServicos" exact={true} component={ListaServicos}/>
       </Switch>
     </Router>
   );

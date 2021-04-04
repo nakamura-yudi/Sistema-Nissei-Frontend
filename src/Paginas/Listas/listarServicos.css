@@ -1,0 +1,32 @@
+.table-servicos {
+    height: 100%;
+    width: 80%;
+    overflow-y: auto;
+    border-radius: 25px;
+    background-color: rgb(0, 0, 0, 0.95);
+    color: white;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+  
+  }
+  
+  .tableSer thead{
+    width:100%;
+    font-size: 20px;
+  
+    background-color: rgb(104, 100, 100);
+    color: #fff;
+  }
+  .filtro{
+      width: 20%;
+  }
+  .filtro select{
+      width: 100%;
+  }
+
+  

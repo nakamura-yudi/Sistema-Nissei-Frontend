@@ -12,7 +12,7 @@ function FormularioFuncionario()
     const [ano,setAno] = useState(0);
     const [senha,setSenha]=useState('');
     const [confSenha,setConfSenha]=useState('');
-
+    const [isOpen,setIsOpen]=useState(false);
     const [button,setButton]=useState('Salvar');
     const [titulo,setTitulo]=useState('Cadastrar Funcionário');
     useEffect(()=>{
@@ -20,6 +20,8 @@ function FormularioFuncionario()
         {
           alterarFuncionario();
         }
+        if(localStorage.getItem('user')!=null)
+            setIsOpen(true);
    
     },[]);
       
@@ -179,7 +181,9 @@ function FormularioFuncionario()
     return (
        
             <div className='background'>
-                <Header/>
+                {isOpen &&
+                    <Header/>
+                }
                 <div className="div-funcionario" >
                     <h1>{titulo}</h1>
                     <form className='form-funcionario' onSubmit={adicionarFunc}>

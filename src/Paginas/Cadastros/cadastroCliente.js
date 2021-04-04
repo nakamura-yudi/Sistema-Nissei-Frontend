@@ -152,7 +152,7 @@ function Formulario()
 
     async function confirmarDados(e){
         e.preventDefault();
-        let mensagem = document.querySelector("#mensagemCli");
+        let mensagem = document.querySelector(".mensagemCli");
         
         const respCPF= await validarCPFRepetido(cpf);
         var confere=false;
@@ -250,8 +250,9 @@ function Formulario()
     }
     return (
         <div id="tela" >
-            <Header/>
-            <div id='app' className="background">
+            
+            <div className="background">
+                <Header/>
                 <aside className="formularioCli" >
                     <h1>{titulo}</h1>
                     <form onSubmit={confirmarDados} >

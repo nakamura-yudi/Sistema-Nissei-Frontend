@@ -34,7 +34,7 @@ function Login(){
         history.push('/cadastroFuncionario');
     }
     return (
-      <div id='login' class="background">
+      <div id='login' className="backgroundLogin">
           <main class="main">
             <h2>LOGIN</h2>
             <div>

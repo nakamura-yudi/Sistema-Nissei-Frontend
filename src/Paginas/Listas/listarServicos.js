@@ -87,6 +87,10 @@ function ListaServicos()
             return 'Em andamento';
         return 'Finalizado'; 
     }
+    function acessarServico(cod){
+        localStorage.setItem('cod_ser',cod);
+        history.push('/cadastroServico');
+    }
     return (
     <div id="tela" className="background">
         <Header/>
@@ -111,7 +115,7 @@ function ListaServicos()
                         <td>Data de inicio</td>
                         <td>Total</td>
                         <td>Status</td>
-                     
+                        <td>Acao</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,6 +125,9 @@ function ListaServicos()
                             <td>{res.ser_inicio}</td>
                             <td>{res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>
+                            <td>
+                            <button onClick={()=>acessarServico(res.ser_cod)} class="button-item">Visualizar</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

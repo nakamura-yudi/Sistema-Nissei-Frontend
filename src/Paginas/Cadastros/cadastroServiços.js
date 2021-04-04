@@ -22,8 +22,43 @@ function CadastroServicos(){
         setCodCli(localStorage.getItem('cod_cli'));
         listarCarros();
         listarPecas();
+        if(localStorage.getItem('cod_ser')!==null)
+            alterarServico();
     },[]);
-    
+    async function alterarServico(){
+        const response = await api.get(`/servico/${localStorage.getItem('cod_ser')}`).then((resp)=>{
+            setCarro(resp.data[0].car_id);
+            setDescricao(resp.data[0].ser_descricao);
+
+            var date=new Date(resp.data[0].ser_inicio);
+            var dat=date.getFullYear()+"-";
+            if(date.getMonth()+1<10)
+                dat+='0';
+            dat+=(date.getMonth()+1)+"-";
+            if(date.getDate()<10)
+                dat+='0';
+            dat+=date.getDate();
+            setDtInicio(dat);
+        });
+        var i=0,j;
+        const response2 = await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{
+            
+            while(i<resp.data.length){
+                j=0;
+                while(j<pecs.length && pecs[i].pec_cod!==resp.data[i].pec_cod)
+                    j++;
+                const data= {
+                    cod:i,
+                    uti_qtde:resp.data[i].uti_qtde,
+                    uti_precoUni: resp.data[i].uti_precoUni,
+                    pec_desc:pecs[j].pec_descricao,
+                    pec_cod:pecs[j].pec_cod
+                };
+                setPecsUti([...pecsUti, data]);
+                i=i+1;
+            }
+        });
+    }
     async function listarCarros(){
         const response2 = await api.get(`/carroPes/${localStorage.getItem('cod_cli')}`).then((resp)=>{
             setCarros(resp.data);
@@ -39,9 +74,44 @@ function CadastroServicos(){
     {
         setPecsUti(pecsUti.filter(pecsUti=>pecsUti.cod!==codigo));
     }
+    function ValidarCampos(){
+        var test = true;
+        let mensagem = document.querySelector("#mensagem");
+        mensagem.innerHTML="";
+        if(vazio(carro)){
+            mensagem.innerHTML+="<p>Carro não foi selecionada</p>"
+            test=false;
+        }
+        
+        
+        return test;
+    }
     async function cadastrarServico(e){
         e.preventDefault();
-        let mensagem = document.querySelector("#mensagem");
+        var codSer;
+        if(ValidarCampos()){
+            const response=await api.post('/servico',{
+                car_id:carro,
+                pes_cod:codCli,
+                ser_descricao:descricao,
+                ser_maoObra:0,
+                ser_inicio:dtInicio,
+                ser_total:0,
+                ser_status:false
+            })
+            codSer=response.data.lastId;
+            console.log(response.data);
+            for(let i=0;i<pecsUti.length;i++)
+            {
+                const response2=await api.post('/servicopeca',{
+                    ser_cod:codSer,
+                    pec_cod:pecsUti[i].pec_cod,
+                    uti_precoUni:pecsUti[i].uti_precoUni,
+                    uti_qtde:pecsUti[i].uti_qtde
+                })
+            }
+            alert('Serviço Cadastrado');
+        }
     }
 
     async function addLista(){
@@ -50,19 +120,20 @@ function CadastroServicos(){
         var tam;
 
         if(valorPositivo(quant) && valorPositivo(valorUni) && !vazio(peca)){
-            if(pecsUti.length==0)
+            if(pecsUti.length===0)
                 tam=1;
             else
                 tam=pecsUti[pecsUti.length-1].cod+1;
 
             var i=0;
-            while(i<pecs.length && pecs[i].pec_cod!=peca)
+            while(i<pecs.length && pecs[i].pec_descricao!==peca)
                 i++;
             const data= {
                 cod:tam,
                 uti_qtde:quant,
                 uti_precoUni: valorUni,
-                pec_desc:pecs[i].pec_descricao
+                pec_desc:pecs[i].pec_descricao,
+                pec_cod:pecs[i].pec_cod
             };
             setQuant('');
             setValorUni('');
@@ -79,6 +150,22 @@ function CadastroServicos(){
                 mensagem.innerHTML+="<p>Nenhuma peça selecionada</p>";
         }
         
+    }
+
+    async function addPeca(e){
+        e.preventDefault();
+        if(!vazio(peca)){
+            var i=0;
+            while(i<pecs.length && pecs[i].pec_descricao!==peca)
+                i++;
+            if(i===pecs.length){
+                const response=await api.post('/peca',{
+                    pec_descricao: peca,
+                })
+                pecs.push(response.data)
+                setPecs(pecs);
+            }
+        }
     }
     
     function valorPositivo(valor)
@@ -134,28 +221,24 @@ function CadastroServicos(){
                     <div className="cadastroPecas">
                         <div className="input-block block-quant">
                             <label htmlFor="quant">Qtde:</label>
-                            <input type="number" name="quant" id="quant" value={quant} onChange={e=>setQuant(e.target.value)} required/>
+                            <input type="number" name="quant" id="quant" value={quant} onChange={e=>setQuant(e.target.value)} />
                         </div>
 
                         <div className="input-block block-valorUni">
                             <label htmlFor="valorUni">Valor Uni:</label>
-                            <input type="number" step="0.01" name="valorUni" id="valorUni" value={valorUni} onChange={e=>setValorUni(e.target.value)} required/>
+                            <input type="number" step="0.01" name="valorUni" id="valorUni" value={valorUni} onChange={e=>setValorUni(e.target.value)} />
                         </div>
                         <div className="input-block block-peca">
                             <label>Peça: </label>
-                            <select className="select-peca" value={peca} onChange={e=>setPeca(e.target.value)}>
-                                    <option id="op-selecione" value="">
-                                        Selecione uma opcao
-                                    </option>
+                            <input type="text" name="peca" list="pecanome" className="select-peca" value={peca} onChange={e=>setPeca(e.target.value)}/>
+                                <datalist id="pecanome">
                                     {pecs.map(pec=>(
-                                        <option key={pec.pec_cod} value={pec.pec_cod}>
-                                            {pec.pec_descricao}
-                                        </option>
+                                        <option key={pec.pec_cod} value={pec.pec_descricao}></option>
                                     ))}
-                            </select>
+                                </datalist>
                         </div>
                         <div className="divAdicionarPec">
-                            <button className="btnAdicionarPec">+</button>
+                            <button className="btnAdicionarPec" onClick={addPeca}>+</button>
                         </div>
                         <div id="mensagemPecas" className="mensagem">
 
@@ -190,9 +273,7 @@ function CadastroServicos(){
                     </div>
                     <div id="mensagem">
 
-                    </div>
-                            
-                            
+                    </div> 
                     <button type="submit" id="btnForm">Salvar</button>
                 </form>
                 <button type="button" onClick={voltar}>Voltar</button>

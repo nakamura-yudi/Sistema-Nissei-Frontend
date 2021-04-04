@@ -12,8 +12,6 @@
     align-content: center;
     justify-content: center;
     width: 60vw;
-    
-   
 }
 .formularioServico{
     display: flex;
@@ -58,14 +56,12 @@
     font-weight: bold;
     display: block;
 }
-.formularioServico .txtArea{
-   
-}
+
 .formularioServico .block-data{width:50%;}
 .formularioServico .block-desc{width:100%;}
 .formularioServico .block-quant{width:6%;}
 .formularioServico .block-carro{width:40%;}
-.formularioServico .block-peca{width:60%;margin-right: 0;}
+.formularioServico .block-peca{width:60%;margin-right: 5px;}
 .formularioServico .block-valorUni{width:10%;}
 .formularioServico .block-codigo input{text-align: center;}
 

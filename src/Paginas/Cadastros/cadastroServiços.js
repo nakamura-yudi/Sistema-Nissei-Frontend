@@ -11,6 +11,7 @@ function CadastroServicos(){
     const [descricao,setDescricao]=useState('');
     const [dtInicio,setDtInicio]=useState('');
     const [pecs,setPecs]=useState([]);
+    const [pecsFil,setPecsFil]=useState([]);
 
     const [pecsUti,setPecsUti]=useState([]);
     const [quant,setQuant]=useState('');
@@ -34,7 +35,10 @@ function CadastroServicos(){
             setPecs(resp.data);
         });
     }
-
+    async function Excluir(codigo)
+    {
+        setPecsUti(pecsUti.filter(pecsUti=>pecsUti.cod!==codigo));
+    }
     async function cadastrarServico(e){
         e.preventDefault();
         let mensagem = document.querySelector("#mensagem");
@@ -43,20 +47,56 @@ function CadastroServicos(){
     async function addLista(){
         let mensagem = document.querySelector("#mensagemPecas");
         mensagem.innerHTML="";
-            var tam=pecsUti.length;
+        var tam;
+
+        if(valorPositivo(quant) && valorPositivo(valorUni) && !vazio(peca)){
+            if(pecsUti.length==0)
+                tam=1;
+            else
+                tam=pecsUti[pecsUti.length-1].cod+1;
+
+            var i=0;
+            while(i<pecs.length && pecs[i].pec_cod!=peca)
+                i++;
             const data= {
                 cod:tam,
                 uti_qtde:quant,
                 uti_precoUni: valorUni,
-                pec_desc:descricao
+                pec_desc:pecs[i].pec_descricao
             };
             setQuant('');
             setValorUni('');
-            setDescricao('');
-            setPecsUti([...pecsUti, data]); //contatos é um estado (do tipo vetor)    
+            setPeca('');
+            setPecsUti([...pecsUti, data]);
+            mensagem.innerHTML="";
+        }
+        else{
+            if(!valorPositivo(quant))
+                mensagem.innerHTML+="<p>Quantidade com valor inválido</p>";
+            if(!valorPositivo(valorUni))
+                mensagem.innerHTML+="<p>Valor unitário com valor inválido</p>";
+            if(vazio(peca))
+                mensagem.innerHTML+="<p>Nenhuma peça selecionada</p>";
+        }
         
     }
     
+    function valorPositivo(valor)
+    {
+        if(valor<=0)
+            return false;
+        else   
+            return true;
+    }
+
+    function vazio(valor)
+    {
+        let v=''+valor;
+        if(v.length<=0)
+            return true;
+        return false;
+    }
+
     function voltar(){
         history.goBack();
     }
@@ -87,18 +127,18 @@ function CadastroServicos(){
 
                     <div className="input-block block-desc">
                         <label htmlFor="descricao">Descrição</label>
-                        <input name="descricao" id="descricao" value={descricao} onChange={e=>setDescricao(e.target.value)} required/>
+                        <textarea name="descricao" className="txtArea" rows="10" cols="110" id="descricao" value={descricao} onChange={e=>setDescricao(e.target.value)} required></textarea>
                     </div>
 
                     <h1 className="tituloPecas">Adicionar peças Utilizadas</h1>
                     <div className="cadastroPecas">
                         <div className="input-block block-quant">
-                            <label htmlFor="quant">Quantidade:</label>
+                            <label htmlFor="quant">Qtde:</label>
                             <input type="number" name="quant" id="quant" value={quant} onChange={e=>setQuant(e.target.value)} required/>
                         </div>
 
                         <div className="input-block block-valorUni">
-                            <label htmlFor="valorUni">Valor Unitário:</label>
+                            <label htmlFor="valorUni">Valor Uni:</label>
                             <input type="number" step="0.01" name="valorUni" id="valorUni" value={valorUni} onChange={e=>setValorUni(e.target.value)} required/>
                         </div>
                         <div className="input-block block-peca">
@@ -114,7 +154,10 @@ function CadastroServicos(){
                                     ))}
                             </select>
                         </div>
-                        <div id="mensagemPecas">
+                        <div className="divAdicionarPec">
+                            <button className="btnAdicionarPec">+</button>
+                        </div>
+                        <div id="mensagemPecas" className="mensagem">
 
                         </div>
                         <button type="button" onClick={addLista} className="btnFormPecas">Adicionar Peças</button>
@@ -126,6 +169,7 @@ function CadastroServicos(){
                                     <td>Quant</td>
                                     <td>Valor Uni.</td>
                                     <td>Descrição</td>
+                                    <td>Excluir</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -134,6 +178,11 @@ function CadastroServicos(){
                                         <td>{pec.uti_qtde}</td>
                                         <td>R$ {pec.uti_precoUni}</td>
                                         <td>{pec.pec_desc}</td>
+                                        <td>
+                                            <button id="btexcluir" className="btnExcluirPec" onClick={()=>Excluir(pec.cod)} type="button">
+                                            Excluir
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

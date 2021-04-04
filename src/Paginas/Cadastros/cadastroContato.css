@@ -91,8 +91,8 @@
 .btnExcluirCont{
     width: 100%;
     border: 0;
-    color:#ffff;
-    background:#6b6b6b;
+    color:rgb(31, 28, 28);
+    background:rgb(255, 230, 230);
     border-radius: 5px;
     padding: 15px 20px;
     font-size: 16px;
@@ -102,8 +102,8 @@
 }
 
 .btnExcluirCont:hover{
-    background-color: #eeeeee;
-    color: rgba(44, 42, 42, 0.555);
+    background-color: rgb(233, 128, 128);
+    color: rgb(255, 255, 255);
 }
 .btnVoltarPerf{
     width: 100%;
@@ -184,12 +184,13 @@
     width: 100%;
 }
 #tabelaCont thead{
-    background-color: rgb(104, 100, 100);
-    color: #fff;
+    background-color: rgb(77, 74, 74);
+    color: rgb(255, 255, 255);
 }
 #tabelaCont tbody{
-    background-color: rgb(118, 122, 121);
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
 }
 #tabelaCont tbody tr:hover{
-    background-color: rgb(90, 87, 87);
+    background-color: rgb(207, 199, 199);
 }

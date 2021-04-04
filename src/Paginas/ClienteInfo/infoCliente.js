@@ -11,6 +11,7 @@ function Home()
     const [email,setEmail]=useState('');
     const [cpf,setCpf]=useState('');
 
+
     const [carros,setCarros]=useState([]);
     useEffect(()=>{
         setCodigo(localStorage.getItem('cod_cli'));
@@ -46,6 +47,11 @@ function Home()
     }
     function gerarServico(){
         history.push('/cadastroServico');
+    }
+    function VerificarCarros(qtde){
+        if(qtde==0)
+            return true;
+        return false;
     }
     return (
     <div class="background">
@@ -83,7 +89,7 @@ function Home()
                 <button type="button" onClick={editarCliente} class="button-info-cliente">Editar Cliente</button>
                 <button type="button" onClick={cadastrarCarro} class="button-info-cliente">Cadastrar Carros</button>
                 <button type="button" onClick={cadastrarContato} class="button-info-cliente">Cadastrar Contatos</button>
-                <button type="button" onClick={gerarServico} class="button-info-cliente">Gerar Serviço</button>
+                <button type="button" onClick={gerarServico} disabled={VerificarCarros(carros.length)} class="button-info-cliente">Gerar Serviço</button>
                 <button type="button" onClick={voltar} class="button-info-cliente">Voltar</button>
             </div>
         </div>

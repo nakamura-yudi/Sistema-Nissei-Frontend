@@ -60,6 +60,11 @@ function voltar(){
             return true;
         return false;
     }
+    function validarPlaca(valor){
+        if(/[A-Z0-9]/.test(valor) && valor.length==7)
+            return true;
+        return false;
+    }
     function ValidarCamposCarro(){
         var test = true;
         let mensagem = document.querySelector("#mensagem");
@@ -73,10 +78,14 @@ function voltar(){
             test=false;
         }
         if(negativo(km)){
-            mensagem.innerHTML+="<p>Ano inválido</p>"
+            mensagem.innerHTML+="<p>Km inválido</p>"
             test=false;
         }
-
+        if(!validarPlaca(placa)){
+            mensagem.innerHTML+="<p>Placa inválida</p>"
+            test=false;
+        }
+        
         return test;
     }
     async function adicionarCarro(e){

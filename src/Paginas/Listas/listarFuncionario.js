@@ -29,15 +29,27 @@ function ListaFuncionarios()
     return (
     <div id="tela" class="background">
         <Header/>
-        <div class="list-funcionarios">
-        {pessoas.map(res=>(
-                <div key={res.pes_cod} class="funcionario-item">
-                    <div>
-                        {res.pes_nome}                           
-                    </div>
-                    <button onClick={()=>acessarFuncionario(res.pes_cod)} class="button-item">Editar Funcionário</button>
-                </div>
-            ))}
+        <div class="table-funcionarios">
+            <table className='tableFunc'>
+                <thead>
+                    <tr>
+                        <td>CPF</td>
+                        <td>Nome</td>
+                        <td>Acao</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {pessoas.map(res=>(
+                        <tr key={res.pes_cpf}>
+                            <td>{res.pes_cpf}</td>
+                            <td>{res.pes_nome}</td>
+                            <td>
+                            <button onClick={()=>acessarFuncionario(res.pes_cod)} class="button-item">Visualizar Funcionario</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
         <button type="button" onClick={voltarHome} class="buttonBack">Voltar</button>
     </div>

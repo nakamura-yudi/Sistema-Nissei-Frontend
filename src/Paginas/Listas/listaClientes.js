@@ -29,15 +29,27 @@ function ListaClientes()
     return (
     <div id="tela" class="background">
         <Header/>
-        <div class="list-clientes">
-            {pessoas.map(res=>(
-                    <div key={res.pes_cod} class="cliente-item">
-                        <div >
-                            {res.pes_nome}                           
-                        </div>
-                        <button onClick={()=>acessarCliente(res.pes_cod)} class="button-item">Visualizar Clientes</button>
-                    </div>
-                ))}
+        <div class="table-clientes">
+        <table className='tableCli'>
+                <thead>
+                    <tr>
+                        <td>CPF</td>
+                        <td>Nome</td>
+                        <td>Acao</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {pessoas.map(res=>(
+                        <tr key={res.pes_cpf}>
+                            <td>{res.pes_cpf}</td>
+                            <td>{res.pes_nome}</td>
+                            <td>
+                            <button onClick={()=>acessarCliente(res.pes_cod)} class="button-item">Visualizar Cliente</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
         <button type="button" onClick={voltarHome} class="buttonBack">Voltar</button>
     </div>

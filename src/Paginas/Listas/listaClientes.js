@@ -7,7 +7,6 @@ import Header from '../../Components/Header'
 function ListaClientes()
 {
     const [pessoas,setPessoas]=useState([]);
-    const [codigo,setCodigo]=useState([]);
     useEffect(()=>{
         listarClientes();
     },[]);

@@ -8,7 +8,6 @@ import Header from '../../Components/Header'
 function ListaFuncionarios()
 {
     const [pessoas,setPessoas]=useState([]);
-    const [codigo,setCodigo]=useState([]);
     useEffect(()=>{
         listarFuncionarios();
     },[]);

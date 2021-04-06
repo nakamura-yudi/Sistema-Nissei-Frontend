@@ -21,9 +21,9 @@ function ListaServicos()
        
         while(i<carros.length){
             j=0;
-            while(j<filtros.length && carros[i].car_id!=filtros[j].car_id)
+            while(j<filtros.length && carros[i].car_id!==filtros[j].car_id)
                 j++;
-            if(j==filtros.length){
+            if(j===filtros.length){
        
                 const data= {
                     car_id:carros[i].car_id,
@@ -66,24 +66,22 @@ function ListaServicos()
 
     }
     async function listarCarros(){
-        var i=0;
         const response2 = await api.get(`/carroPes/${localStorage.getItem('cod_cli')}`).then((resp)=>{
-            setCarros(resp.data);
-            
+            setCarros(resp.data); 
         });
 
     }
     function getPlaca(cod){
         var i=0;
         if(carros.length>0){
-            while(i<carros.length && carros[i].car_id!=cod)
+            while(i<carros.length && carros[i].car_id!==cod)
                 i++;
             
             return carros[i].car_placa +" - "+carros[i].car_modelo;
         }
     }
     function getStatus(status){
-        if(status==0)
+        if(status===0)
             return 'Em andamento';
         return 'Finalizado'; 
     }
@@ -126,7 +124,7 @@ function ListaServicos()
                             <td>{res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>
                             <td>
-                            <button onClick={()=>acessarServico(res.ser_cod)} class="button-item">Visualizar</button>
+                            <button onClick={()=>acessarServico(res.ser_cod)} className="button-item">Visualizar</button>
                             </td>
                         </tr>
                     ))}

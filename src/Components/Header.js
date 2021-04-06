@@ -1,11 +1,11 @@
-import {useLocation} from "react-router-dom"
 import history from '../history'
-import React, {useState} from 'react';
+import React from 'react';
 import './Header.css'
 function Header(){
     function voltarTela(){
         localStorage.removeItem('cod_cli');
         localStorage.removeItem('cod_func');
+        localStorage.removeItem('cod_ser');
         history.push('/home');
     }
     function logout(){

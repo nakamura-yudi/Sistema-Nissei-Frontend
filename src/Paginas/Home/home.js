@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../servicos/api';
+import React from 'react';
 import history from '../../history'
 import "./home.css"
 import Header from '../../Components/Header'

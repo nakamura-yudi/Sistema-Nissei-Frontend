@@ -19,7 +19,7 @@ function Home()
     },[]);
     async function procurarInfo(){
     
-        const response = await api.get(`/pessoaCod/${localStorage.getItem('cod_cli')}`).then((resp)=>{
+        const response = await api.get(`/pessoaCod/${codigo}`).then((resp)=>{
             setNome(resp.data[0].pes_nome);
             setCpf(resp.data[0].pes_cpf);
             setEmail(resp.data[0].pes_email);
@@ -49,7 +49,7 @@ function Home()
         history.push('/cadastroServico');
     }
     function VerificarCarros(qtde){
-        if(qtde==0)
+        if(qtde===0)
             return true;
         return false;
     }

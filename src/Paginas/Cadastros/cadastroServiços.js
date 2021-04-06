@@ -11,20 +11,37 @@ function CadastroServicos(){
     const [descricao,setDescricao]=useState('');
     const [dtInicio,setDtInicio]=useState('');
     const [pecs,setPecs]=useState([]);
-    const [pecsFil,setPecsFil]=useState([]);
 
     const [pecsUti,setPecsUti]=useState([]);
     const [quant,setQuant]=useState('');
     const [valorUni,setValorUni]=useState('');
     const [peca,setPeca]=useState('');
 
+    async function listarCarros(){
+        const response2 = await api.get(`/carroPes/${localStorage.getItem('cod_cli')}`).then((resp)=>{
+            setCarros(resp.data);
+        });
+    }
+    
+    async function listarPecas(){
+        const response2 = await api.get(`/peca`).then((resp)=>{
+            setPecs(resp.data);
+        });
+    }
+
     useEffect(()=>{
         setCodCli(localStorage.getItem('cod_cli'));
-        listarCarros();
         listarPecas();
-        if(localStorage.getItem('cod_ser')!==null)
-            alterarServico();
+        listarCarros();
     },[]);
+
+    useEffect(()=>{
+        if(pecs.length!==0)
+            if(localStorage.getItem('cod_ser')!==null){
+                alterarServico()
+            }
+    },[pecs]);
+
     async function alterarServico(){
         const response = await api.get(`/servico/${localStorage.getItem('cod_ser')}`).then((resp)=>{
             setCarro(resp.data[0].car_id);
@@ -41,13 +58,13 @@ function CadastroServicos(){
             setDtInicio(dat);
         });
         var i=0,j;
-        const response2 = await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{
-            
+        const response2 = await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{ 
             while(i<resp.data.length){
                 j=0;
-                while(j<pecs.length && pecs[i].pec_cod!==resp.data[i].pec_cod)
+                while(j<pecs.length && pecs[j].pec_cod!==resp.data[i].pec_cod)
                     j++;
-                const data= {
+
+                var data= {
                     cod:i,
                     uti_qtde:resp.data[i].uti_qtde,
                     uti_precoUni: resp.data[i].uti_precoUni,
@@ -59,19 +76,20 @@ function CadastroServicos(){
             }
         });
     }
-    async function listarCarros(){
-        const response2 = await api.get(`/carroPes/${localStorage.getItem('cod_cli')}`).then((resp)=>{
-            setCarros(resp.data);
-        });
-    }
     
-    async function listarPecas(){
-        const response2 = await api.get(`/peca`).then((resp)=>{
-            setPecs(resp.data);
-        });
-    }
     async function Excluir(codigo)
     {
+        var i=0;
+        while(i<pecsUti.length && pecsUti[i].cod!==codigo){
+            i++;
+        }
+        console.log(i);
+        if(localStorage.getItem('cod_ser')!==null){
+            console.log("web ser_cod= "+localStorage.getItem('cod_ser'));
+            console.log("web pec_cod= "+pecsUti[i].pec_cod);
+            console.log(pecsUti);
+            const response=await api.delete(`/servicopeca/${localStorage.getItem('cod_ser')}/${pecsUti[i].pec_cod}`);
+        }
         setPecsUti(pecsUti.filter(pecsUti=>pecsUti.cod!==codigo));
     }
     function ValidarCampos(){
@@ -154,6 +172,8 @@ function CadastroServicos(){
 
     async function addPeca(e){
         e.preventDefault();
+        var pecsAux = pecs;
+        setPecs([]);
         if(!vazio(peca)){
             var i=0;
             while(i<pecs.length && pecs[i].pec_descricao!==peca)
@@ -162,8 +182,10 @@ function CadastroServicos(){
                 const response=await api.post('/peca',{
                     pec_descricao: peca,
                 })
-                pecs.push(response.data)
-                setPecs(pecs);
+              
+                pecsAux.push(response.data[0])
+                setPecs(pecsAux);
+                alert("Nova peça adicionada");
             }
         }
     }
@@ -185,6 +207,7 @@ function CadastroServicos(){
     }
 
     function voltar(){
+        localStorage.removeItem("cod_ser");
         history.goBack();
     }
     return(
@@ -228,15 +251,17 @@ function CadastroServicos(){
                             <label htmlFor="valorUni">Valor Uni:</label>
                             <input type="number" step="0.01" name="valorUni" id="valorUni" value={valorUni} onChange={e=>setValorUni(e.target.value)} />
                         </div>
-                        <div className="input-block block-peca">
-                            <label>Peça: </label>
-                            <input type="text" name="peca" list="pecanome" className="select-peca" value={peca} onChange={e=>setPeca(e.target.value)}/>
-                                <datalist id="pecanome">
-                                    {pecs.map(pec=>(
-                                        <option key={pec.pec_cod} value={pec.pec_descricao}></option>
-                                    ))}
-                                </datalist>
-                        </div>
+                        {pecs && (
+                            <div className="input-block block-peca">
+                                <label>Peça: </label>
+                                <input type="text" name="peca" list="pecanome" className="select-peca" value={peca} onChange={e=>setPeca(e.target.value)}/>
+                                    <datalist id="pecanome">
+                                        {pecs.map(pec=>(
+                                            <option key={pec.pec_cod} value={pec.pec_descricao}></option>
+                                        ))}
+                                    </datalist>
+                            </div>
+                        )}
                         <div className="divAdicionarPec">
                             <button className="btnAdicionarPec" onClick={addPeca}>+</button>
                         </div>

@@ -51,7 +51,7 @@ function voltar(){
     function vazio(valor)
     {
         let v=''+valor;
-        if(v.length==0)
+        if(v.length===0)
         return true;
         return false;
     }
@@ -61,7 +61,7 @@ function voltar(){
         return false;
     }
     function validarPlaca(valor){
-        if(/[A-Z0-9]/.test(valor) && valor.length==7)
+        if(/[A-Z0-9]/.test(valor) && valor.length===7)
             return true;
         return false;
     }

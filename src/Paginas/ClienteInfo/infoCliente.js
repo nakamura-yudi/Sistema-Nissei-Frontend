@@ -19,7 +19,7 @@ function Home()
     },[]);
     async function procurarInfo(){
     
-        const response = await api.get(`/pessoaCod/${codigo}`).then((resp)=>{
+        const response = await api.get(`/pessoaCod/${localStorage.getItem('cod_cli')}`).then((resp)=>{
             setNome(resp.data[0].pes_nome);
             setCpf(resp.data[0].pes_cpf);
             setEmail(resp.data[0].pes_email);

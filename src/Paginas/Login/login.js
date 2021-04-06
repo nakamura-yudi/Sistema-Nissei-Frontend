@@ -35,20 +35,20 @@ function Login(){
     }
     return (
       <div id='login' className="backgroundLogin">
-          <main class="main">
+          <main className="main">
             <h2>LOGIN</h2>
             <div>
                 <img src="user.png" alt="icone user" className="avatar"/>
             </div>
-            <form onSubmit={logar} class="form">
+            <form onSubmit={logar} className="form">
               <input type="text" data-user placeholder="Enter Email" id="user" className="input-user" value={user} onChange={e=>setUser(e.target.value)} required/>
               <input type="password" data-password placeholder="Enter Password" id="password" className="input-password" value={senha} onChange={e=>setSenha(e.target.value)} required/>
               <div id="mensagem">
 
               </div>
-              <button type="submit" class="button-login">Entrar</button>
+              <button type="submit" className="button-login">Entrar</button>
             </form>
-            <p onClick={irFormulario} class="text-pointer">Não tem um cadastro? Cadraste-se aqui</p>
+            <p onClick={irFormulario} className="text-pointer">Não tem um cadastro? Cadraste-se aqui</p>
           </main>
       </div>
     );

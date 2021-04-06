@@ -26,9 +26,9 @@ function ListaFuncionarios()
         history.push("/cadastroFuncionario");
     }
     return (
-    <div id="tela" class="background">
+    <div id="tela" className="background">
         <Header/>
-        <div class="table-funcionarios">
+        <div className="table-funcionarios">
             <table className='tableFunc'>
                 <thead>
                     <tr>
@@ -43,14 +43,14 @@ function ListaFuncionarios()
                             <td>{res.pes_cpf}</td>
                             <td>{res.pes_nome}</td>
                             <td>
-                            <button onClick={()=>acessarFuncionario(res.pes_cod)} class="button-item">Visualizar Funcionario</button>
+                            <button onClick={()=>acessarFuncionario(res.pes_cod)} className="button-item">Visualizar Funcionario</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-        <button type="button" onClick={voltarHome} class="buttonBack">Voltar</button>
+        <button type="button" onClick={voltarHome} className="buttonBack">Voltar</button>
     </div>
     );
 }

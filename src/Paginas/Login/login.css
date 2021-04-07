@@ -55,6 +55,8 @@ input[type="text"] {
   background-color: rgba(0,0,0,.9);
   border-bottom: 2px solid rgb(255, 255, 255);
   color: rgb(255,255,255);
+  margin-bottom: 4%;
+  margin-top: 2%;
 }
 
 input:-webkit-autofill {
@@ -68,10 +70,11 @@ input[type="password"] {
   background-color: rgba(0,0,0,.9);
   border-bottom: 2px solid rgb(255, 255, 255);
   color: rgb(255,255,255);
+  margin-bottom: 4%;
 }
 
 .button-login {
-  background-color: #414040;
+  background-color: rgb(134, 134, 134);
   color: rgb(216, 216, 216);
   border: none;
   color: white;
@@ -82,6 +85,7 @@ input[type="password"] {
   font-size: 14px;
   border-radius: 25px;
   cursor: pointer;
+  width: 70%;
 }
 .button-login:hover{
   background: #fefffe;

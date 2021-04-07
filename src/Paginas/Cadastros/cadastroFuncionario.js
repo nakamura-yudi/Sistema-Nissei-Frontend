@@ -71,7 +71,11 @@ function FormularioFuncionario()
             return true;
         return false;
     }
-    
+    function validarAno(){
+        if(ano>=0)
+            return true;
+        return false;
+    }
 
     function validarTexto(valor)
     {
@@ -111,7 +115,7 @@ function FormularioFuncionario()
         const respCPF= await validarCPFRepetido(cpf);
         var confere=false;
 
-        if(validarCPF(cpf) && validarEmail(email) && validarSexo(sexo) && validarSenha(senha,confSenha))
+        if(validarCPF(cpf) && validarEmail(email) && validarSexo(sexo) && validarSenha(senha,confSenha) && validarAno(ano))
         {
             if(button==="Salvar")
             {
@@ -176,6 +180,8 @@ function FormularioFuncionario()
             mensagem.innerHTML+="<p>Sexo vazio</p>";
             if(!validarSenha(senha,confSenha))
             mensagem.innerHTML+="<p>Senhas diferentes</p>"
+            if(!validarAno(ano))
+            mensagem.innerHTML+="<p>Ano não pode ser negativo</p>"
         }
     }
 

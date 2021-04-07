@@ -67,18 +67,20 @@ function Formulario()
         return false;
     }
     function validarUF(valor){
-        if(/[A-Z]{2}/.test(valor))
+        if(/[A-Z]{2}/.test(valor) && valor.length===2)
             return true;
         return false;
     }
     function validarCep(valor){
-        if(/[0-9]{5}[\-][0-9]{2}/.test(valor))
+        var reg=/^\d{5}\-\d{2}$/;
+        if(valor.match(reg)!=null)
             return true;
         return false;
     }
     function validarCPF(valor)
     {
-        if(/[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[\-][0-9]{2}/.test(valor))
+        var reg=/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
+        if(valor.match(reg)!=null)
             return true;
         return false;
     }
@@ -91,15 +93,12 @@ function Formulario()
     }
     function validarTelefone(valor)
     {
-        if(/[a-zA-Z]/.test(valor))
-        return false;
-        else
-        {
-        if(/^\([1-9]{2}\)[0-9]{5}\-[0-9]{4}/.test(valor) || /^\([1-9]{2}\)[0-9]{4}\-[0-9]{4}/.test(valor))
+        var reg=/^\(\d{2}\)\d{4,5}\-\d{4}$/;
+        if(valor.match(reg)!==null)
             return true;
         else
             return false;
-        }
+        
     }
 
     function validarTexto(valor)

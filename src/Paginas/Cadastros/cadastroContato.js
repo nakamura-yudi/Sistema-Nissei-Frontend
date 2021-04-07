@@ -34,15 +34,11 @@ function CadastroContatos(){
      }
     function validarTelefone(valor)
     {
-      if(/[a-zA-Z]/.test(valor))
-        return false;
-      else
-      {
-        if(/^\([1-9]{2}\)[0-9]{5}\-[0-9]{4}/.test(valor) || /^\([1-9]{2}\)[0-9]{4}\-[0-9]{4}/.test(valor))
-          return true;
+        var reg=/^\(\d{2}\)\d{4,5}\-\d{4}$/;
+        if(valor.match(reg)!==null)
+            return true;
         else
-          return false;
-      }
+            return false;
     }
     async function voltarPerfil(){
    

@@ -59,7 +59,8 @@ function FormularioFuncionario()
     
     function validarCPF(valor)
     {
-        if(/[0-9]{3}[\.][0-9]{3}[\.][0-9]{3}[\-][0-9]{2}/.test(valor))
+        var reg=/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
+        if(valor.match(reg)!=null)
             return true;
         return false;
     }

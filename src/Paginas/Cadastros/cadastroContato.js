@@ -86,7 +86,7 @@ function CadastroContatos(){
                     <div className="input-block" id="block-tpContato">
                         <label htmlFor="tipoCont">Tipo de contato</label>
                         <select id="tipoCont" onChange={e=>setTipo(e.target.value)} value={tipo}>
-                            <option id="op-vazio" valie=''>Selecione uma opção </option>
+                            <option id="op-vazio" value=''>Selecione uma opção </option>
                             <option id="op-contA" value="Residencial">Residencial</option>
                             <option id="op-contB" value="Comercial">Comercial</option>
                             <option id="op-contC" value="Celular">Celular</option>

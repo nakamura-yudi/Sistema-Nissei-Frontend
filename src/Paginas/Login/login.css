@@ -22,8 +22,8 @@
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  width: 30vw;
-  height: 60vh;
+  width: 25vw;
+  height: 70vh;
   background-color: rgba(0,0,0,.9);
   box-shadow: 0 0 10px rgba(255,255,255,.3);
   color: #fff;
@@ -39,8 +39,13 @@
   justify-content: space-between;
 }
 .avatar{
-  width: 20%;
+  margin-bottom: 15px;
+  width: 25%;
   height: 90%;
+}
+.main input{
+  margin-top: 5px;
+  font-size: 14px;
 }
 .input-user{
   width: 70%;
@@ -50,7 +55,7 @@
   width: 70%;
   
 }
-input[type="text"] {
+.main input[type="text"] {
   border: none;
   background-color: rgba(0,0,0,.9);
   border-bottom: 2px solid rgb(255, 255, 255);
@@ -65,7 +70,7 @@ input:-webkit-autofill {
   
 }
 
-input[type="password"] {
+.main input[type="password"] {
   border: none;
   background-color: rgba(0,0,0,.9);
   border-bottom: 2px solid rgb(255, 255, 255);
@@ -76,6 +81,7 @@ input[type="password"] {
 .button-login {
   background-color: rgb(134, 134, 134);
   color: rgb(216, 216, 216);
+  margin-top: 20px;
   border: none;
   color: white;
   padding: 10px 35px;

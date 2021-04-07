@@ -145,7 +145,7 @@ function Formulario()
             if(!validarTelefone(numero))
                 mensagem.innerHTML+="<p>Número não válido</p>";
             if(vazio(tpCont))
-                mensagem.innerHTML+="<p>Tipo de número vazia</p>";
+                mensagem.innerHTML+="<p>Escollha o tipo</p>";
         }
     }
 

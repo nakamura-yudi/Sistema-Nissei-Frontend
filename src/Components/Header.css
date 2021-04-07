@@ -2,7 +2,7 @@
     width: 10%;
     border: none;
     background-color: rgb(0, 0, 0);
-    font-size: 20px;
+    font-size: 25px;
     color: rgb(255, 255, 255);
     text-shadow: 2px 4px 5px rgb(255, 255, 255);
 }
@@ -13,17 +13,18 @@
 .button-logout{
     width: 7%;
     border: none;
+    font-size: 15px;
     background-color: rgb(0, 0, 0);
     color: #fff;
 }
 .button-logout:hover{
     cursor: pointer;
-    background: #fefffe;
+    background: rgb(197, 192, 192);
     color:rgba(34, 33, 33, 0.849)
 }
 .header{
     width: 100%;
-    height: 30px;
+    height: 35px;
     display: flex;
     margin-bottom: 20px;
 }

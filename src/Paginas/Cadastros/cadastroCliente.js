@@ -10,6 +10,7 @@ function Formulario()
     const [nome,setNome] = useState('');
     const [sexo,setSexo] = useState('');
     const [email,setEmail] = useState('');
+    const [emailAtual,setEmailAtual] = useState('');
     const [bairro,setBairro]=useState('');
     const [rua,setRua]=useState('');
     const [cidade,setCidade]=useState('');
@@ -46,6 +47,7 @@ function Formulario()
             setCpf(resp.data[0].pes_cpf);
             setSexo(resp.data[0].pes_sexo);
             setEmail(resp.data[0].pes_email);
+            setEmailAtual(resp.data[0].pes_email);
         });
 
         const response2 = await api.get(`/clienteCod/${localStorage.getItem('cod_cli')}`).then((resp)=>{
@@ -124,7 +126,16 @@ function Formulario()
         })
         return response;
     }
-    
+    async function validarEmailRepetido(valor){
+        const response = await api.get('/pessoaProcurarEmail/'+valor).then((resp)=>{
+        
+        if(resp.data.length>0)
+            return false;
+        else
+            return true;
+        })
+        return response;
+    }
     async function addLista(){
         let mensagem = document.querySelector("#mensagemContato");
         mensagem.innerHTML="";
@@ -154,6 +165,7 @@ function Formulario()
         let mensagem = document.querySelector(".mensagemCli");
         
         const respCPF= await validarCPFRepetido(cpf);
+        const respEmail= await validarEmailRepetido(email);
         var confere=false;
 
         if(validarCep(cep) && validarCPF(cpf) && validarEmail(email) && validarSexo(sexo) && validarUF(uf))
@@ -161,7 +173,7 @@ function Formulario()
             if(button==="Salvar")
             {
                 mensagem.innerHTML="";
-                if(respCPF)
+                if(respCPF && respEmail)
                 {
                     
                     let codUser;
@@ -208,27 +220,42 @@ function Formulario()
                 } 
                 else
                 {
+                    if(!respCPF)
                     mensagem.innerHTML="<p>CPF já cadastrado</p>";
+                    if(!respEmail)
+                    mensagem.innerHTML+="<p>Email já cadastrado</p>";
                 }
             }
             else{
-                const response=await api.put('/pessoa',{
-                    pes_nome:nome,
-                    pes_cpf:cpf,
-                    pes_sexo:sexo,
-                    pes_email:email
-                })
-                const response2=await api.put('/clientes',{
-                    pes_cod:localStorage.getItem('cod_cli'),
-                    cli_bairro:bairro,
-                    cli_rua:rua,
-                    cli_cidade:cidade,
-                    cli_uf:uf,
-                    cli_cep:cep
-                })
+                if(email!==emailAtual)
+                {
+                    if(!respEmail)
+                        confere=false;
+                    else
+                        confere=true;
+                }
+                if(email===emailAtual || confere){
+                    const response=await api.put('/pessoa',{
+                        pes_nome:nome,
+                        pes_cpf:cpf,
+                        pes_sexo:sexo,
+                        pes_email:email
+                    })
+                    const response2=await api.put('/clientes',{
+                        pes_cod:localStorage.getItem('cod_cli'),
+                        cli_bairro:bairro,
+                        cli_rua:rua,
+                        cli_cidade:cidade,
+                        cli_uf:uf,
+                        cli_cep:cep
+                    })
 
-                alert('Alterado');
-                history.goBack();
+                    alert('Alterado');
+                    history.goBack();
+                }
+                else{
+                    mensagem+="<p>Email já cadastrado</p>"
+                }
             }
         }
         else

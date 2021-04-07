@@ -9,6 +9,7 @@ function FormularioFuncionario()
     const [nome,setNome] = useState('');
     const [sexo,setSexo] = useState('');
     const [email,setEmail] = useState('');
+    const [emailAtual,setEmailAtual] = useState('');
     const [ano,setAno] = useState(0);
     const [senha,setSenha]=useState('');
     const [confSenha,setConfSenha]=useState('');
@@ -37,6 +38,7 @@ function FormularioFuncionario()
             setCpf(resp.data[0].pes_cpf);
             setSexo(resp.data[0].pes_sexo);
             setEmail(resp.data[0].pes_email);
+            setEmailAtual(resp.data[0].pes_email);
         });
         const response2 = await api.get(`/func/${localStorage.getItem('cod_fun')}`).then((resp)=>{
             setAno(resp.data[0].fun_anoInicio);
@@ -105,14 +107,24 @@ function FormularioFuncionario()
         })
         return response;
     }
-    
+    async function validarEmailRepetido(valor){
+        const response = await api.get('/pessoaProcurarEmail/'+valor).then((resp)=>{
+        
+        if(resp.data.length>0)
+            return false;
+        else
+            return true;
+        })
+        return response;
+    }
     
 
     async function adicionarFunc(e){
         e.preventDefault();
         let mensagem = document.querySelector("#mensagem");
-        
+        var confere=false;
         const respCPF= await validarCPFRepetido(cpf);
+        const respEmail= await validarEmailRepetido(email);
         var confere=false;
 
         if(validarCPF(cpf) && validarEmail(email) && validarSexo(sexo) && validarSenha(senha,confSenha) && validarAno(ano))
@@ -120,7 +132,7 @@ function FormularioFuncionario()
             if(button==="Salvar")
             {
                 mensagem.innerHTML="";
-                if(respCPF)
+                if(respCPF && respEmail)
                 {
                     let codUser;
                     const response=await api.post('/pessoas',{
@@ -147,25 +159,40 @@ function FormularioFuncionario()
                 } 
                 else
                 {
+                    if(!respCPF)
                     mensagem.innerHTML="<p>CPF já cadastrado</p>";
+                    if(!respEmail)
+                    mensagem.innerHTML+="<p>Email já cadastrado</p>";
                 }
             }
             else{
-                const response=await api.put('/pessoa',{
-                    pes_cod: localStorage.getItem('cod_fun'),
-                    pes_nome:nome,
-                    pes_cpf:cpf,
-                    pes_sexo:sexo,
-                    pes_email:email
-                })
-                const response2=await api.put('/func',{
-                    pes_cod: localStorage.getItem('cod_fun'),
-                    fun_anoInicio:ano,
-                    fun_senha:senha
-                })
-                alert('Funcionário Alterado');
-                localStorage.clear();
-                history.goBack();
+                if(email!==emailAtual)
+                {
+                    if(!respEmail)
+                        confere=false;
+                    else
+                        confere=true;
+                }
+                if(email===emailAtual || confere){
+                    const response=await api.put('/pessoa',{
+                        pes_cod: localStorage.getItem('cod_fun'),
+                        pes_nome:nome,
+                        pes_cpf:cpf,
+                        pes_sexo:sexo,
+                        pes_email:email
+                    })
+                    const response2=await api.put('/func',{
+                        pes_cod: localStorage.getItem('cod_fun'),
+                        fun_anoInicio:ano,
+                        fun_senha:senha
+                    })
+                    alert('Funcionário Alterado');
+                    localStorage.clear();
+                    history.goBack();
+                }
+                else{
+                    mensagem.innerHTML+="<p>Email já cadastrado</p>"
+                }
             }
         }
         else

@@ -187,7 +187,7 @@ function FormularioFuncionario()
                         fun_senha:senha
                     })
                     alert('Funcionário Alterado');
-                    localStorage.clear();
+                    localStorage.removeItem('cod_fun');
                     history.goBack();
                 }
                 else{

@@ -254,7 +254,7 @@ function Formulario()
                     history.goBack();
                 }
                 else{
-                    mensagem+="<p>Email já cadastrado</p>"
+                    mensagem.innerHTML+="<p>Email já cadastrado</p>"
                 }
             }
         }

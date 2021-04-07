@@ -72,7 +72,7 @@ function Formulario()
         return false;
     }
     function validarCep(valor){
-        var reg=/^\d{5}\-\d{2}$/;
+        var reg=/^\d{5}\-\d{3}$/;
         if(valor.match(reg)!=null)
             return true;
         return false;

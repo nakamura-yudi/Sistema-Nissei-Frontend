@@ -44,23 +44,30 @@
 }
 .input-user{
   width: 70%;
+  color: rgb(255,255,255);
 }
 .input-password{
   width: 70%;
+  
 }
 input[type="text"] {
   border: none;
-  background-color: white;
-  border-bottom: 2px solid gray;
+  background-color: rgba(0,0,0,.9);
+  border-bottom: 2px solid rgb(255, 255, 255);
+  color: rgb(255,255,255);
 }
 
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px white inset;
+  -webkit-box-shadow: 0 0 0 30px rgba(0,0,0,.9) inset;
+  -webkit-text-fill-color: rgb(255, 255, 255);
+  
 }
 
 input[type="password"] {
   border: none;
-  border-bottom: 2px solid gray;
+  background-color: rgba(0,0,0,.9);
+  border-bottom: 2px solid rgb(255, 255, 255);
+  color: rgb(255,255,255);
 }
 
 .button-login {

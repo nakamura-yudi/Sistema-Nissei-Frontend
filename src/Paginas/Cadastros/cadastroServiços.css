@@ -81,7 +81,7 @@
     font-size: 14px;
     color: rgb(212, 212, 212);
     border: 0;
-    border-bottom: 3px solid #ccc;
+    border-bottom: 3px solid rgb(255, 255, 255);
 }
 
 .formularioServico div{

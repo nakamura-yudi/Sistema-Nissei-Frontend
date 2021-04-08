@@ -55,11 +55,14 @@ function CadastroServicos(){
     },[pecs]);
 
     async function alterarServico(){
+        var pecsAux = pecsUti;
+
+        setPecsUti([]);
         await api.get(`/servico/${localStorage.getItem('cod_ser')}`).then((resp)=>{
             setCarro(resp.data[0].car_id);
             setDescricao(resp.data[0].ser_descricao);
             setFunc(resp.data[0].fun_cod);
-            console.log("fun_cod="+resp.data[0].fun_cod);
+
             var date=new Date(resp.data[0].ser_inicio);
             var dat=date.getFullYear()+"-";
             if(date.getMonth()+1<10)
@@ -72,6 +75,7 @@ function CadastroServicos(){
         });
         var i=0,j;
         await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{ 
+            console.log("Quantidade de peças Utilizadas= "+resp.data.length);
             while(i<resp.data.length){
                 j=0;
                 while(j<pecs.length && pecs[j].pec_cod!==resp.data[i].pec_cod)
@@ -80,14 +84,16 @@ function CadastroServicos(){
                 var data= {
                     cod:i,
                     uti_qtde:resp.data[i].uti_qtde,
-                    uti_precoUni: resp.data[i].uti_precoUni,
+                    uti_precoUni: resp.data[i].uti_precoUni.toFixed(2),
                     pec_desc:pecs[j].pec_descricao,
                     pec_cod:pecs[j].pec_cod
                 };
-                setPecsUti([...pecsUti, data]);
+                pecsAux.push(data);
+                console.log(pecsUti);
                 i=i+1;
             }
         });
+        setPecsUti(pecsAux);
     }
     
     async function Excluir(codigo)
@@ -144,9 +150,11 @@ function CadastroServicos(){
                     })
                 }
                 alert('Serviço Cadastrado');
+                history.goBack();
             }
             else{
                 const response=await api.put('/servico',{
+                    ser_cod:localStorage.getItem('cod_ser'),
                     car_id:carro,
                     fun_cod:func,
                     cli_cod:localStorage.getItem('cod_cli'),
@@ -156,8 +164,7 @@ function CadastroServicos(){
                     ser_total:0,
                     ser_status:false
                 })
-                codSer=response.data.lastId;
-                console.log(response.data);
+                codSer=localStorage.getItem('cod_ser');
                 for(let i=0;i<pecsUti.length;i++)
                 {
                     await api.post('/servicopeca',{
@@ -167,6 +174,8 @@ function CadastroServicos(){
                         uti_qtde:pecsUti[i].uti_qtde
                     })
                 }
+                alert('Serviço Alterado');
+                history.goBack();
             }
         }
     }
@@ -187,23 +196,32 @@ function CadastroServicos(){
             }
             else
             {
-                if(pecsUti.length===0)
-                    tam=1;
+                var k=0;
+                while(k<pecsUti.length && peca!==pecsUti[k].pec_desc)
+                    k++;
+                if(k<pecsUti.length){
+                    mensagem.innerHTML="<p>Peça já foi registrada. Exclua e coloque novamente</p>"
+                }
                 else
-                    tam=pecsUti[pecsUti.length-1].cod+1;
+                {
+                    if(pecsUti.length===0)
+                        tam=1;
+                    else
+                        tam=pecsUti[pecsUti.length-1].cod+1;
 
-                const data= {
-                    cod:tam,
-                    uti_qtde:quant,
-                    uti_precoUni: valorUni,
-                    pec_desc:pecs[i].pec_descricao,
-                    pec_cod:pecs[i].pec_cod
-                };
-                setQuant('');
-                setValorUni('');
-                setPeca('');
-                setPecsUti([...pecsUti, data]);
-                mensagem.innerHTML="";
+                    const data= {
+                        cod:tam,
+                        uti_qtde:quant,
+                        uti_precoUni: valorUni,
+                        pec_desc:pecs[i].pec_descricao,
+                        pec_cod:pecs[i].pec_cod
+                    };
+                    setQuant('');
+                    setValorUni('');
+                    setPeca('');
+                    setPecsUti([...pecsUti, data]);
+                    mensagem.innerHTML="";
+                }
             }
         }
         else{

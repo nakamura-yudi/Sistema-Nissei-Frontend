@@ -61,7 +61,8 @@ function voltar(){
         return false;
     }
     function validarPlaca(valor){
-        if(/[A-Z0-9]/.test(valor) && valor.length===7)
+        var reg=/^[A-Z]{3}\d{1}[A-Z]{1}\d{2}$/;
+        if(valor.match(reg)!==null)
             return true;
         return false;
     }

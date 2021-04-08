@@ -74,7 +74,8 @@ function voltar(){
             mensagem.innerHTML+="<p>Marca não foi selecionada</p>"
             test=false;
         }
-        if(negativo(ano)){
+        var now=new Date();
+        if(ano<=0 || ano>now.getFullYear()){
             mensagem.innerHTML+="<p>Ano inválido</p>"
             test=false;
         }

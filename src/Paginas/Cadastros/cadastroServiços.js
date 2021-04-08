@@ -5,32 +5,42 @@ import './cadastroServiços.css'
 import '../../app.css'
 import Header from '../../Components/Header'
 function CadastroServicos(){
-    const [codCli,setCodCli]=useState('');
     const [carro,setCarro]=useState('');
     const [carros,setCarros]=useState([]);
     const [descricao,setDescricao]=useState('');
     const [dtInicio,setDtInicio]=useState('');
     const [pecs,setPecs]=useState([]);
+    const [func,setFunc]=useState('');
+    const [funcs,setFuncs]=useState([]);
 
     const [pecsUti,setPecsUti]=useState([]);
     const [quant,setQuant]=useState('');
     const [valorUni,setValorUni]=useState('');
     const [peca,setPeca]=useState('');
 
+
+    const [button,setButton]=useState('Salvar');
+    const [titulo,setTitulo]=useState('Cadastro de serviço');
     async function listarCarros(){
-        const response2 = await api.get(`/carroPes/${localStorage.getItem('cod_cli')}`).then((resp)=>{
+        await api.get(`/carroPes/${localStorage.getItem('cod_cli')}`).then((resp)=>{
             setCarros(resp.data);
         });
     }
     
     async function listarPecas(){
-        const response2 = await api.get(`/peca`).then((resp)=>{
+        await api.get(`/peca`).then((resp)=>{
             setPecs(resp.data);
         });
     }
 
+    async function listarFuncionarios(){
+        await api.get(`/func`).then((resp)=>{
+            setFuncs(resp.data);
+        });
+    }
+
     useEffect(()=>{
-        setCodCli(localStorage.getItem('cod_cli'));
+        listarFuncionarios();
         listarPecas();
         listarCarros();
     },[]);
@@ -38,15 +48,18 @@ function CadastroServicos(){
     useEffect(()=>{
         if(pecs.length!==0)
             if(localStorage.getItem('cod_ser')!==null){
-                alterarServico()
+                alterarServico();
+                setButton("Alterar");
+                setTitulo("Alterar Serviço");
             }
     },[pecs]);
 
     async function alterarServico(){
-        const response = await api.get(`/servico/${localStorage.getItem('cod_ser')}`).then((resp)=>{
+        await api.get(`/servico/${localStorage.getItem('cod_ser')}`).then((resp)=>{
             setCarro(resp.data[0].car_id);
             setDescricao(resp.data[0].ser_descricao);
-
+            setFunc(resp.data[0].fun_cod);
+            console.log("fun_cod="+resp.data[0].fun_cod);
             var date=new Date(resp.data[0].ser_inicio);
             var dat=date.getFullYear()+"-";
             if(date.getMonth()+1<10)
@@ -58,7 +71,7 @@ function CadastroServicos(){
             setDtInicio(dat);
         });
         var i=0,j;
-        const response2 = await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{ 
+        await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{ 
             while(i<resp.data.length){
                 j=0;
                 while(j<pecs.length && pecs[j].pec_cod!==resp.data[i].pec_cod)
@@ -85,10 +98,7 @@ function CadastroServicos(){
         }
         console.log(i);
         if(localStorage.getItem('cod_ser')!==null){
-            console.log("web ser_cod= "+localStorage.getItem('cod_ser'));
-            console.log("web pec_cod= "+pecsUti[i].pec_cod);
-            console.log(pecsUti);
-            const response=await api.delete(`/servicopeca/${localStorage.getItem('cod_ser')}/${pecsUti[i].pec_cod}`);
+            await api.delete(`/servicopeca/${localStorage.getItem('cod_ser')}/${pecsUti[i].pec_cod}`);
         }
         setPecsUti(pecsUti.filter(pecsUti=>pecsUti.cod!==codigo));
     }
@@ -100,7 +110,10 @@ function CadastroServicos(){
             mensagem.innerHTML+="<p>Carro não foi selecionada</p>"
             test=false;
         }
-        
+        if(vazio(func)){
+            mensagem.innerHTML+="<p>Funcionário não foi selecionada</p>";
+            test=false;
+        }
         
         return test;
     }
@@ -108,27 +121,53 @@ function CadastroServicos(){
         e.preventDefault();
         var codSer;
         if(ValidarCampos()){
-            const response=await api.post('/servico',{
-                car_id:carro,
-                pes_cod:codCli,
-                ser_descricao:descricao,
-                ser_maoObra:0,
-                ser_inicio:dtInicio,
-                ser_total:0,
-                ser_status:false
-            })
-            codSer=response.data.lastId;
-            console.log(response.data);
-            for(let i=0;i<pecsUti.length;i++)
-            {
-                const response2=await api.post('/servicopeca',{
-                    ser_cod:codSer,
-                    pec_cod:pecsUti[i].pec_cod,
-                    uti_precoUni:pecsUti[i].uti_precoUni,
-                    uti_qtde:pecsUti[i].uti_qtde
+            if(button==='Salvar'){
+                const response=await api.post('/servico',{
+                    car_id:carro,
+                    fun_cod:func,
+                    cli_cod:localStorage.getItem('cod_cli'),
+                    ser_descricao:descricao,
+                    ser_maoObra:0,
+                    ser_inicio:dtInicio,
+                    ser_total:0,
+                    ser_status:false
                 })
+                codSer=response.data.lastId;
+                console.log(response.data);
+                for(let i=0;i<pecsUti.length;i++)
+                {
+                    await api.post('/servicopeca',{
+                        ser_cod:codSer,
+                        pec_cod:pecsUti[i].pec_cod,
+                        uti_precoUni:pecsUti[i].uti_precoUni,
+                        uti_qtde:pecsUti[i].uti_qtde
+                    })
+                }
+                alert('Serviço Cadastrado');
             }
-            alert('Serviço Cadastrado');
+            else{
+                const response=await api.put('/servico',{
+                    car_id:carro,
+                    fun_cod:func,
+                    cli_cod:localStorage.getItem('cod_cli'),
+                    ser_descricao:descricao,
+                    ser_maoObra:0,
+                    ser_inicio:dtInicio,
+                    ser_total:0,
+                    ser_status:false
+                })
+                codSer=response.data.lastId;
+                console.log(response.data);
+                for(let i=0;i<pecsUti.length;i++)
+                {
+                    await api.post('/servicopeca',{
+                        ser_cod:codSer,
+                        pec_cod:pecsUti[i].pec_cod,
+                        uti_precoUni:pecsUti[i].uti_precoUni,
+                        uti_qtde:pecsUti[i].uti_qtde
+                    })
+                }
+            }
         }
     }
 
@@ -138,26 +177,34 @@ function CadastroServicos(){
         var tam;
 
         if(valorPositivo(quant) && valorPositivo(valorUni) && !vazio(peca)){
-            if(pecsUti.length===0)
-                tam=1;
-            else
-                tam=pecsUti[pecsUti.length-1].cod+1;
-
             var i=0;
             while(i<pecs.length && pecs[i].pec_descricao!==peca)
                 i++;
-            const data= {
-                cod:tam,
-                uti_qtde:quant,
-                uti_precoUni: valorUni,
-                pec_desc:pecs[i].pec_descricao,
-                pec_cod:pecs[i].pec_cod
-            };
-            setQuant('');
-            setValorUni('');
-            setPeca('');
-            setPecsUti([...pecsUti, data]);
-            mensagem.innerHTML="";
+
+            if(i==pecs.length)
+            {
+                mensagem.innerHTML="<p>Peça não cadastrada</p>"
+            }
+            else
+            {
+                if(pecsUti.length===0)
+                    tam=1;
+                else
+                    tam=pecsUti[pecsUti.length-1].cod+1;
+
+                const data= {
+                    cod:tam,
+                    uti_qtde:quant,
+                    uti_precoUni: valorUni,
+                    pec_desc:pecs[i].pec_descricao,
+                    pec_cod:pecs[i].pec_cod
+                };
+                setQuant('');
+                setValorUni('');
+                setPeca('');
+                setPecsUti([...pecsUti, data]);
+                mensagem.innerHTML="";
+            }
         }
         else{
             if(!valorPositivo(quant))
@@ -214,7 +261,7 @@ function CadastroServicos(){
         <div id="tela" className="background">   
             <Header/> 
             <aside className="div-servico">
-                <h1>Cadastrar Serviços</h1>
+                <h1>{titulo}</h1>
                 <form className='formularioServico' onSubmit={cadastrarServico}>
                     <div className="input-block block-data" >
                         <label htmlFor="dtInicio">Data de inicio: </label>
@@ -230,6 +277,20 @@ function CadastroServicos(){
                                 {carros.map(car=>(
                                     <option key={car.car_id} value={car.car_id}>
                                         {car.car_placa} {car.car_modelo}
+                                    </option>
+                                ))}
+                        </select>
+                    </div>
+
+                    <div className="input-block block-func">
+                        <label>Funcionário: </label>
+                        <select className="select-func" value={func} onChange={e=>setFunc(e.target.value)}>
+                                <option id="op-selecione" value="">
+                                    Selecione uma opcao
+                                </option>
+                                {funcs.map(fun=>(
+                                    <option key={fun.pes_cod} value={fun.pes_cod}>
+                                        {fun.pes_nome}
                                     </option>
                                 ))}
                         </select>
@@ -299,7 +360,7 @@ function CadastroServicos(){
                     <div id="mensagem">
 
                     </div> 
-                    <button type="submit" id="btnForm">Salvar</button>
+                    <button type="submit" id="btnForm">{button}</button>
                 </form>
                 <button type="button" onClick={voltar}>Voltar</button>
             </aside>

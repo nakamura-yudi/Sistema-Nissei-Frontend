@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
-import './cadastroPeca.css'
+import './cadastroMarca.css'
 import '../../app.css'
 import Header from '../../Components/Header'
-function FormularioPeca()
+function FormularioMarca()
 {
     const [descricao,setDescricao] = useState('');
     const [button,setButton] = useState("Salvar");
-    const [titulo,setTitulo] = useState('Cadastrar Peça');
+    const [titulo,setTitulo] = useState('Cadastrar Marca');
     
     useEffect(()=>{
-        if(localStorage.getItem('pec_cod')!=null)
+        if(localStorage.getItem('mar_cod')!=null)
         {
-            alterarPeca();
+            alterarMarca();
         }
     
         
@@ -21,29 +21,29 @@ function FormularioPeca()
     function voltarHome(){
         history.goBack();
     }
-    async function alterarPeca(){
-        setTitulo("Alterar Peça");
+    async function alterarMarca(){
+        setTitulo("Alterar Marca");
         setButton("Alterar");
 
-        const response = await api.get(`/peca/${localStorage.getItem('pec_cod')}`);
-        setDescricao(response.data[0].pec_descricao);
+        const response = await api.get(`/marcas/${localStorage.getItem('mar_cod')}`);
+        setDescricao(response.data[0].mar_descricao);
        
     }
-    async function adicionarPeca(e){
+    async function adicionarMarca(e){
         e.preventDefault();
   
         if(button==='Salvar'){
-            const response=await api.post('/peca',{
-                pec_descricao: descricao,
+            const response=await api.post('/marcas',{
+                mar_descricao: descricao,
                 
             })
-       
+            alert('Marca cadastrada');
         }
         else{
-            console.log('passei '+descricao);
-            const response=await api.put('/peca',{
-                pec_cod: localStorage.getItem('pec_cod'),
-                pec_descricao: descricao
+         
+            const response=await api.put('/marcas',{
+                mar_cod: localStorage.getItem('mar_cod'),
+                mar_descricao: descricao
             })
         }
         setDescricao('');
@@ -51,9 +51,9 @@ function FormularioPeca()
     return (
     <div className='background'>
         <Header/>
-        <div className="div-peca"> 
-            <h1>Cadastrar Peças</h1>
-            <form className="form-peca" onSubmit={adicionarPeca} >
+        <div className="div-marca"> 
+            <h1>Cadastrar Marca</h1>
+            <form className="form-marca" onSubmit={adicionarMarca} >
                 <div className="input-block" id="block-descricao">
                     <label htmlFor="descricao">Descrição</label>
                     <input className="input-descricao" id="descricao" value={descricao} onChange={e=>setDescricao(e.target.value)} required/>
@@ -62,12 +62,12 @@ function FormularioPeca()
                 <div id="mensagem">
 
                 </div>
-                <button className="button-peca" type="submit" id="btnForm">{button}</button>
+                <button className="button-marca" type="submit" id="btnForm">{button}</button>
             </form>
-            <button className="button-peca" type="button" onClick={voltarHome}>Voltar</button>
+            <button className="button-marca" type="button" onClick={voltarHome}>Voltar</button>
         </div>
     </div>
     );
 }
 
-export default FormularioPeca;
+export default FormularioMarca;

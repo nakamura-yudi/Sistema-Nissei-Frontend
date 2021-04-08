@@ -22,8 +22,8 @@ function Home()
         history.push('/listaFuncionarios');
     }
 
-    function cadastrarPeca(){
-        history.push('/cadastroPeca');
+    function cadastrarMarca(){
+        history.push('/cadastroMarca');
     }
 
     return (
@@ -32,7 +32,7 @@ function Home()
         <div className="list">
             <button type="button" onClick={listarClientes} className="button-home">Listar Clientes</button>
             <button type="button" onClick={listarFuncionarios} className="button-home">Listar Funcionarios</button>
-            <button type="button" onClick={cadastrarPeca} className="button-home">Cadastrar Peça</button>
+            <button type="button" onClick={cadastrarMarca} className="button-home">Cadastrar Marca</button>
             <button type="button" onClick={cadastrarFuncionario} className="button-home">Cadastrar Funcionário</button>
             <button type="button" onClick={cadastrarCliente} className="button-home">Cadastrar Clientes</button>
             

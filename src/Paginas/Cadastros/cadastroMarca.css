@@ -10,8 +10,8 @@
     align-items: center;
     align-content: center;
     justify-content: center;
-    width: 35vw;
-    height: 25vh;
+    width: 40%;
+   
   }
 .form-marca{
     display: flex;
@@ -54,4 +54,20 @@
 .input-descricao{
     margin-left: 2vh;
 }
+/*Tabela*/
+.table-marca{
+    margin-top: 10px;
+}
+.table-marca thead{
+width:100%;
+font-size: 20px;
+text-align: center;
+background-color: rgb(104, 100, 100);
+color: #fff;
+}
+.div-pesquisa{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
 
+}

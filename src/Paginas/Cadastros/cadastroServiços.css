@@ -57,15 +57,23 @@
     display: block;
 }
 
-.formularioServico .block-data{width:50%;}
+.formularioServico .block-data{width:25%;}
 .formularioServico .block-desc{width:100%;}
 .formularioServico .block-quant{width:6%;}
-.formularioServico .block-carro{width:40%;}
+.formularioServico .block-carro{width:30%;}
+.formularioServico .block-func{width:30%;}
 .formularioServico .block-peca{width:60%;margin-right: 5px;}
 .formularioServico .block-valorUni{width:10%;}
 .formularioServico .block-codigo input{text-align: center;}
 
 .formularioServico .select-carro{
+    height: 32px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.formularioServico .select-func{
+    width: 100%;
     height: 32px;
     font-size: 14px;
 }

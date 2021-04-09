@@ -8,7 +8,7 @@ import ListaClientes from './Paginas/Listas/listaClientes'
 import ListaFuncionarios from './Paginas/Listas/listarFuncionario'
 import CadastroCliente from './Paginas/Cadastros/cadastroCliente'
 import CadastroCarro from './Paginas/Cadastros/cadastroCarro'
-import CadastroPeca from './Paginas/Cadastros/cadastroPeca'
+import CadastroMarca from './Paginas/Cadastros/cadastroMarca'
 import CadastroFuncionario from './Paginas/Cadastros/cadastroFuncionario'
 import InfoCliente from './Paginas/ClienteInfo/infoCliente'
 import CadastroContato from './Paginas/Cadastros/cadastroContato'
@@ -24,7 +24,7 @@ function App() {
         <Route path="/listaFuncionarios" exact={true} component={ListaFuncionarios}/>
         <Route path="/cadastroCliente" exact={true} component={CadastroCliente}/>
         <Route path="/cadastroCarro" exact={true} component={CadastroCarro}/>
-        <Route path="/cadastroPeca" exact={true} component={CadastroPeca}/>
+        <Route path="/cadastroMarca" exact={true} component={CadastroMarca}/>
         <Route path="/cadastroFuncionario" exact={true} component={CadastroFuncionario}/>
         <Route path="/cadastroContato" exact={true} component={CadastroContato}/>
         <Route path="/cadastroServico" exact={true} component={CadastroServicos}/>

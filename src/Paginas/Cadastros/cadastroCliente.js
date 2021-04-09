@@ -347,7 +347,7 @@ function Formulario()
                                 <div className="input-block blockCli-tpContato">
                                     <label htmlFor="tipoCont">Tipo de contato</label>
                                     <select id="tipoCont" onChange={e=>setTpCont(e.target.value)} value={tpCont}>
-                                        <option id="op-vazio" valie=''>Selecione uma opção</option>
+                                        <option id="op-vazio" value=''>Selecione uma opção</option>
                                         <option id="op-contA" value="Residencial">Residencial</option>
                                         <option id="op-contB" value="Comercial">Comercial</option>
                                         <option id="op-contC" value="Celular">Celular</option>

@@ -74,7 +74,8 @@ function FormularioFuncionario()
         return false;
     }
     function validarAno(){
-        if(ano>=0)
+        var now=new Date();
+        if(ano>=0 && ano<=now.getFullYear())
             return true;
         return false;
     }
@@ -208,7 +209,7 @@ function FormularioFuncionario()
             if(!validarSenha(senha,confSenha))
             mensagem.innerHTML+="<p>Senhas diferentes</p>"
             if(!validarAno(ano))
-            mensagem.innerHTML+="<p>Ano não pode ser negativo</p>"
+            mensagem.innerHTML+="<p>Ano inválido. Não pode ser negativo nem maior que o ano atual</p>"
         }
     }
 

@@ -61,7 +61,8 @@ function voltar(){
         return false;
     }
     function validarPlaca(valor){
-        if(/[A-Z0-9]/.test(valor) && valor.length===7)
+        var reg=/^[A-Z]{3}\d{1}[A-Z]{1}\d{2}$/;
+        if(valor.match(reg)!==null)
             return true;
         return false;
     }
@@ -73,7 +74,8 @@ function voltar(){
             mensagem.innerHTML+="<p>Marca não foi selecionada</p>"
             test=false;
         }
-        if(negativo(ano)){
+        var now=new Date();
+        if(ano<=0 || ano>now.getFullYear()){
             mensagem.innerHTML+="<p>Ano inválido</p>"
             test=false;
         }

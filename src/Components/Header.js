@@ -4,8 +4,9 @@ import './Header.css'
 function Header(){
     function voltarTela(){
         localStorage.removeItem('cod_cli');
-        localStorage.removeItem('cod_func');
+        localStorage.removeItem('cod_fun');
         localStorage.removeItem('cod_ser');
+        localStorage.removeItem('car_id');
         history.push('/home');
     }
     function logout(){

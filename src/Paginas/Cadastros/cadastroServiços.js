@@ -46,7 +46,7 @@ function CadastroServicos(){
     },[]);
 
     useEffect(()=>{
-        if(pecs.length!==0)
+        if(pecs.length!==0 && pecsUti.length==0)
             if(localStorage.getItem('cod_ser')!==null){
                 alterarServico();
                 setButton("Alterar");
@@ -175,6 +175,7 @@ function CadastroServicos(){
                     })
                 }
                 alert('Serviço Alterado');
+                localStorage.removeItem("cod_ser");
                 history.goBack();
             }
         }

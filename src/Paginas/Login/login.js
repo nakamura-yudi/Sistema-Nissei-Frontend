@@ -48,7 +48,7 @@ function Login(){
               </div>
               <button type="submit" className="button-login">Entrar</button>
             </form>
-            <p onClick={irFormulario} className="text-pointer">Não tem um cadastro? Cadraste-se aqui</p>
+      
           </main>
       </div>
     );

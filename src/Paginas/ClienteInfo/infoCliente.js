@@ -41,6 +41,17 @@ function Home()
         localStorage.setItem('car_id',valor);
         history.push('/cadastroCarro');
     }
+    async function excluirCarro(valor){
+        const response =await api.get(`/servicoCarro/${valor}`).then((resp)=>{
+            
+        });
+        if(response.data.length===0){
+            await api.delete('/carro/'+codigo);
+        }else{
+            await api.put('/carro/'+codigo);
+            setCarros(carros.filter(carros=>carros.car_id==codigo));
+        }
+    }
     function voltar(){
         localStorage.removeItem('cod_cli');
         history.goBack();
@@ -81,7 +92,10 @@ function Home()
                                 <td>{carro.car_placa}</td>
                                 <td>{carro.car_modelo}</td>     
                                 <td>{carro.car_ano}</td>
-                                <td><button type="button" onClick={()=>editarCarro(carro.car_id)} className="table-edit-carro">Editar</button></td>          
+                                <td>
+                                    <button type="button" onClick={()=>editarCarro(carro.car_id)} className="table-edit-carro">Editar</button>
+                                    <button type="button" onClick={()=>excluirCarro(carro.car_id)} className="table-edit-carro">Excluir</button>
+                                </td>          
                             </tr>
                         ))}
                     </tbody>

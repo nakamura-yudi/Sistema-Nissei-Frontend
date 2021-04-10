@@ -14,7 +14,7 @@ function FormularioMarca()
     const [filtro,setFiltro] = useState('');
     useEffect(()=>{
       
-        listarMarca();
+
         
     },[]);
    
@@ -27,7 +27,6 @@ function FormularioMarca()
         }
         else
             listarMarca();
-        setFiltro('');
 
     }
     async function listarMarca(){
@@ -57,7 +56,7 @@ function FormularioMarca()
                 mar_descricao: descricao
             })
             setButton('Salvar');
-            listarMarca();
+            listarMarcaPorFiltro();
         }
         setDescricao('');
     }

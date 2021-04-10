@@ -13,7 +13,7 @@ function FormularioPeca()
     const [filtro,setFiltro] = useState('');
     useEffect(()=>{
       
-        listarPecas();
+
         
     },[]);
    
@@ -26,7 +26,7 @@ function FormularioPeca()
         }
         else
             listarPecas();
-        setFiltro('');
+     
 
     }
     async function listarPecas(){
@@ -48,7 +48,7 @@ function FormularioPeca()
                 
             })
             alert('Peca cadastrada');
-            listarPecas();
+       
         }
         else{
             const response=await api.put('/peca',{
@@ -56,7 +56,7 @@ function FormularioPeca()
                 pec_descricao: descricao
             })
             setButton('Salvar');
-            listarPecas();
+            listarPecaPorFiltro();
         }
         setDescricao('');
     }

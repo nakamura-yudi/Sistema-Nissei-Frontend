@@ -144,9 +144,13 @@ function FormularioMarca()
         {showModal &&
             <div className="modal">
                 <div className="modal-content">
-                    <p>Deseja excluir a marca?</p>
-                    <button type="button" onClick={Excluir}>Confirmar</button>
-                    <button type="button" onClick={btnFecharModal}>Fechar</button>
+                    <div className="modal-content-text"> 
+                        <p>Deseja excluir a marca? Ele pode estar sendo utilizado em outros lugares</p>
+                    </div>
+                    <div className="modal-content-btns">
+                        <button type="button" className="btn-confirma" onClick={Excluir}>Confirmar</button>
+                        <button type="button" className="btn-cancela" onClick={btnFecharModal}>Fechar</button>
+                    </div>
                 </div>
             </div>
         }

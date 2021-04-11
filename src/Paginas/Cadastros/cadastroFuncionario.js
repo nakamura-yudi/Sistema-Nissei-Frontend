@@ -18,6 +18,7 @@ function FormularioFuncionario()
     const [button,setButton]=useState('Salvar');
     const [titulo,setTitulo]=useState('Cadastrar Funcionário');
     const [loading,setLoading]=useState(false);
+    const [nivel,setNivel]=useState('');
 
     useEffect(()=>{
         if(localStorage.getItem('cod_fun')!==null)
@@ -47,6 +48,7 @@ function FormularioFuncionario()
             setAno(resp.data[0].fun_anoInicio);
             setSenha(resp.data[0].fun_senha);
             setConfSenha(resp.data[0].fun_senha);
+            setNivel(resp.data[0].fun_nivel);
         });
     }
     function voltarHome(){
@@ -152,7 +154,8 @@ function FormularioFuncionario()
                     const response2=await api.post('/func',{
                         pes_cod:codUser,
                         fun_anoInicio: ano,
-                        fun_senha:senha
+                        fun_senha:senha,
+                        fun_nivel: nivel
                     })
                     alert('Usuário cadastrado');
                     console.log("cadastrei");
@@ -190,7 +193,8 @@ function FormularioFuncionario()
                     const response2=await api.put('/func',{
                         pes_cod: localStorage.getItem('cod_fun'),
                         fun_anoInicio:ano,
-                        fun_senha:senha
+                        fun_senha:senha,
+                        fun_nivel:nivel
                     })
                     alert('Funcionário Alterado');
                     localStorage.removeItem('cod_fun');
@@ -250,6 +254,15 @@ function FormularioFuncionario()
                             </label>
                             <label className="input-block">Masculino
                                 <input type="radio" name="Sexo" id="Sexo" value="M" checked={sexo==='M'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
+                            </label>
+                        </div>
+                        <div className="input-block block-nivel" >
+                            <label htmlFor="Nivel">Nivel</label>
+                            <label className="input-block">Usuário
+                                <input type="radio" name="Nivel" value="U" checked={nivel==='U'} onClick={e=>setNivel(e.target.value)} onChange={e=>setNivel(e.target.value)}/>
+                            </label>
+                            <label className="input-block">Administrador
+                                <input type="radio" name="Nivel" value="A" checked={nivel=='A'} onClick={e=>setNivel(e.target.value)} onChange={e=>setNivel(e.target.value)}/>
                             </label>
                         </div>
                         

@@ -67,16 +67,27 @@
 .form-funcionario .block-codigo input{text-align: center;}
 .form-funcionario .block-senha{width: 30%;}
 .form-funcionario .block-sexo{
-    width: 93%;
+    width: 50%;
     display: flex;
     flex-flow: row wrap;
     flex-direction: row;
     justify-content: flex-start;
 }
-
+.form-funcionario .block-nivel{
+    width: 40%;
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+}
 .form-funcionario .block-sexo label{width: 15%;}
+.form-funcionario .block-nivel label{width: 15%;}
 .form-funcionario .block-unidade label{width: 15%;}
 .form-funcionario .block-sexo #sexo{
+    width: 20%; 
+    margin-left: 5%; 
+}
+.form-funcionario .block-nivel input{
     width: 20%; 
     margin-left: 5%; 
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactLoading from 'react-loading';
 import api from '../../servicos/api';
 import history from '../../history'
 import '../../app.css'
@@ -15,6 +16,7 @@ function FormularioCarro()
 
     const [button,setButton] = useState("Salvar");
     const [titulo,setTitulo] = useState('Cadastrar Carro');
+    const [loading,setLoading]=useState(false);
     useEffect(()=>{
         if(localStorage.getItem('car_id')!=null)
         {
@@ -91,6 +93,7 @@ function voltar(){
         return test;
     }
     async function adicionarCarro(e){
+        setLoading(true);
         e.preventDefault();
         
         if(ValidarCamposCarro()){
@@ -128,6 +131,7 @@ function voltar(){
             setMarca('');
             setKm(0);
         }
+        setLoading(false);
 
     }
     return (
@@ -172,6 +176,12 @@ function voltar(){
             </form>
             <button type="button" className='button-carro' onClick={voltar}>Voltar</button>
         </div>
+        {loading &&
+            <div className="modalCar">
+                
+                <ReactLoading type={"spinningBubbles"} color={"#ffffff"} height={'20%'} width={'20%'} />
+            </div>
+        }
     </div>
     );
 }

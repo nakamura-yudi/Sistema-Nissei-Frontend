@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactLoading from 'react-loading';
 import api from '../../servicos/api';
 import history from '../../history'
 import './cadastroFuncionario.css'
@@ -16,6 +17,8 @@ function FormularioFuncionario()
     const [isOpen,setIsOpen]=useState(false);
     const [button,setButton]=useState('Salvar');
     const [titulo,setTitulo]=useState('Cadastrar Funcionário');
+    const [loading,setLoading]=useState(false);
+
     useEffect(()=>{
         if(localStorage.getItem('cod_fun')!==null)
         {
@@ -121,6 +124,7 @@ function FormularioFuncionario()
     
 
     async function adicionarFunc(e){
+        setLoading(true);
         e.preventDefault();
         let mensagem = document.querySelector("#mensagem");
         var confere=false;
@@ -151,6 +155,7 @@ function FormularioFuncionario()
                         fun_senha:senha
                     })
                     alert('Usuário cadastrado');
+                    console.log("cadastrei");
                     setNome('');
                     setCpf('');
                     setSexo('');
@@ -211,6 +216,7 @@ function FormularioFuncionario()
             if(!validarAno(ano))
             mensagem.innerHTML+="<p>Ano inválido. Não pode ser negativo nem maior que o ano atual</p>"
         }
+        setLoading(false);
     }
 
     return (
@@ -262,14 +268,19 @@ function FormularioFuncionario()
                             <input type="password" name="confSenha" id="confSenha" value={confSenha} onChange={e=>setConfSenha(e.target.value)} placeholder="Confirme a sua senha" required/>
                         </div>
                         <div id="mensagem">
-
                         </div>
                                 
                              
                         <button type="submit" id="btnForm">{button}</button>
                     </form>
                     <button type="button" onClick={voltarHome}>Voltar</button>
-                </div>    
+                </div>
+                {loading &&
+                    <div className="modal">
+                        
+                        <ReactLoading type={"spinningBubbles"} color={"#ffffff"} height={'20%'} width={'20%'} />
+                    </div>
+                }
             </div>
       
     );

@@ -1,5 +1,6 @@
 import api from '../../servicos/api';
 import React,{useState,useEffect} from 'react';
+import ReactLoading from 'react-loading';
 import history from '../../history'
 import './cadastroServiços.css'
 import '../../app.css'
@@ -21,6 +22,7 @@ function CadastroServicos(){
 
     const [button,setButton]=useState('Salvar');
     const [titulo,setTitulo]=useState('Cadastro de serviço');
+    const [loading,setLoading]=useState(false);
     async function listarCarros(){
         await api.get(`/carroPes/${localStorage.getItem('cod_cli')}`).then((resp)=>{
             setCarros(resp.data);
@@ -127,6 +129,7 @@ function CadastroServicos(){
         return test;
     }
     async function cadastrarServico(e){
+        setLoading(true);
         e.preventDefault();
         var codSer;
         if(ValidarCampos()){
@@ -182,6 +185,7 @@ function CadastroServicos(){
                 history.goBack();
             }
         }
+        setLoading(false);
     }
 
     async function addLista(){
@@ -386,6 +390,12 @@ function CadastroServicos(){
                 </form>
                 <button type="button" onClick={voltar}>Voltar</button>
             </aside>
+            {loading &&
+                <div className="modal">
+                    
+                    <ReactLoading type={"spinningBubbles"} color={"#ffffff"} height={'20%'} width={'20%'} />
+                </div>
+            }
         </div>
     );
 }

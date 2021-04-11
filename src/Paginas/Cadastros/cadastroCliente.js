@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactLoading from 'react-loading';
 import api from '../../servicos/api';
 import history from '../../history'
 import './cadastroCliente.css'
@@ -25,6 +26,7 @@ function Formulario()
     const [isOpen,setIsOpen]=useState(true);
     const [button,setButton]=useState('Salvar');
     const [titulo,setTitulo]=useState('Cadastro de cliente');
+    const [loading,setLoading]=useState(false);
     useEffect(()=>{
         if(localStorage.getItem('cod_cli')!==null)
         {
@@ -41,7 +43,6 @@ function Formulario()
         const cpf_input =  document.querySelector("#cpf");
         cpf_input.disabled=true;
         setIsOpen(false);
-        console.log(localStorage.getItem('cod_cli'));
         const response = await api.get(`/pessoaCod/${localStorage.getItem('cod_cli')}`).then((resp)=>{
             setNome(resp.data[0].pes_nome);
             setCpf(resp.data[0].pes_cpf);
@@ -161,6 +162,7 @@ function Formulario()
     }
 
     async function confirmarDados(e){
+        setLoading(true);
         e.preventDefault();
         let mensagem = document.querySelector(".mensagemCli");
         
@@ -272,7 +274,7 @@ function Formulario()
             if(!validarUF(uf))
             mensagem.innerHTML+="<p>UF inválido</p>";
         }
-    
+        setLoading(false);
     }
     return (
         <div id="tela" >
@@ -384,6 +386,12 @@ function Formulario()
                     <button type="button" onClick={voltar}>Voltar</button>
                 </aside>    
             </div>
+            {loading &&
+                <div className="modal">
+                    
+                    <ReactLoading type={"spinningBubbles"} color={"#ffffff"} height={'20%'} width={'20%'} />
+                </div>
+            }
         </div>
     );
 }

@@ -48,7 +48,7 @@ function FormularioMarca()
                 
             })
             alert('Marca cadastrada');
-            listarMarca();
+          
         }
         else{
             const response=await api.put('/marcas',{
@@ -56,8 +56,9 @@ function FormularioMarca()
                 mar_descricao: descricao
             })
             setButton('Salvar');
-            listarMarcaPorFiltro();
+            
         }
+        listarMarcaPorFiltro();
         setDescricao('');
     }
     async function Excluir(cod)

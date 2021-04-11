@@ -11,11 +11,7 @@ function FormularioPeca()
     const [codigo,setCodigo] = useState();
     const [pecas,setPecas] = useState([]);
     const [filtro,setFiltro] = useState('');
-    useEffect(()=>{
-      
-
-        
-    },[]);
+    
    
     async function listarPecaPorFiltro(){
         
@@ -56,8 +52,9 @@ function FormularioPeca()
                 pec_descricao: descricao
             })
             setButton('Salvar');
-            listarPecaPorFiltro();
+            
         }
+        listarPecaPorFiltro();
         setDescricao('');
     }
     async function Excluir(cod)

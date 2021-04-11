@@ -66,7 +66,7 @@ function ListaFuncionarios()
         <Header/>
         <div className="div-pesquisa">
                 <input className="input-pesquisa" value={filtro} onChange={e=>setFiltro(e.target.value)}/>
-                <button className="button-pesquisa" onClick={listarFuncionarioPorFiltro} type="button" id="btnForm">Pesquisar</button>
+                <button className="button-pesquisa" onClick={listarFuncionarioPorFiltro} type="button" id="btnForm"></button>
         </div>
         <div className="table-funcionarios">
             <table className='tableFunc'>

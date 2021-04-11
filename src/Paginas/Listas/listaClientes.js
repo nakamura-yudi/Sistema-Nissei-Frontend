@@ -68,7 +68,7 @@ function ListaClientes()
         <Header/>
         <div className="div-pesquisa">
                 <input className="input-pesquisa" value={filtro} onChange={e=>setFiltro(e.target.value)}/>
-                <button className="button-pesquisa" onClick={listarClientePorFiltro} type="button" id="btnForm">Pesquisar</button>
+                <button className="button-pesquisa" onClick={listarClientePorFiltro} type="button" id="btnForm"></button>
         </div>
         <div className="table-clientes">
         <table className='tableCli'>

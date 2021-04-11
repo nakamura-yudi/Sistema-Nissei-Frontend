@@ -116,7 +116,7 @@ function FormularioMarca()
             </form>
             <div className="div-pesquisa">
                 <input className="input-pesquisa" value={filtro} onChange={e=>setFiltro(e.target.value)}/>
-                <button className="button-pesquisa" onClick={listarMarcaPorFiltro} type="button" id="btnForm">Pesquisar</button>
+                <button className="button-pesquisa" onClick={listarMarcaPorFiltro} type="button" id="btnForm"></button>
             </div>
             <table className='table-marca'>
                 <thead>

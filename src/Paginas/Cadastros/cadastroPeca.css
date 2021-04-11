@@ -71,8 +71,17 @@ color: #fff;
 
 }
 .div-pesquisa .button-pesquisa{
-    background: url('search.png') no-repeat fixed;
-    background-size: cover;
-    width: 25px;
-    height: 24px;
+    background-image: url('./search.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 23px;
+    height: 22px;
+}
+.div-pesquisa .button-pesquisa:hover{
+    background-image: url('./search.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 23px;
+    height: 22px;
+    opacity: 0.8;
 }

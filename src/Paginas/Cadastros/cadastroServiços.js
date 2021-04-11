@@ -46,7 +46,7 @@ function CadastroServicos(){
     },[]);
 
     useEffect(()=>{
-        if(pecs.length!==0 && pecsUti.length==0)
+        if(pecsUti.length==0)
             if(localStorage.getItem('cod_ser')!==null){
                 alterarServico();
                 setButton("Alterar");
@@ -59,7 +59,11 @@ function CadastroServicos(){
 
         setPecsUti([]);
         await api.get(`/servico/${localStorage.getItem('cod_ser')}`).then((resp)=>{
-            setCarro(resp.data[0].car_id);
+            if(resp.data[0].car_id===null)
+                setCarro("");
+            else{
+                setCarro(resp.data[0].car_id);
+            }
             setDescricao(resp.data[0].ser_descricao);
             setFunc(resp.data[0].fun_cod);
 
@@ -75,7 +79,6 @@ function CadastroServicos(){
         });
         var i=0,j;
         await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{ 
-            console.log("Quantidade de peças Utilizadas= "+resp.data.length);
             while(i<resp.data.length){
                 j=0;
                 while(j<pecs.length && pecs[j].pec_cod!==resp.data[i].pec_cod)

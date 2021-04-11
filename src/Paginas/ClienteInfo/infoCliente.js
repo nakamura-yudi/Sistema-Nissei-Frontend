@@ -10,7 +10,9 @@ function Home()
     const [nome,setNome]=useState('');
     const [email,setEmail]=useState('');
     const [cpf,setCpf]=useState('');
+    const [carro,setCarro]=useState('');
 
+    const [showModal,setShowModal]=useState(false);
 
     const [carros,setCarros]=useState([]);
     useEffect(()=>{
@@ -41,16 +43,30 @@ function Home()
         localStorage.setItem('car_id',valor);
         history.push('/cadastroCarro');
     }
-    async function excluirCarro(valor){
-        const response =await api.get(`/servicoCarro/${valor}`).then((resp)=>{
-            
+    async function btnClickExcluir(valor){
+        setCarro(valor);
+        setShowModal(true);
+    }
+    async function btnFecharModal(){
+        setShowModal(false);
+    }
+    async function excluirCarro(){
+        const response =await api.get(`/servicoCarro/${carro}`).then((resp)=>{
+            if(resp.data.length===0){
+                excluirCarroFisico(carro);
+            }else{
+                excluirCarroLogico(carro);
+            }
         });
-        if(response.data.length===0){
-            await api.delete('/carro/'+codigo);
-        }else{
-            await api.put('/carro/'+codigo);
-            setCarros(carros.filter(carros=>carros.car_id==codigo));
-        }
+    }
+    async function excluirCarroFisico(){
+        await api.delete('/carro/'+carro);
+        setCarros(carros.filter(carros=>carros.car_id!==carro));
+    }
+    async function excluirCarroLogico(){
+        await api.put('/carroLog/'+carro);
+        await api.put(`/servicoCarro/${carro}`)
+        setCarros(carros.filter(carros=>carros.car_id!==carro));
     }
     function voltar(){
         localStorage.removeItem('cod_cli');
@@ -94,7 +110,7 @@ function Home()
                                 <td>{carro.car_ano}</td>
                                 <td>
                                     <button type="button" onClick={()=>editarCarro(carro.car_id)} className="table-edit-carro">Editar</button>
-                                    <button type="button" onClick={()=>excluirCarro(carro.car_id)} className="table-edit-carro">Excluir</button>
+                                    <button type="button" onClick={()=>btnClickExcluir(carro.car_id)} className="table-edit-carro">Excluir</button>
                                 </td>          
                             </tr>
                         ))}
@@ -111,6 +127,15 @@ function Home()
                 <button type="button" onClick={voltar} className="button-info-cliente">Voltar</button>
             </div>
         </div>
+        {showModal &&
+            <div className="modal">
+                <div className="modal-content">
+                    <p>Deseja excluir o carro?</p>
+                    <button type="button" onClick={excluirCarro}>Confirmar</button>
+                    <button type="button" onClick={btnFecharModal}>Fechar</button>
+                </div>
+            </div>
+        }
     </div>
     );
 }

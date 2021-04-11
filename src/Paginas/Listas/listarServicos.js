@@ -119,7 +119,7 @@ function ListaServicos()
                 <tbody>
                     {servicos.map(res=>(
                         <tr key={res.ser_cod}>
-                            <td>{getPlaca(res.car_id)}</td>
+                            <td>placa do carro</td>
                             <td>{res.ser_inicio}</td>
                             <td>{res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>

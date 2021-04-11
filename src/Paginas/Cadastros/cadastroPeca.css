@@ -70,3 +70,9 @@ color: #fff;
     flex-direction: row;
 
 }
+.div-pesquisa .button-pesquisa{
+    background: url('search.png') no-repeat fixed;
+    background-size: cover;
+    width: 25px;
+    height: 24px;
+}

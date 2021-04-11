@@ -12,9 +12,7 @@ function ListaServicos()
     const [filtro,setFiltro]=useState('todas');
     const [filtros,setFiltros]=useState([]);
     useEffect(()=>{
-        
         listarCarros();
-
     },[]);
     useEffect(()=>{
         var i=0,j=0;
@@ -73,11 +71,16 @@ function ListaServicos()
     }
     function getPlaca(cod){
         var i=0;
-        if(carros.length>0){
-            while(i<carros.length && carros[i].car_id!==cod)
-                i++;
-            
-            return carros[i].car_placa +" - "+carros[i].car_modelo;
+        if(cod!==null){
+            if(carros.length>0){
+                while(i<carros.length && carros[i].car_id!==cod)
+                    i++;
+                
+                return carros[i].car_placa +" - "+carros[i].car_modelo;
+            }
+        }
+        else{
+            return "null";
         }
     }
     function getStatus(status){
@@ -119,7 +122,7 @@ function ListaServicos()
                 <tbody>
                     {servicos.map(res=>(
                         <tr key={res.ser_cod}>
-                            <td>placa do carro</td>
+                            <td>{getPlaca(res.car_id)}</td>
                             <td>{res.ser_inicio}</td>
                             <td>{res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>

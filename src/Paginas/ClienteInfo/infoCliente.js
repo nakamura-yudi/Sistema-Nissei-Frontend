@@ -58,6 +58,7 @@ function Home()
                 excluirCarroLogico(carro);
             }
         });
+        setShowModal(false);
     }
     async function excluirCarroFisico(){
         await api.delete('/carro/'+carro);

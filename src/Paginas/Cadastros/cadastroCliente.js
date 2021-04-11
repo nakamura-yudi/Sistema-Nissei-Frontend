@@ -276,6 +276,11 @@ function Formulario()
         }
         setLoading(false);
     }
+    async function Excluir(codigo)
+    {
+    
+        setContatos(verContatos.filter(verContatos=>verContatos.codigo!==codigo));
+    }
     return (
         <div id="tela" >
             
@@ -365,13 +370,19 @@ function Formulario()
                                             <tr>
                                                 <td>Telefones</td>
                                                 <td>Tipo</td>
+                                                <td>Ação</td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {verContatos.map(contato=>(
                                                 <tr key={contato.codigo}>
                                                     <td>{contato.numero}</td>     
-                                                    <td>{contato.tipo}</td>            
+                                                    <td>{contato.tipo}</td>
+                                                    <td>
+                                                        <button id="btexcluir" className="btnExcluirCont" onClick={()=>Excluir(contato.codigo)} type="button">
+                                                            Excluir
+                                                        </button>
+                                                    </td>        
                                                 </tr>
                                             ))}
                                         </tbody>

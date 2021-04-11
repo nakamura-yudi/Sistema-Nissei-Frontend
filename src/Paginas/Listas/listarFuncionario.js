@@ -9,7 +9,8 @@ function ListaFuncionarios()
 {
     const [pessoas,setPessoas]=useState([]);
     const [filtro,setFiltro] = useState('');
-
+    const [showModal,setShowModal]=useState(false);
+    const [codPes,setCodPes] = useState(0);
     useEffect(()=>{
        
     },[]);
@@ -39,17 +40,25 @@ function ListaFuncionarios()
         localStorage.setItem('cod_fun',codigo)
         history.push("/cadastroFuncionario");
     }
-    async function excluirFuncionario(cod){
-        const response = await api.get(`/servicoFuncionario/${cod}`).then((resp)=>{
+    async function btnClickExcluir(pesId){
+        setCodPes(pesId);
+        setShowModal(true);
+    }
+    async function btnFecharModal(){
+        setShowModal(false);
+    }
+    async function excluirFuncionario(){
+        btnFecharModal();
+        const response = await api.get(`/servicoFuncionario/${codPes}`).then((resp)=>{
             if(resp.data.length==0){
-                const response2 = api.delete(`/func/${cod}`);
+                const response2 = api.delete(`/func/${codPes}`);
             }
             else{
-                const response2 = api.put(`/funcLog/${cod}`);
+                const response2 = api.put(`/funcLog/${codPes}`);
             }
         });
 
-        setPessoas(pessoas.filter(pessoas=>pessoas.pes_cod!==cod));
+        setPessoas(pessoas.filter(pessoas=>pessoas.pes_cod!==codPes));
         
     }
     return (
@@ -75,7 +84,7 @@ function ListaFuncionarios()
                             <td>{res.pes_nome}</td>
                             <td>
                             <button onClick={()=>acessarFuncionario(res.pes_cod)} className="button-item">Editar Funcionário</button>
-                            <button onClick={()=>excluirFuncionario(res.pes_cod)} className="button-item">Excluir Funcionário</button>
+                            <button onClick={()=>btnClickExcluir(res.pes_cod)} className="button-item">Excluir Funcionário</button>
                             </td>
                         </tr>
                     ))}
@@ -83,6 +92,15 @@ function ListaFuncionarios()
             </table>
         </div>
         <button type="button" onClick={voltarHome} className="buttonBack">Voltar</button>
+        {showModal &&
+            <div className="modal">
+                <div className="modal-content">
+                    <p>Deseja excluir o funcionário?</p>
+                    <button type="button" onClick={excluirFuncionario}>Confirmar</button>
+                    <button type="button" onClick={btnFecharModal}>Fechar</button>
+                </div>
+            </div>
+        }
     </div>
     );
 }

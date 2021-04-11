@@ -8,6 +8,8 @@ function ListaClientes()
 {
     const [pessoas,setPessoas]=useState([]);
     const [filtro,setFiltro]=useState('');
+    const [showModal,setShowModal]=useState(false);
+    const [codPes,setCodPes] = useState(0);
     useEffect(()=>{
         
     },[]);
@@ -38,18 +40,27 @@ function ListaClientes()
       
 
     }
-    async function excluirCliente(cod){
-        const response = await api.get(`/carroPes/${cod}`).then((resp)=>{
+    async function btnClickExcluir(pesId){
+        setCodPes(pesId);
+        setShowModal(true);
+    }
+    async function btnFecharModal(){
+        setShowModal(false);
+    }
+    async function excluirCliente(){
+        btnFecharModal();
+        const response = await api.get(`/carroPes/${codPes}`).then((resp)=>{
+       
             if(resp.data.length==0){
-                
-                const response2 = api.delete(`/cliente/${cod}`);
+           
+                const response2 = api.delete(`/cliente/${codPes}`);
             }
             else{
-                const response2 = api.put(`/cliente/${cod}`);
+                const response2 = api.put(`/cliente/${codPes}`);
             }
         });
 
-        setPessoas(pessoas.filter(pessoas=>pessoas.pes_cod!==cod));
+        setPessoas(pessoas.filter(pessoas=>pessoas.pes_cod!==codPes));
         
     }
     return (
@@ -75,7 +86,7 @@ function ListaClientes()
                             <td>{res.pes_nome}</td>
                             <td>
                             <button onClick={()=>acessarCliente(res.pes_cod)} className="button-item">Visualizar Cliente</button>
-                            <button onClick={()=>excluirCliente(res.pes_cod)} className="button-item">Excluir Cliente</button>
+                            <button onClick={()=>btnClickExcluir(res.pes_cod)} className="button-item">Excluir Cliente</button>
                             </td>
                         </tr>
                     ))}
@@ -83,6 +94,15 @@ function ListaClientes()
             </table>
         </div>
         <button type="button" onClick={voltarHome} className="buttonBack">Voltar</button>
+        {showModal &&
+            <div className="modal">
+                <div className="modal-content">
+                    <p>Deseja excluir o cliente?</p>
+                    <button type="button" onClick={excluirCliente}>Confirmar</button>
+                    <button type="button" onClick={btnFecharModal}>Fechar</button>
+                </div>
+            </div>
+        }
     </div>
     );
 }

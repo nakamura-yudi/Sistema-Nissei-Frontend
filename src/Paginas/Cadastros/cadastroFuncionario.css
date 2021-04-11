@@ -155,7 +155,7 @@
     width:70%;
 }
 
-.modal {
+.modalFun{
     position: fixed; 
     z-index: 1; 
     padding-top: 100px; 

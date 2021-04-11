@@ -276,7 +276,7 @@ function FormularioFuncionario()
                     <button type="button" onClick={voltarHome}>Voltar</button>
                 </div>
                 {loading &&
-                    <div className="modal">
+                    <div className="modalFun">
                         
                         <ReactLoading type={"spinningBubbles"} color={"#ffffff"} height={'20%'} width={'20%'} />
                     </div>

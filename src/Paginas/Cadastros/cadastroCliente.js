@@ -387,7 +387,7 @@ function Formulario()
                 </aside>    
             </div>
             {loading &&
-                <div className="modal">
+                <div className="modalCli">
                     
                     <ReactLoading type={"spinningBubbles"} color={"#ffffff"} height={'20%'} width={'20%'} />
                 </div>

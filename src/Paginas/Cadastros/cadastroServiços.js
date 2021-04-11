@@ -391,7 +391,7 @@ function CadastroServicos(){
                 <button type="button" onClick={voltar}>Voltar</button>
             </aside>
             {loading &&
-                <div className="modal">
+                <div className="modalSer">
                     
                     <ReactLoading type={"spinningBubbles"} color={"#ffffff"} height={'20%'} width={'20%'} />
                 </div>

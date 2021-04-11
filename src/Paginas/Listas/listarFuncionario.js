@@ -50,7 +50,7 @@ function ListaFuncionarios()
         });
 
         setPessoas(pessoas.filter(pessoas=>pessoas.pes_cod!==cod));
-        listarFuncionarioPorFiltro();
+        
     }
     return (
     <div id="tela" className="background">

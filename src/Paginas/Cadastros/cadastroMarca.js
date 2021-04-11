@@ -8,10 +8,10 @@ function FormularioMarca()
 {
     const [descricao,setDescricao] = useState('');
     const [button,setButton] = useState("Salvar");
-    const [titulo,setTitulo] = useState('Cadastrar Marca');
-    const [codigo,setCodigo] = useState();
+    const [codigo,setCodigo] = useState(0);
     const [marcas,setMarcas] = useState([]);
     const [filtro,setFiltro] = useState('');
+    const [showModal,setShowModal]=useState(false);
     useEffect(()=>{
       
 
@@ -61,20 +61,28 @@ function FormularioMarca()
         listarMarcaPorFiltro();
         setDescricao('');
     }
-    async function Excluir(cod)
+    async function btnClickExcluir(carId){
+        setCodigo(carId);
+        setShowModal(true);
+    }
+    async function btnFecharModal(){
+        setShowModal(false);
+    }
+    async function Excluir()
     {
-        const response = await api.get(`/carroMarca/${cod}`).then((resp)=>{
+        btnFecharModal();
+        const response = await api.get(`/carroMarca/${codigo}`).then((resp)=>{
             console.log(resp.data.length)
         
             if(resp.data.length==0){
-                const response2 = api.delete(`/marcas/${cod}`);
+                const response2 = api.delete(`/marcas/${codigo}`);
             }
             else{
-                const response2= api.put(`/marcasstatus/${cod}`);
+                const response2= api.put(`/marcasstatus/${codigo}`);
             }
             
         });
-        setMarcas(marcas.filter(marcas=>marcas.mar_cod!==cod));
+        setMarcas(marcas.filter(marcas=>marcas.mar_cod!==codigo));
     
 
     }
@@ -125,7 +133,7 @@ function FormularioMarca()
                             <td>{marca.mar_descricao}</td>
                             <td>
                             <button className="button-item" onClick={()=>Alterar(marca.mar_cod)}>Editar</button>
-                            <button className="button-item" onClick={()=>Excluir(marca.mar_cod)}>Excluir</button>
+                            <button className="button-item" onClick={()=>btnClickExcluir(marca.mar_cod)}>Excluir</button>
                             </td>
                         </tr>
                     ))}
@@ -133,6 +141,15 @@ function FormularioMarca()
             </table>
             <button className="button-marca" type="button" onClick={voltarHome}>Voltar</button>
         </div>
+        {showModal &&
+            <div className="modal">
+                <div className="modal-content">
+                    <p>Deseja excluir a marca?</p>
+                    <button type="button" onClick={Excluir}>Confirmar</button>
+                    <button type="button" onClick={btnFecharModal}>Fechar</button>
+                </div>
+            </div>
+        }
     </div>
     );
 }

@@ -11,7 +11,7 @@ function FormularioPeca()
     const [codigo,setCodigo] = useState();
     const [pecas,setPecas] = useState([]);
     const [filtro,setFiltro] = useState('');
-    
+    const [showModal,setShowModal]=useState(false);
    
     async function listarPecaPorFiltro(){
         
@@ -57,20 +57,28 @@ function FormularioPeca()
         listarPecaPorFiltro();
         setDescricao('');
     }
-    async function Excluir(cod)
+    async function btnClickExcluir(pecId){
+        setCodigo(pecId);
+        setShowModal(true);
+    }
+    async function btnFecharModal(){
+        setShowModal(false);
+    }
+    async function Excluir()
     {
-        const response = await api.get(`/serpeca/${cod}`).then((resp)=>{
+        btnFecharModal();
+        const response = await api.get(`/serpeca/${codigo}`).then((resp)=>{
             console.log(resp.data.length)
         
             if(resp.data.length==0){
-                const response2 = api.delete(`/peca/${cod}`);
+                const response2 = api.delete(`/peca/${codigo}`);
             }
             else{
-                const response2= api.put(`/pecaLog/${cod}`);
+                const response2= api.put(`/pecaLog/${codigo}`);
             }
             
         });
-        setPecas(pecas.filter(pecas=>pecas.pec_cod!==cod));
+        setPecas(pecas.filter(pecas=>pecas.pec_cod!==codigo));
      
 
     }
@@ -121,7 +129,7 @@ function FormularioPeca()
                             <td>{peca.pec_descricao}</td>
                             <td>
                             <button className="button-item" onClick={()=>Alterar(peca.pec_cod)}>Editar</button>
-                            <button className="button-item" onClick={()=>Excluir(peca.pec_cod)}>Excluir</button>
+                            <button className="button-item" onClick={()=>btnClickExcluir(peca.pec_cod)}>Excluir</button>
                             </td>
                         </tr>
                     ))}
@@ -129,6 +137,15 @@ function FormularioPeca()
             </table>
             <button className="button-marca" type="button" onClick={voltarHome}>Voltar</button>
         </div>
+        {showModal &&
+            <div className="modal">
+                <div className="modal-content">
+                    <p>Deseja excluir a peça?</p>
+                    <button type="button" onClick={Excluir}>Confirmar</button>
+                    <button type="button" onClick={btnFecharModal}>Fechar</button>
+                </div>
+            </div>
+        }
     </div>
     );
 }

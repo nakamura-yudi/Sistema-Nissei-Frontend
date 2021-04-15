@@ -35,11 +35,8 @@ function ListaServicos()
    
         }
         i=0;
-     
-        listarServicos();
     },[carros]);
     useEffect(()=>{
-      
         if(filtro===null || filtro==="todas")
             listarServicos();
         else
@@ -127,7 +124,7 @@ function ListaServicos()
                             <td>{res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>
                             <td>
-                            <button onClick={()=>acessarServico(res.ser_cod)} className="button-item">Visualizar</button>
+                            <button onClick={()=>acessarServico(res.ser_cod)} className="button-item">Editar</button>
                             </td>
                         </tr>
                     ))}

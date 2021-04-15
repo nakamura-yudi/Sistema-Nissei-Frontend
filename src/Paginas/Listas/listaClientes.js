@@ -31,8 +31,8 @@ function ListaClientes()
     async function listarClientePorFiltro(){
         
         if(filtro.length>0){
-            const response = await api.get(`/pessoasCliFiltro/${filtro}`).then((response)=>{
-                setPessoas(response.data);
+            const response = await api.get(`/pessoasCliFiltro/${filtro}`).then((resp)=>{
+                setPessoas(resp.data);
             })
         }
         else

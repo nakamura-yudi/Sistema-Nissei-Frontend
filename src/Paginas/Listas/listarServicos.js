@@ -89,6 +89,10 @@ function ListaServicos()
         localStorage.setItem('cod_ser',cod);
         history.push('/cadastroServico');
     }
+    function fecharServico(cod){
+        localStorage.setItem('cod_ser',cod);
+        history.push('/fechaServico');
+    }
     return (
     <div id="tela" className="background">
         <Header/>
@@ -125,6 +129,7 @@ function ListaServicos()
                             <td>{getStatus(res.ser_status)}</td>
                             <td>
                             <button onClick={()=>acessarServico(res.ser_cod)} className="button-item">Editar</button>
+                            <button onClick={()=>fecharServico(res.ser_cod)} className="button-item">Fechar serviço</button>
                             </td>
                         </tr>
                     ))}

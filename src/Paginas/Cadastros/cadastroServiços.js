@@ -10,6 +10,7 @@ function CadastroServicos(){
     const [carros,setCarros]=useState([]);
     const [descricao,setDescricao]=useState('');
     const [dtInicio,setDtInicio]=useState('');
+    const [maoObra,setMaoObra]=useState('0');
     const [pecs,setPecs]=useState([]);
     const [func,setFunc]=useState('');
     const [funcs,setFuncs]=useState([]);
@@ -70,7 +71,7 @@ function CadastroServicos(){
             }
             setDescricao(resp.data[0].ser_descricao);
             setFunc(resp.data[0].fun_cod);
-
+            setMaoObra(resp.data[0].ser_maoObra);
             var date=new Date(resp.data[0].ser_inicio);
             var dat=date.getFullYear()+"-";
             if(date.getMonth()+1<10)
@@ -137,7 +138,7 @@ function CadastroServicos(){
                     fun_cod:func,
                     cli_cod:localStorage.getItem('cod_cli'),
                     ser_descricao:descricao,
-                    ser_maoObra:0,
+                    ser_maoObra:maoObra,
                     ser_inicio:dtInicio,
                     ser_total:0,
                     ser_status:false
@@ -164,7 +165,7 @@ function CadastroServicos(){
                     fun_cod:func,
                     cli_cod:localStorage.getItem('cod_cli'),
                     ser_descricao:descricao,
-                    ser_maoObra:0,
+                    ser_maoObra:maoObra,
                     ser_inicio:dtInicio,
                     ser_total:0,
                     ser_status:false
@@ -320,6 +321,11 @@ function CadastroServicos(){
                                     </option>
                                 ))}
                         </select>
+                    </div>
+                    
+                    <div className="input-block block-maoObra" >
+                        <label htmlFor="maoObra">Valor Mão de Obra: </label>
+                        <input type="number" step="0.01" name="maoObra" id="maoObra" value={maoObra} onChange={e=>setMaoObra(e.target.value)} required/>
                     </div>
 
                     <div className="input-block block-desc">

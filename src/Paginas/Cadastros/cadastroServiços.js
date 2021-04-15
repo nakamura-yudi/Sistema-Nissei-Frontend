@@ -30,7 +30,7 @@ function CadastroServicos(){
     }
     
     async function listarPecas(){
-        await api.get(`/peca`).then((resp)=>{
+        await api.get(`/pecafiltro/${peca}`).then((resp)=>{
             setPecs(resp.data);
         });
     }
@@ -43,18 +43,20 @@ function CadastroServicos(){
 
     useEffect(()=>{
         listarFuncionarios();
-        listarPecas();
         listarCarros();
+        if(localStorage.getItem('cod_ser')!==null){
+            alterarServico();
+            setButton("Alterar");
+            setTitulo("Alterar Serviço");
+        }
     },[]);
 
     useEffect(()=>{
-        if(pecsUti.length==0)
-            if(localStorage.getItem('cod_ser')!==null){
-                alterarServico();
-                setButton("Alterar");
-                setTitulo("Alterar Serviço");
-            }
-    },[pecs]);
+        if(peca.length>=3){
+            listarPecas();
+        }
+    
+    },[peca])
 
     async function alterarServico(){
         var pecsAux = pecsUti;
@@ -79,19 +81,15 @@ function CadastroServicos(){
             dat+=date.getDate();
             setDtInicio(dat);
         });
-        var i=0,j;
+        var i=0;
         await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{ 
             while(i<resp.data.length){
-                j=0;
-                while(j<pecs.length && pecs[j].pec_cod!==resp.data[i].pec_cod)
-                    j++;
-
                 var data= {
                     cod:i,
                     uti_qtde:resp.data[i].uti_qtde,
                     uti_precoUni: resp.data[i].uti_precoUni.toFixed(2),
-                    pec_desc:pecs[j].pec_descricao,
-                    pec_cod:pecs[j].pec_cod
+                    pec_desc:resp.data[i].pec_descricao,
+                    pec_cod:resp.data[i].pec_cod
                 };
                 pecsAux.push(data);
                 console.log(pecsUti);
@@ -148,12 +146,13 @@ function CadastroServicos(){
                 console.log(response.data);
                 for(let i=0;i<pecsUti.length;i++)
                 {
-                    await api.post('/servicopeca',{
+                    const response2=await api.post('/servicopeca',{
                         ser_cod:codSer,
                         pec_cod:pecsUti[i].pec_cod,
                         uti_precoUni:pecsUti[i].uti_precoUni,
                         uti_qtde:pecsUti[i].uti_qtde
                     })
+                    console.log(response2);
                 }
                 alert('Serviço Cadastrado');
                 history.goBack();
@@ -173,12 +172,13 @@ function CadastroServicos(){
                 codSer=localStorage.getItem('cod_ser');
                 for(let i=0;i<pecsUti.length;i++)
                 {
-                    await api.post('/servicopeca',{
+                    const response2=await api.post('/servicopeca',{
                         ser_cod:codSer,
                         pec_cod:pecsUti[i].pec_cod,
                         uti_precoUni:pecsUti[i].uti_precoUni,
                         uti_qtde:pecsUti[i].uti_qtde
                     })
+                    console.log(response2);
                 }
                 alert('Serviço Alterado');
                 localStorage.removeItem("cod_ser");
@@ -341,7 +341,7 @@ function CadastroServicos(){
                         {pecs && (
                             <div className="input-block block-peca">
                                 <label>Peça: </label>
-                                <input type="text" name="peca" list="pecanome" className="select-peca" value={peca} onChange={e=>setPeca(e.target.value)}/>
+                                <input type="text" autoComplete="off" name="peca" list="pecanome" className="select-peca" value={peca} placeholder="Digite pelo menos 3 letras" onChange={e=>setPeca(e.target.value)}/>
                                     <datalist id="pecanome">
                                         {pecs.map(pec=>(
                                             <option key={pec.pec_cod} value={pec.pec_descricao}></option>

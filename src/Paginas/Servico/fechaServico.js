@@ -29,9 +29,12 @@ function FechaServico()
     },[pgto]);
     useEffect(()=>{
         var i=0;
+        console.log(pecsUti.length);
         while(i<pecsUti.length){   
+            console.log('valor: '+pecsUti[i].uti_precoUni*pecsUti[i].uti_qtde);
             var t=total+pecsUti[i].uti_precoUni*pecsUti[i].uti_qtde;
             setTotal(t);
+            console.log('total: '+total);
             i++;
         }
         
@@ -42,7 +45,7 @@ function FechaServico()
             
             var t=total+resp.data[0].ser_maoObra;
             setTotal(t);
-      
+            console.log('totalSEr: '+total);
         });
     }
     async function listarPecsUtiizadas(){

@@ -82,7 +82,7 @@ function Home()
         return false;
     }
     function exibirServicos(){
-        history.push('/listarServicos');
+        history.push('/listarServicosCliente');
     }
     return (
     <div className="background">

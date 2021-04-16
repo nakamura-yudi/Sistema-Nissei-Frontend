@@ -13,7 +13,7 @@ import CadastroFuncionario from './Paginas/Cadastros/cadastroFuncionario'
 import InfoCliente from './Paginas/ClienteInfo/infoCliente'
 import CadastroContato from './Paginas/Cadastros/cadastroContato'
 import CadastroServicos from './Paginas/Cadastros/cadastroServiços' 
-import ListaServicos from './Paginas/Listas/listarServicos'
+import ListaServicosCliente from './Paginas/Listas/listarServicosCliente'
 import CadastroPeca from './Paginas/Cadastros/cadastroPeca'
 import FechaServico from './Paginas/Servico/fechaServico'
 function App() {
@@ -32,7 +32,7 @@ function App() {
         <Route path="/cadastroContato" exact={true} component={CadastroContato}/>
         <Route path="/cadastroServico" exact={true} component={CadastroServicos}/>
         <Route path="/infoCliente" exact={true} component={InfoCliente}/>
-        <Route path="/listarServicos" exact={true} component={ListaServicos}/>
+        <Route path="/listarServicosCliente" exact={true} component={ListaServicosCliente}/>
         <Route path="/fechaServico" exact={true} component={FechaServico}/>
       </Switch>
     </Router>

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
 import '../../app.css'
-import './listarServicos.css'
+import './listarServicosCliente.css'
 import Header from '../../Components/Header'
 
-function ListaServicos()
+function ListaServicosCliente()
 {
     const [carros,setCarros]=useState([]);
     const [servicos,setServicos]=useState([]);
@@ -141,4 +141,4 @@ function ListaServicos()
     );
 }
 
-export default ListaServicos;
+export default ListaServicosCliente;

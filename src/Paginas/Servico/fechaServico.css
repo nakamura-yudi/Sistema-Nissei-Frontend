@@ -12,22 +12,35 @@
     width: 40%;
    
   }
-
+.divtable-pecasuti{
+  width: 80%;
+  text-align: center;
+}
+.select-pgto{
+  width: 20%;
+}
+.p-total{
+  text-align: right;
+  width: 80%;
+}
+/*Forma de pagamento*/
 .div-formaPgto{
-  width: 50%;
+  width: 80%;
   margin-bottom: 5px;
 }
+/*Quantidade de parcelas*/
 .div-qtdeParcela{
-  width: 50%;
+  width: 80%;
   margin-bottom: 5px;
 }
 .div-qtdeParcela .input-qtdeParcela{
-    width: 16%;
+    width: 17%;
 }
+/*Valor da parcela*/
 .div-valorParcela{
-  width: 50%;
+  width: 80%;
   margin-bottom: 5px;
 }
 .div-valorParcela .input-valorParcela{
-  width: 30%;
+  width: 25%;
 }

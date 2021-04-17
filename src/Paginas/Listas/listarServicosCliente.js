@@ -45,7 +45,7 @@ function ListaServicosCliente()
         }
     },[filtro]);
     function voltarHome(){
-        
+   
         history.goBack();
     }
     async function listarServicos(){

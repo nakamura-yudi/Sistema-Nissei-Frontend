@@ -107,11 +107,11 @@ function FechaServico()
             <div>
                 <p>Valor da mão de obra: R$ {servico.ser_maoObra}</p>
             </div>
-            <div id="divTable">
+            <div className="divtable-pecasuti">
                         <table id="tabelaCont">
                             <thead>
                                 <tr>
-                                    <td>Quant</td>
+                                    <td>Quantidade</td>
                                     <td>Valor Uni.</td>
                                     <td>Descrição</td>
                               
@@ -129,7 +129,8 @@ function FechaServico()
                             </tbody>
                         </table>
             </div>
-            <p>Total: R$ {total}</p>
+            <p className="p-total">Total: R$ {total}</p>
+            
             <div className="div-formaPgto">
                 <label>Forma de Pagamento: </label>
                 <select className="select-pgto" value={pgto} onChange={e=>setPgto(e.target.value)}>

@@ -50,16 +50,7 @@ function ListaServicos()
         history.push('/fechaServico');
     }
     async function filtrar(){
-        const response=await api.get('/servicoFiltro',{
-            cli_nome:cliente,
-            fun_cod:funcionario,
-            dt_inicio:dtInicio,
-            dt_saida:dtSaida,
-            mar_cod:marca,
-            car_placa: placa,
-            status:status
-        }).then((resp)=>{
-            console.log(resp.data);
+        const response=await api.get(`/servicoFiltro/?cliente=${cliente}&fun_cod=${funcionario}&dt_inicio=${dtInicio}&dt_saida=${dtSaida}&mar_cod=${marca}&car_placa=${placa}&status=${status}`).then((resp)=>{
             setServicos(resp.data);
         })
     }
@@ -124,6 +115,7 @@ function ListaServicos()
                 <thead>
                     <tr>
                         <td>Cliente</td>
+                        <td>Funcionário</td>
                         <td>Carro</td>
                         <td>Marca</td>
                         <td>Data de inicio</td>
@@ -135,7 +127,8 @@ function ListaServicos()
                 <tbody>
                     {servicos.map(res=>(
                         <tr key={res.ser_cod}>
-                            <td>{res.pes_nome}</td>
+                            <td>{res.cli_nome}</td>
+                            <td>{res.fun_nome}</td>
                             <td>{res.car_placa}</td>
                             <td>{res.mar_descricao}</td>
                             <td>{res.ser_inicio}</td>

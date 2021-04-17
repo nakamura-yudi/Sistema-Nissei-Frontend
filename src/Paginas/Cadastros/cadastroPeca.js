@@ -67,7 +67,7 @@ function FormularioPeca()
     async function Excluir()
     {
         btnFecharModal();
-        const response = await api.get(`/serpeca/${codigo}`).then((resp)=>{
+        const response = await api.get(`/servicoPecasPeca/${codigo}`).then((resp)=>{
             console.log(resp.data.length)
         
             if(resp.data.length==0){

@@ -16,6 +16,7 @@ import CadastroServicos from './Paginas/Cadastros/cadastroServiços'
 import ListaServicosCliente from './Paginas/Listas/listarServicosCliente'
 import CadastroPeca from './Paginas/Cadastros/cadastroPeca'
 import FechaServico from './Paginas/Servico/fechaServico'
+import ListaServicos from './Paginas/Listas/listaServicos'
 function App() {
   return (
     <Router history={history}>
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" exact={true} component={Login}/>
         <Route path="/home" exact={true} component={Home}/>
         <Route path="/listaClientes" exact={true} component={ListaClientes}/>
+        <Route path="/listaServicos" exact={true} component={ListaServicos}/>
         <Route path="/listaFuncionarios" exact={true} component={ListaFuncionarios}/>
         <Route path="/cadastroCliente" exact={true} component={CadastroCliente}/>
         <Route path="/cadastroCarro" exact={true} component={CadastroCarro}/>

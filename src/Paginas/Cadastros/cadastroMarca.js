@@ -75,10 +75,11 @@ function FormularioMarca()
             console.log(resp.data.length)
         
             if(resp.data.length==0){
-                const response2 = api.delete(`/marcas/${codigo}`);
+                api.delete(`/marcas/${codigo}`);
             }
             else{
-                const response2= api.put(`/marcasstatus/${codigo}`);
+                api.put(`/marcasstatus/${codigo}`);
+                api.put(`/carroMarcaNull/${codigo}`);
             }
             
         });

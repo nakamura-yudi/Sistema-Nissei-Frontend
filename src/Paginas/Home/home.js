@@ -31,6 +31,9 @@ function Home()
     function listarFuncionarios(){
         history.push('/listaFuncionarios');
     }
+    function listarServicos(){
+        history.push('/listaServicos');
+    }
 
     function cadastrarMarca(){
         history.push('/cadastroMarca');
@@ -46,6 +49,7 @@ function Home()
             <button type="button" onClick={listarFuncionarios} className="button-home">Listar Funcionarios</button>
             <button type="button" onClick={cadastrarMarca} className="button-home">Marcas de carro</button>
             <button type="button" onClick={cadastrarPeca} className="button-home">Peças</button>
+            <button type="button" onClick={listarServicos} className="button-home">Listar Serviço</button>
             {isOpen &&
                 <button type="button" onClick={cadastrarFuncionario} className="button-home">Cadastrar Funcionário</button>
             }

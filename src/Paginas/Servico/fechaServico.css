@@ -2,7 +2,7 @@
     background-color: rgb(0, 0, 0,.95);
     box-shadow: 0 0 14px 0 rgba(0 , 0 , 0, 0.02);
     border-radius: 25px;
-    padding: 30px;
+    padding: 15px;
     color: #ffff;
     display: flex;
     flex-direction: column;
@@ -12,3 +12,22 @@
     width: 40%;
    
   }
+
+.div-formaPgto{
+  width: 50%;
+  margin-bottom: 5px;
+}
+.div-qtdeParcela{
+  width: 50%;
+  margin-bottom: 5px;
+}
+.div-qtdeParcela .input-qtdeParcela{
+    width: 16%;
+}
+.div-valorParcela{
+  width: 50%;
+  margin-bottom: 5px;
+}
+.div-valorParcela .input-valorParcela{
+  width: 30%;
+}

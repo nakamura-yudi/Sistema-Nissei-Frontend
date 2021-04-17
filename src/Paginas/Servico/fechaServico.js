@@ -13,45 +13,48 @@ function FechaServico()
     const [pecsUti,setPecasUti] = useState([]);
     const [total,setTotal] = useState(0);
     const [valorParcela,setValorParcela]=useState(0);
+
+    const [showModal,setShowModal]=useState(false);
     useEffect(()=>{
-        listarServico();
-        listarPecsUtiizadas();
-        
+        listarServico();   
     },[]);
+    useEffect(()=>{
+        let i=0;
+        let t=0;
+        while(i<pecsUti.length){   
+            t+=pecsUti[i].uti_precoUni*pecsUti[i].uti_qtde;
+            console.log(t);
+            i++;
+        }
+        setTotal(t+total);
+        setValorParcela(t+total);
+    },[pecsUti]);
     useEffect(()=>{
         if(pgto==="vista"){
             setDisabledQtde(true);
             setQtdeParcela(1);
+            setValorParcela(total);
         }
         else{
-            setDisabledQtde(false);    
+            setDisabledQtde(false);
+            setValorParcela(total/qtdeParcela);
         }    
-    },[pgto]);
-    useEffect(()=>{
-        var i=0;
-        console.log(pecsUti.length);
-        while(i<pecsUti.length){   
-            console.log('valor: '+pecsUti[i].uti_precoUni*pecsUti[i].uti_qtde);
-            var t=total+pecsUti[i].uti_precoUni*pecsUti[i].uti_qtde;
-            setTotal(t);
-            console.log('total: '+total);
-            i++;
-        }
-        
-    },[pecsUti]);
+    },[pgto,qtdeParcela]);
+    
+    
     async function listarServico(){
         await api.get(`/servico/${localStorage.getItem('cod_ser')}`).then((resp)=>{
-            setServico(resp.data[0]);
+            setServico(resp.data[0]);     
+            console.log('passei no listar serviço');
+            setTotal(resp.data[0].ser_maoObra);
+            listarPecsUtiizadas();
             
-            var t=total+resp.data[0].ser_maoObra;
-            setTotal(t);
-            console.log('totalSEr: '+total);
         });
+        
     }
     async function listarPecsUtiizadas(){
         await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{
-            setPecasUti(resp.data);
-            
+            setPecasUti(resp.data); 
         });
     }
     function voltarHome(){
@@ -59,6 +62,45 @@ function FechaServico()
         history.goBack();
     }
 
+    async function btnClickGerarConta(){
+        setShowModal(true);
+    }
+    async function btnFecharModal(){
+        setShowModal(false);
+    }
+    async function gerarContaReceber(){
+        btnFecharModal();
+        var date = new Date();
+        if(pgto==='vista'){
+       
+            await api.post('/conta',{
+                con_cod: 1,
+                ser_cod: localStorage.getItem('cod_ser'),
+                con_valor: valorParcela,
+                con_dtVencimento: date
+            })
+           
+        }
+        else{
+            date.setDate(date.getDate() + 30);
+            for(var i=1;i<=qtdeParcela;i++){
+                await api.post('/conta',{
+                    con_cod: i,
+                    ser_cod: localStorage.getItem('cod_ser'),
+                    con_valor: valorParcela,
+                    con_dtVencimento: date
+                })
+                date.setDate(date.getDate() + 30);
+            }
+        }
+        await api.post('/conta',{
+            con_cod: 1,
+            ser_cod: localStorage.getItem('cod_ser'),
+            con_valor: valorParcela,
+            con_dtVencimento: date
+        })
+        voltarHome();
+    }
    
     return (
     <div className='background'>
@@ -91,7 +133,7 @@ function FechaServico()
                         </table>
             </div>
             <p>Total: R$ {total}</p>
-            <div className="input-block">
+            <div className="div-formaPgto">
                 <label>Forma de Pagamento: </label>
                 <select className="select-pgto" value={pgto} onChange={e=>setPgto(e.target.value)}>
                         <option value="vista">
@@ -103,16 +145,30 @@ function FechaServico()
                         
                 </select>
             </div>
-            <div className="input-block">
+            <div className="div-qtdeParcela">
                 <label>Quatidade de parcelas: </label>
-                <input type="number" disabled={disabledQtde} name="quant" id="quant" value={qtdeParcela} onChange={e=>setQtdeParcela(e.target.value)} />
+                <input type="number" disabled={disabledQtde} min={1} className='input-qtdeParcela' value={qtdeParcela} onChange={e=>setQtdeParcela(e.target.value)} />
             </div>
-            <div className="input-block">
+            <div className="div-valorParcela">
                 <label>Valor da Parcela: </label>
-                <input type="number" disabled={true} value={valorParcela} onChange={e=>setValorParcela(e.target.value)} />
+                <input type="number" disabled={true} value={valorParcela} className='input-valorParcela' onChange={e=>setValorParcela(e.target.value)} />
             </div>
+            <button type="button" onClick={()=>btnClickGerarConta()} className="button-marca">Gerar conta a receber</button>
             <button type="button" onClick={voltarHome} className="button-marca">Voltar</button>
         </div>
+        {showModal &&
+            <div className="modal">
+                <div className="modal-content">
+                    <div className="modal-content-text"> 
+                        <p>Deseja realmente fechar o serviço?</p>
+                    </div>
+                    <div className="modal-content-btns">
+                        <button type="button" className="btn-confirma" onClick={gerarContaReceber}>Confirmar</button>
+                        <button type="button" className="btn-cancela" onClick={btnFecharModal}>Fechar</button>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
     );
 }

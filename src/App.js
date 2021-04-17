@@ -17,6 +17,7 @@ import ListaServicosCliente from './Paginas/Listas/listarServicosCliente'
 import CadastroPeca from './Paginas/Cadastros/cadastroPeca'
 import FechaServico from './Paginas/Servico/fechaServico'
 import ListaServicos from './Paginas/Listas/listaServicos'
+import ListaContaReceber from './Paginas/Listas/listaContasReceber'
 function App() {
   return (
     <Router history={history}>
@@ -36,6 +37,7 @@ function App() {
         <Route path="/infoCliente" exact={true} component={InfoCliente}/>
         <Route path="/listarServicosCliente" exact={true} component={ListaServicosCliente}/>
         <Route path="/fechaServico" exact={true} component={FechaServico}/>
+        <Route path="/listaContasReceber" exact={true} component={ListaContaReceber}/>
       </Switch>
     </Router>
   );

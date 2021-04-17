@@ -23,7 +23,6 @@ function FechaServico()
         let t=0;
         while(i<pecsUti.length){   
             t+=pecsUti[i].uti_precoUni*pecsUti[i].uti_qtde;
-            console.log(t);
             i++;
         }
         setTotal(t+total);
@@ -45,7 +44,6 @@ function FechaServico()
     async function listarServico(){
         await api.get(`/servico/${localStorage.getItem('cod_ser')}`).then((resp)=>{
             setServico(resp.data[0]);     
-            console.log('passei no listar serviço');
             setTotal(resp.data[0].ser_maoObra);
             listarPecsUtiizadas();
             

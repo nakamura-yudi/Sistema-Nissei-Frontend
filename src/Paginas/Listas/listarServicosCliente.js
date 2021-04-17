@@ -45,7 +45,7 @@ function ListaServicosCliente()
         }
     },[filtro]);
     function voltarHome(){
-   
+        
         history.goBack();
     }
     async function listarServicos(){
@@ -95,7 +95,7 @@ function ListaServicosCliente()
     }
     function abrirContasReceber(cod){
         localStorage.setItem('cod_ser',cod);
-        history.push('/abrirContasReceber');
+        history.push('/listaContasReceber');
     }
     return (
     <div id="tela" className="background">

@@ -93,11 +93,10 @@ function FechaServico()
                 date.setDate(date.getDate() + 30);
             }
         }
-        await api.post('/conta',{
-            con_cod: 1,
+        await api.put('/servicoFechar',{
             ser_cod: localStorage.getItem('cod_ser'),
-            con_valor: valorParcela,
-            con_dtVencimento: date
+            ser_total: total,
+            ser_fim: new Date()
         })
         voltarHome();
     }

@@ -93,6 +93,10 @@ function ListaServicosCliente()
         localStorage.setItem('cod_ser',cod);
         history.push('/fechaServico');
     }
+    function abrirContasReceber(cod){
+        localStorage.setItem('cod_ser',cod);
+        history.push('/abrirContasReceber');
+    }
     return (
     <div id="tela" className="background">
         <Header/>
@@ -129,7 +133,8 @@ function ListaServicosCliente()
                             <td>{getStatus(res.ser_status)}</td>
                             <td>
                             <button onClick={()=>acessarServico(res.ser_cod)} className="button-item">Editar</button>
-                            <button onClick={()=>fecharServico(res.ser_cod)} className="button-item">Fechar serviço</button>
+                            <button onClick={()=>fecharServico(res.ser_cod)} disabled={res.ser_status} className="button-item">Fechar serviço</button>
+                            <button onClick={()=>abrirContasReceber(res.ser_cod)} disabled={!res.ser_status} className="button-item">Abrir contas a receber</button>
                             </td>
                         </tr>
                     ))}

@@ -85,7 +85,7 @@ function ListaFuncionarios()
                             <td>{res.pes_nome}</td>
                             <td>
                             <button onClick={()=>acessarFuncionario(res.pes_cod)} className="button-item">Editar</button>
-                            <button onClick={()=>btnClickExcluir(res.pes_cod)} className="button-item">Excluir</button>
+                            <button onClick={()=>btnClickExcluir(res.pes_cod)} className="button-excluirItem">Excluir</button>
                             </td>
                         </tr>
                     ))}

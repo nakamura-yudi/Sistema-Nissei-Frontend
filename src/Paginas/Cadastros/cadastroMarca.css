@@ -40,7 +40,7 @@
     border-radius: 25px;
     cursor: pointer;
 
-    background: #414040;
+    background: #63b86a;
     font-weight: bold;
     color: rgb(216, 216, 216);
     cursor: pointer;
@@ -48,8 +48,50 @@
 }
 
 .button-marca:hover{
-    background: #fefffe;
-    color:rgba(34, 33, 33, 0.849)
+    background: #044604;
+    color:rgba(248, 240, 240, 0.849)
+}
+
+.button-voltarMarca{
+    margin-top: 3vh;
+    border: none;
+    width: 20vw;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 25px;
+    cursor: pointer;
+
+    background: #a0a0a0;
+    font-weight: bold;
+    color: rgb(68, 68, 68);
+    cursor: pointer;
+    transition: background 0.5s;
+}
+
+.button-voltarMarca:hover{
+    background: #eeeeee;
+    color:rgba(27, 27, 27, 0.849)
+}
+.btnExcluirMarca{
+    border: none;
+    background:rgb(248, 157, 157);
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    width: 170px;
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.btnExcluirMarca:hover{
+    background-color: rgb(253, 56, 56);
+    color: rgb(255, 255, 255);
 }
 .input-descricao{
     margin-left: 2vh;

@@ -92,7 +92,7 @@
     width: 100%;
     border: 0;
     color:rgb(31, 28, 28);
-    background:rgb(255, 230, 230);
+    background:rgb(248, 157, 157);
     border-radius: 5px;
     padding: 15px 20px;
     font-size: 16px;
@@ -102,7 +102,7 @@
 }
 
 .btnExcluirCont:hover{
-    background-color: rgb(233, 128, 128);
+    background-color: rgb(253, 56, 56);
     color: rgb(255, 255, 255);
 }
 .btnVoltarPerf{

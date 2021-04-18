@@ -86,7 +86,7 @@ function ListaClientes()
                             <td>{res.pes_nome}</td>
                             <td>
                             <button onClick={()=>acessarCliente(res.pes_cod)} className="button-item">Visualizar Cliente</button>
-                            <button onClick={()=>btnClickExcluir(res.pes_cod)} className="button-item">Excluir Cliente</button>
+                            <button onClick={()=>btnClickExcluir(res.pes_cod)} className="button-excluirItem">Excluir Cliente</button>
                             </td>
                         </tr>
                     ))}

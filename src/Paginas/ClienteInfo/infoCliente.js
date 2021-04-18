@@ -51,7 +51,7 @@ function Home()
         setShowModal(false);
     }
     async function excluirCarro(){
-        const response =await api.get(`/servicoCarro/${carro}`).then((resp)=>{
+        await api.get(`/servicoCarro/${carro}`).then((resp)=>{
             if(resp.data.length===0){
                 excluirCarroFisico(carro);
             }else{
@@ -93,7 +93,7 @@ function Home()
                 <p>Emal:{email}</p>
                 <p>CPF:{cpf}</p>
             </div>
-            <div id="divTable" className="table-carro">
+            {carros.length>0 && <div id="divTable" className="table-carro">
                 <table id="tabelaCont">
                     <thead>
                         <tr>
@@ -117,7 +117,7 @@ function Home()
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </div>}
 
             <div>
                 <button type="button" onClick={editarCliente} className="button-info-cliente">Editar Cliente</button>

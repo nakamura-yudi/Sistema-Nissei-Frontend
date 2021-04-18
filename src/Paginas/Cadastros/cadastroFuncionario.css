@@ -112,12 +112,12 @@
     border: 0;
 
     margin-top: 5px;
-    background: #414040;
+    background: #63b86a;
     border-radius: 5px;
     padding: 15px 20px;
     font-size: 16px;
     font-weight: bold;
-    color: rgb(216, 216, 216);
+    color: rgb(19, 18, 18);
     cursor: pointer;
     transition: background 0.5s;
 }
@@ -125,8 +125,8 @@
     width: 60%;
 }
 .div-funcionario button[type=submit]:hover{
-    background: #fefffe;
-    color:rgba(34, 33, 33, 0.849)
+    background: #044604;
+    color:rgba(168, 168, 168, 0.849)
 }
 
 .div-funcionario button[type=button]{

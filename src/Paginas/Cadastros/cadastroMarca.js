@@ -119,7 +119,7 @@ function FormularioMarca()
                 <input className="input-pesquisa" value={filtro} onChange={e=>setFiltro(e.target.value)}/>
                 <button className="button-pesquisa" onClick={listarMarcaPorFiltro} type="button" id="btnForm"></button>
             </div>
-            <table className='table-marca'>
+            {marcas.length>0 && <table className='table-marca'>
                 <thead>
                     <tr>
                         <td>Codigo</td>
@@ -134,13 +134,13 @@ function FormularioMarca()
                             <td>{marca.mar_descricao}</td>
                             <td>
                             <button className="button-item" onClick={()=>Alterar(marca.mar_cod)}>Editar</button>
-                            <button className="button-item" onClick={()=>btnClickExcluir(marca.mar_cod)}>Excluir</button>
+                            <button className="btnExcluirMarca" onClick={()=>btnClickExcluir(marca.mar_cod)}>Excluir</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
-            </table>
-            <button className="button-marca" type="button" onClick={voltarHome}>Voltar</button>
+            </table>}
+            <button className="button-voltarMarca" type="button" onClick={voltarHome}>Voltar</button>
         </div>
         {showModal &&
             <div className="modal">

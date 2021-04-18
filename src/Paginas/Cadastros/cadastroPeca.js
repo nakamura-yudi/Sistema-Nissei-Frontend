@@ -114,7 +114,7 @@ function FormularioPeca()
                 <input className="input-pesquisa" value={filtro} onChange={e=>setFiltro(e.target.value)}/>
                 <button className="button-pesquisa" onClick={listarPecaPorFiltro} type="button" id="btnForm"></button>
             </div>
-            <table className='table-marca'>
+            {pecas.length>0 && <table className='table-marca'>
                 <thead>
                     <tr>
                         <td>Codigo</td>
@@ -129,13 +129,13 @@ function FormularioPeca()
                             <td>{peca.pec_descricao}</td>
                             <td>
                             <button className="button-item" onClick={()=>Alterar(peca.pec_cod)}>Editar</button>
-                            <button className="button-item" onClick={()=>btnClickExcluir(peca.pec_cod)}>Excluir</button>
+                            <button className="btnExcluirPeca" onClick={()=>btnClickExcluir(peca.pec_cod)}>Excluir</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
-            </table>
-            <button className="button-marca" type="button" onClick={voltarHome}>Voltar</button>
+            </table>}
+            <button className="button-voltarPeca" type="button" onClick={voltarHome}>Voltar</button>
         </div>
         {showModal &&
             <div className="modal">

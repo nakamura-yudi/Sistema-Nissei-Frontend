@@ -54,6 +54,20 @@ function ListaServicos()
             setServicos(resp.data);
         })
     }
+    function mudarEstruturaData(valor){
+        var date=new Date(valor);
+        let dat="";
+        if(date.getDate()<10)
+            dat+='0';
+        dat+=date.getDate()+"/";
+        if(date.getMonth()+1<10)
+            dat+='0';
+        dat+=(date.getMonth()+1)+"/";
+        dat+=date.getFullYear();
+        
+        
+        return dat;
+    }
     return (
     <div id="tela" className="background">
         <Header/>
@@ -131,7 +145,7 @@ function ListaServicos()
                             <td>{res.fun_nome}</td>
                             <td>{res.car_placa}</td>
                             <td>{res.mar_descricao}</td>
-                            <td>{res.ser_inicio}</td>
+                            <td>{mudarEstruturaData(res.ser_inicio)}</td>
                             <td>{res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>
                             <td>

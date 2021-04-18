@@ -163,7 +163,6 @@ function CadastroServicos(){
                     ser_cod:localStorage.getItem('cod_ser'),
                     car_id:carro,
                     fun_cod:func,
-                    cli_cod:localStorage.getItem('cod_cli'),
                     ser_descricao:descricao,
                     ser_maoObra:maoObra,
                     ser_inicio:dtInicio,

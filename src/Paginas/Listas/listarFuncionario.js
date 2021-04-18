@@ -54,7 +54,8 @@ function ListaFuncionarios()
                 const response2 = api.delete(`/func/${codPes}`);
             }
             else{
-                const response2 = api.put(`/funcLog/${codPes}`);
+                api.put(`/funcLog/${codPes}`);
+                api.put(`/servicoFuncNull/${codPes}`);
             }
         });
 

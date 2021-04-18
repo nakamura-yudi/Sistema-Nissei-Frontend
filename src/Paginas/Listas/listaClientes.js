@@ -53,10 +53,10 @@ function ListaClientes()
        
             if(resp.data.length==0){
            
-                const response2 = api.delete(`/cliente/${codPes}`);
+                api.delete(`/cliente/${codPes}`);
             }
             else{
-                const response2 = api.put(`/cliente/${codPes}`);
+                api.put(`/cliente/${codPes}`);
             }
         });
 

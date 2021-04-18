@@ -18,6 +18,7 @@ function ListaServicos()
     const [funcionarios,setFuncionarios]=useState([]);
     const [marcas,setMarcas]=useState([]);
     useEffect(()=>{
+        localStorage.removeItem("cod_cli");
         listarFuncionarios();
         listarMarcas();
     },[]);
@@ -41,8 +42,9 @@ function ListaServicos()
             return 'Em andamento';
         return 'Finalizado'; 
     }
-    function acessarServico(cod){
-        localStorage.setItem('cod_ser',cod);
+    function acessarServico(cod_ser,cod_cli){
+        localStorage.setItem('cod_ser',cod_ser);
+        localStorage.setItem('cod_cli',cod_cli);
         history.push('/cadastroServico');
     }
     function fecharServico(cod){
@@ -149,7 +151,7 @@ function ListaServicos()
                             <td>{res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>
                             <td>
-                            <button onClick={()=>acessarServico(res.ser_cod)} className="button-item">Editar</button>
+                            <button onClick={()=>acessarServico(res.ser_cod,res.cli_cod)} className="button-item">Editar</button>
                             <button onClick={()=>fecharServico(res.ser_cod)} className="button-item">Fechar serviço</button>
                             </td>
                         </tr>

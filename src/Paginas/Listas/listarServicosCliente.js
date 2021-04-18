@@ -11,6 +11,12 @@ function ListaServicosCliente()
     const [servicos,setServicos]=useState([]);
     const [filtro,setFiltro]=useState('todas');
     const [filtros,setFiltros]=useState([]);
+
+    const [showModal,setShowModal]=useState(false);
+    const [showModalAviso,setShowModalAviso]=useState(false);
+
+    const [codSer,setCodSer]=useState(0);
+    const [totalSer,setTotalSer]=useState(0);
     useEffect(()=>{
         listarCarros();
     },[]);
@@ -49,13 +55,13 @@ function ListaServicosCliente()
         history.goBack();
     }
     async function listarServicos(){
-        const response = await api.get(`/servicoCliente/${localStorage.getItem('cod_cli')}`).then((response)=>{
+        await api.get(`/servicoCliente/${localStorage.getItem('cod_cli')}`).then((response)=>{
             setServicos(response.data);
         })
 
     }
     async function listarServicosCarro(cod){
-        const response = await api.get(`/servicoCarro/${cod}`).then((response)=>{
+        await api.get(`/servicoCarro/${cod}`).then((response)=>{
             setServicos(response.data);
         })
 
@@ -81,7 +87,7 @@ function ListaServicosCliente()
         }
     }
     function getStatus(status){
-        if(status===0)
+        if(status===1)
             return 'Em andamento';
         return 'Finalizado'; 
     }
@@ -97,6 +103,7 @@ function ListaServicosCliente()
         localStorage.setItem('cod_ser',cod);
         history.push('/listaContasReceber');
     }
+    
     function mudarEstruturaData(valor){
         var date=new Date(valor);
         let dat="";
@@ -110,6 +117,36 @@ function ListaServicosCliente()
         
         
         return dat;
+    }
+    async function cancelarFechamento(){
+        btnFecharModal();
+        await api.delete(`/contaPorServico/${codSer}`);
+        await api.put('/servicoFechar',{
+            ser_cod: codSer,
+            ser_total: totalSer,
+            ser_fim: null,
+            ser_status: true
+        })
+        listarServicosCarro(filtro);
+        
+    }
+    async function btnClickCancelarFechamento(cod,total){
+        setCodSer(cod);
+        setTotalSer(total);
+        await api.get(`/contaPaga/${cod}`).then((response)=>{
+            if(response.data.length==0){
+                setShowModal(true);
+            }
+            else{
+                setShowModalAviso(true);
+            }
+        })
+        
+        
+    }
+    async function btnFecharModal(){
+        setShowModal(false);
+        setShowModalAviso(false);
     }
     return (
     <div id="tela" className="background">
@@ -143,18 +180,44 @@ function ListaServicosCliente()
                         <tr key={res.ser_cod}>
                             <td>{getPlaca(res.car_id)}</td>
                             <td>{mudarEstruturaData(res.ser_inicio)}</td>
-                            <td>{res.ser_total}</td>
+                            <td>R$ {res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>
                             <td>
-                            <button onClick={()=>acessarServico(res.ser_cod)} className="button-item">Editar</button>
-                            <button onClick={()=>fecharServico(res.ser_cod)} disabled={res.ser_status} className="button-item">Fechar serviço</button>
-                            <button onClick={()=>abrirContasReceber(res.ser_cod)} disabled={!res.ser_status} className="button-item">Abrir contas a receber</button>
+                            <button onClick={()=>acessarServico(res.ser_cod)} disabled={!res.ser_status} className="button-item">Editar</button>
+                            <button onClick={()=>fecharServico(res.ser_cod)} disabled={!res.ser_status} className="button-item">Fechar serviço</button>
+                            <button onClick={()=>abrirContasReceber(res.ser_cod)} disabled={res.ser_status} className="button-item">Abrir contas a receber</button>
+                            <button onClick={()=>btnClickCancelarFechamento(res.ser_cod,res.ser_total)} disabled={res.ser_status} className="button-item">Cancelar fechamento</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
+        {showModal &&
+            <div className="modal">
+                <div className="modal-content">
+                    <div className="modal-content-text"> 
+                        <p>Deseja realmente cancelar o fechamento do serviço?</p>
+                    </div>
+                    <div className="modal-content-btns">
+                        <button type="button" className="btn-confirma" onClick={cancelarFechamento}>Confirmar</button>
+                        <button type="button" className="btn-cancela" onClick={btnFecharModal}>Fechar</button>
+                    </div>
+                </div>
+            </div>
+        }
+        {showModalAviso &&
+            <div className="modal">
+                <div className="modal-content">
+                    <div className="modal-content-text"> 
+                        <p>Não é possivel cancelar. Pagamento já recebido</p>
+                    </div>
+                    <div className="modal-content-btns">
+                        <button type="button" className="btn-cancela" onClick={btnFecharModal}>Fechar</button>
+                    </div>
+                </div>
+            </div>
+        }
         <button type="button" onClick={voltarHome} className="buttonBack">Voltar</button>
     </div>
     );

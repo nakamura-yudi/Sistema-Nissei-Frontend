@@ -94,7 +94,8 @@ function FechaServico()
         await api.put('/servicoFechar',{
             ser_cod: localStorage.getItem('cod_ser'),
             ser_total: total,
-            ser_fim: new Date()
+            ser_fim: new Date(),
+            ser_status: false
         })
         voltarHome();
     }

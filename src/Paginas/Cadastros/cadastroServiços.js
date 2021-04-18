@@ -131,6 +131,12 @@ function CadastroServicos(){
         setLoading(true);
         e.preventDefault();
         var codSer;
+        let totalSer=0;
+        for(let i=0;i<pecsUti.length;i++){
+            totalSer=totalSer+pecsUti[i].uti_qtde*pecsUti[i].uti_precoUni;
+        }
+        totalSer=totalSer+maoObra;
+  
         if(ValidarCampos()){
             if(button==='Salvar'){
                 const response=await api.post('/servico',{
@@ -140,8 +146,8 @@ function CadastroServicos(){
                     ser_descricao:descricao,
                     ser_maoObra:maoObra,
                     ser_inicio:dtInicio,
-                    ser_total:0,
-                    ser_status:false
+                    ser_total:totalSer,
+                    ser_status:true
                 })
                 codSer=response.data.lastId;
                 console.log(response.data);
@@ -166,8 +172,8 @@ function CadastroServicos(){
                     ser_descricao:descricao,
                     ser_maoObra:maoObra,
                     ser_inicio:dtInicio,
-                    ser_total:0,
-                    ser_status:false
+                    ser_total:totalSer,
+                    ser_status:true
                 })
                 codSer=localStorage.getItem('cod_ser');
                 for(let i=0;i<pecsUti.length;i++)
@@ -192,7 +198,7 @@ function CadastroServicos(){
         let mensagem = document.querySelector("#mensagemPecas");
         mensagem.innerHTML="";
         var tam;
-
+        
         if(valorPositivo(quant) && valorPositivo(valorUni) && !vazio(peca)){
             var i=0;
             while(i<pecs.length && pecs[i].pec_descricao!==peca)

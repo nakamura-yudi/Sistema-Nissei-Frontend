@@ -10,10 +10,10 @@ function Home()
       getStatus();
     },[]);
     async function getStatus(){
-        const response = await api.get(`/pessoaEmail/${localStorage.getItem('user')}`).then((response)=>{
-            if(response.data[0].fun_nivel=='A')
-                setIsOpen(true);
-        })
+  
+        if(localStorage.getItem('nivel_user')=='A')
+            setIsOpen(true);
+       
 
     }
     function cadastrarCliente(){
@@ -46,12 +46,15 @@ function Home()
         <Header/>
         <div className="list">
             <button type="button" onClick={listarClientes} className="button-home">Listar Clientes</button>
-            <button type="button" onClick={listarFuncionarios} className="button-home">Listar Funcionarios</button>
+            
             <button type="button" onClick={cadastrarMarca} className="button-home">Marcas de carro</button>
             <button type="button" onClick={cadastrarPeca} className="button-home">Peças</button>
             <button type="button" onClick={listarServicos} className="button-home">Listar Serviço</button>
             {isOpen &&
+            <>
+                <button type="button" onClick={listarFuncionarios} className="button-home">Listar Funcionarios</button> 
                 <button type="button" onClick={cadastrarFuncionario} className="button-home">Cadastrar Funcionário</button>
+            </>
             }
             <button type="button" onClick={cadastrarCliente} className="button-home">Cadastrar Clientes</button>
             

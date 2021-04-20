@@ -18,22 +18,25 @@ function ListaFuncionarios()
 
         history.goBack();
     }
+   
     async function listarFuncionarios(){
-        const response = await api.get(`/pessoasFun`).then((response)=>{
-            setPessoas(response.data);
+        await api.get(`/pessoasFun`).then((response)=>{    
+         
+            setPessoas(response.data.filter(pessoas=>pessoas.pes_cod!=localStorage.getItem('cod_user')));
         })
 
     }
     async function listarFuncionarioPorFiltro(){
         
         if(filtro.length>0){
-            const response = await api.get(`/pessoasFunFiltro/${filtro}`).then((response)=>{
-                setPessoas(response.data);
+            await api.get(`/pessoasFunFiltro/${filtro}`).then((response)=>{
+
+                setPessoas(response.data.filter(pessoas=>pessoas.pes_cod!=localStorage.getItem('cod_user')));
             })
         }
         else
             listarFuncionarios();
-      
+  
 
     }
     async function acessarFuncionario(codigo){
@@ -49,7 +52,7 @@ function ListaFuncionarios()
     }
     async function excluirFuncionario(){
         btnFecharModal();
-        const response = await api.get(`/servicoFuncionario/${codPes}`).then((resp)=>{
+        await api.get(`/servicoFuncionario/${codPes}`).then((resp)=>{
             if(resp.data.length==0){
                 const response2 = api.delete(`/func/${codPes}`);
             }

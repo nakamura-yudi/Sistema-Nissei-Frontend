@@ -20,35 +20,37 @@ function FormularioFuncionario()
     const [loading,setLoading]=useState(false);
     const [nivel,setNivel]=useState('');
 
+    const [isOpenNivel,setIsOpenNivel]=useState(true);
     useEffect(()=>{
         if(localStorage.getItem('cod_fun')!==null)
         {
           alterarFuncionario();
         }
-        if(localStorage.getItem('user')!=null)
+        if(localStorage.getItem('cod_user')!=null)
             setIsOpen(true);
    
     },[]);
-      
+   
     async function alterarFuncionario(){
           
         setTitulo("Alterar Perfil");
         setButton("Alterar");
         const cpf_input =  document.querySelector("#cpf");
         cpf_input.disabled=true;
-      
-        const response = await api.get(`/pessoaCod/${localStorage.getItem('cod_fun')}`).then((resp)=>{
+        setIsOpenNivel(false);
+        await api.get(`/pessoaCod/${localStorage.getItem('cod_fun')}`).then((resp)=>{
             setNome(resp.data[0].pes_nome);
             setCpf(resp.data[0].pes_cpf);
             setSexo(resp.data[0].pes_sexo);
             setEmail(resp.data[0].pes_email);
             setEmailAtual(resp.data[0].pes_email);
         });
-        const response2 = await api.get(`/func/${localStorage.getItem('cod_fun')}`).then((resp)=>{
+        await api.get(`/func/${localStorage.getItem('cod_fun')}`).then((resp)=>{
             setAno(resp.data[0].fun_anoInicio);
             setSenha(resp.data[0].fun_senha);
             setConfSenha(resp.data[0].fun_senha);
             setNivel(resp.data[0].fun_nivel);
+    
         });
     }
     function voltarHome(){
@@ -151,7 +153,7 @@ function FormularioFuncionario()
                     
                     codUser=response.data.lastId;
 
-                    const response2=await api.post('/func',{
+                    await api.post('/func',{
                         pes_cod:codUser,
                         fun_anoInicio: ano,
                         fun_senha:senha,
@@ -183,14 +185,14 @@ function FormularioFuncionario()
                         confere=true;
                 }
                 if(email===emailAtual || confere){
-                    const response=await api.put('/pessoa',{
+                    await api.put('/pessoa',{
                         pes_cod: localStorage.getItem('cod_fun'),
                         pes_nome:nome,
                         pes_cpf:cpf,
                         pes_sexo:sexo,
                         pes_email:email
                     })
-                    const response2=await api.put('/func',{
+                    await api.put('/func',{
                         pes_cod: localStorage.getItem('cod_fun'),
                         fun_anoInicio:ano,
                         fun_senha:senha,
@@ -256,15 +258,17 @@ function FormularioFuncionario()
                                 <input type="radio" name="Sexo" id="Sexo" value="M" checked={sexo==='M'} onClick={e=>setSexo(e.target.value)} onChange={e=>setSexo(e.target.value)}/>
                             </label>
                         </div>
-                        <div className="input-block block-nivel" >
-                            <label htmlFor="Nivel">Nivel</label>
-                            <label className="input-block">Usuário
-                                <input type="radio" name="Nivel" value="U" checked={nivel==='U'} onClick={e=>setNivel(e.target.value)} onChange={e=>setNivel(e.target.value)}/>
-                            </label>
-                            <label className="input-block">Administrador
-                                <input type="radio" name="Nivel" value="A" checked={nivel=='A'} onClick={e=>setNivel(e.target.value)} onChange={e=>setNivel(e.target.value)}/>
-                            </label>
-                        </div>
+                        { isOpenNivel &&
+                            <div className="input-block block-nivel" >
+                                <label htmlFor="Nivel">Nivel</label>
+                                <label className="input-block">Usuário
+                                    <input type="radio" name="Nivel" value="U" checked={nivel==='U'} onClick={e=>setNivel(e.target.value)} onChange={e=>setNivel(e.target.value)}/>
+                                </label>
+                                <label className="input-block">Administrador
+                                    <input type="radio" name="Nivel" value="A" checked={nivel=='A'} onClick={e=>setNivel(e.target.value)} onChange={e=>setNivel(e.target.value)}/>
+                                </label>
+                            </div>
+                        }
                         
                         <div className="input-block block-data" >
                             <label htmlFor="uf">Ano de inicio</label>

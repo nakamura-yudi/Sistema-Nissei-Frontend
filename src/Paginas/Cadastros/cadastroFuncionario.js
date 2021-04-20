@@ -37,7 +37,12 @@ function FormularioFuncionario()
         setButton("Alterar");
         const cpf_input =  document.querySelector("#cpf");
         cpf_input.disabled=true;
-        setIsOpenNivel(false);
+
+   
+        if(localStorage.getItem('cod_fun')===localStorage.getItem('cod_user')){
+            setIsOpenNivel(false);
+        }
+
         await api.get(`/pessoaCod/${localStorage.getItem('cod_fun')}`).then((resp)=>{
             setNome(resp.data[0].pes_nome);
             setCpf(resp.data[0].pes_cpf);

@@ -153,7 +153,7 @@ function FechaServico()
                 <input type="number" disabled={true} value={valorParcela} className='input-valorParcela' onChange={e=>setValorParcela(e.target.value)} />
             </div>
             <button type="button" onClick={()=>btnClickGerarConta()} className="button-marca">Gerar conta a receber</button>
-            <button type="button" onClick={voltarHome} className="button-marca">Voltar</button>
+            <button type="button" onClick={voltarHome} className="button-voltarMarca">Voltar</button>
         </div>
         {showModal &&
             <div className="modal">

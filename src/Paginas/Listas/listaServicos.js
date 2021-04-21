@@ -51,6 +51,10 @@ function ListaServicos()
         localStorage.setItem('cod_ser',cod);
         history.push('/fechaServico');
     }
+    function visualizarServico(cod){
+        localStorage.setItem('cod_ser',cod);
+        history.push('/visualizarServico');
+    }
     async function filtrar(){
         const response=await api.get(`/servicoFiltro/?cliente=${cliente}&fun_cod=${funcionario}&dt_inicio=${dtInicio}&dt_saida=${dtSaida}&mar_cod=${marca}&car_placa=${placa}&status=${status}`).then((resp)=>{
             setServicos(resp.data);
@@ -153,6 +157,7 @@ function ListaServicos()
                             <td>
                             <button onClick={()=>acessarServico(res.ser_cod,res.cli_cod)} className="button-item">Editar</button>
                             <button onClick={()=>fecharServico(res.ser_cod)} className="button-item">Fechar serviço</button>
+                            <button onClick={()=>visualizarServico(res.ser_cod)} className="button-item">Visualizar</button>
                             </td>
                         </tr>
                     ))}

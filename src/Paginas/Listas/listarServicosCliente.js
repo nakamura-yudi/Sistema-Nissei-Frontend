@@ -15,6 +15,7 @@ function ListaServicosCliente()
     const [showModal,setShowModal]=useState(false);
     const [showModalAviso,setShowModalAviso]=useState(false);
 
+    const [codFun,setCodFun]=useState(0);
     const [codSer,setCodSer]=useState(0);
     const [totalSer,setTotalSer]=useState(0);
     useEffect(()=>{
@@ -121,19 +122,28 @@ function ListaServicosCliente()
     async function cancelarFechamento(){
         btnFecharModal();
         await api.delete(`/contaPorServico/${codSer}`);
+
         await api.put('/servicoFechar',{
             ser_cod: codSer,
             ser_total: totalSer,
             ser_fim: null,
             ser_status: true
+        }).then((response)=>{
+            api.get(`/func/${codFun}}`).then((resp)=>{
+             
+                if(resp.data[0].fun_status==false){
+                    api.put(`/servicoFuncNull/${codFun}`);
+                }
+            });
         })
         listarServicosCarro(filtro);
         
     }
-    async function btnClickCancelarFechamento(cod,total){
-        setCodSer(cod);
+    async function btnClickCancelarFechamento(cod_ser,total,cod_fun){
+        setCodSer(cod_ser);
         setTotalSer(total);
-        await api.get(`/contaPaga/${cod}`).then((response)=>{
+        setCodFun(cod_fun);
+        await api.get(`/contaPaga/${cod_ser}`).then((response)=>{
             if(response.data.length==0){
                 setShowModal(true);
             }
@@ -186,7 +196,7 @@ function ListaServicosCliente()
                             <button onClick={()=>acessarServico(res.ser_cod)} disabled={!res.ser_status} className="button-item">Editar</button>
                             <button onClick={()=>fecharServico(res.ser_cod)} disabled={!res.ser_status} className="button-item">Fechar serviço</button>
                             <button onClick={()=>abrirContasReceber(res.ser_cod)} disabled={res.ser_status} className="button-item">Abrir contas a receber</button>
-                            <button onClick={()=>btnClickCancelarFechamento(res.ser_cod,res.ser_total)} disabled={res.ser_status} className="button-item">Cancelar fechamento</button>
+                            <button onClick={()=>btnClickCancelarFechamento(res.ser_cod,res.ser_total,res.fun_cod)} disabled={res.ser_status} className="button-item">Cancelar fechamento</button>
                             </td>
                         </tr>
                     ))}

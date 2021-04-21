@@ -70,7 +70,10 @@ function CadastroServicos(){
                 setCarro(resp.data[0].car_id);
             }
             setDescricao(resp.data[0].ser_descricao);
-            setFunc(resp.data[0].fun_cod);
+            if(resp.data[0].fun_cod!=null)
+                setFunc(resp.data[0].fun_cod);
+            else
+                setFunc("");
             setMaoObra(resp.data[0].ser_maoObra);
             var date=new Date(resp.data[0].ser_inicio);
             var dat=date.getFullYear()+"-";

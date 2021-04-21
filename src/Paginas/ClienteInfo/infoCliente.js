@@ -111,7 +111,7 @@ function Home()
                                 <td>{carro.car_ano}</td>
                                 <td>
                                     <button type="button" onClick={()=>editarCarro(carro.car_id)} className="table-edit-carro">Editar</button>
-                                    <button type="button" onClick={()=>btnClickExcluir(carro.car_id)} className="table-edit-carro">Excluir</button>
+                                    <button type="button" onClick={()=>btnClickExcluir(carro.car_id)} className="table-delete-carro">Excluir</button>
                                 </td>          
                             </tr>
                         ))}

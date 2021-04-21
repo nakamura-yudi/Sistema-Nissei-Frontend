@@ -37,7 +37,23 @@
   padding-bottom: 20px;
   margin: 0 25px;
 }
-
+.table-delete-carro{
+  background:rgb(248, 157, 157);
+  color: #000;
+  border: none;
+  width: 80px;
+  height: 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+.table-delete-carro:hover{
+  background-color: rgb(253, 56, 56);
+  color: rgb(255, 255, 255);
+}
 .table-edit-carro {
   background: #414040;
   color: rgb(216, 216, 216);
@@ -50,6 +66,13 @@
   font-size: 14px;
   border-radius: 25px;
   cursor: pointer;
+}
+.table-delete-carro button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
 }
 .table-edit-carro:hover{
   background-color: rgb(255, 255, 255);

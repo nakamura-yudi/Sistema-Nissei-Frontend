@@ -56,7 +56,7 @@ function FechaServico()
         });
     }
     function voltarHome(){
-        localStorage.removeItem('cod_ser');
+
         history.goBack();
     }
 

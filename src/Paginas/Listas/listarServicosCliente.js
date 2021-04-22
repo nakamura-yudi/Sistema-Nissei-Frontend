@@ -12,12 +12,6 @@ function ListaServicosCliente()
     const [filtro,setFiltro]=useState('todas');
     const [filtros,setFiltros]=useState([]);
 
-    const [showModal,setShowModal]=useState(false);
-    const [showModalAviso,setShowModalAviso]=useState(false);
-
-    const [codFun,setCodFun]=useState(0);
-    const [codSer,setCodSer]=useState(0);
-    const [totalSer,setTotalSer]=useState(0);
     useEffect(()=>{
         listarCarros();
     },[]);
@@ -96,14 +90,7 @@ function ListaServicosCliente()
         localStorage.setItem('cod_ser',cod);
         history.push('/cadastroServico');
     }
-    function fecharServico(cod){
-        localStorage.setItem('cod_ser',cod);
-        history.push('/fechaServico');
-    }
-    function abrirContasReceber(cod){
-        localStorage.setItem('cod_ser',cod);
-        history.push('/listaContasReceber');
-    }
+
     
     function mudarEstruturaData(valor){
         var date=new Date(valor);
@@ -119,45 +106,13 @@ function ListaServicosCliente()
         
         return dat;
     }
-    async function cancelarFechamento(){
-        btnFecharModal();
-        await api.delete(`/contaPorServico/${codSer}`);
 
-        await api.put('/servicoFechar',{
-            ser_cod: codSer,
-            ser_total: totalSer,
-            ser_fim: null,
-            ser_status: true
-        }).then((response)=>{
-            api.get(`/func/${codFun}}`).then((resp)=>{
-             
-                if(resp.data[0].fun_status==false){
-                    api.put(`/servicoFuncNull/${codFun}`);
-                }
-            });
-        })
-        listarServicosCarro(filtro);
-        
+  
+    function visualizarServico(cod){
+        localStorage.setItem('cod_ser',cod);
+        history.push('/visualizarServico');
     }
-    async function btnClickCancelarFechamento(cod_ser,total,cod_fun){
-        setCodSer(cod_ser);
-        setTotalSer(total);
-        setCodFun(cod_fun);
-        await api.get(`/contaPaga/${cod_ser}`).then((response)=>{
-            if(response.data.length==0){
-                setShowModal(true);
-            }
-            else{
-                setShowModalAviso(true);
-            }
-        })
-        
-        
-    }
-    async function btnFecharModal(){
-        setShowModal(false);
-        setShowModalAviso(false);
-    }
+  
     return (
     <div id="tela" className="background">
         <Header/>
@@ -194,40 +149,15 @@ function ListaServicosCliente()
                             <td>{getStatus(res.ser_status)}</td>
                             <td>
                             <button onClick={()=>acessarServico(res.ser_cod)} disabled={!res.ser_status} className="button-item">Editar</button>
-                            <button onClick={()=>fecharServico(res.ser_cod)} disabled={!res.ser_status} className="button-item">Fechar serviço</button>
-                            <button onClick={()=>abrirContasReceber(res.ser_cod)} disabled={res.ser_status} className="button-item">Abrir contas a receber</button>
-                            <button onClick={()=>btnClickCancelarFechamento(res.ser_cod,res.ser_total,res.fun_cod)} disabled={res.ser_status} className="button-item">Cancelar fechamento</button>
+    
+                            <button onClick={()=>visualizarServico(res.ser_cod)} className="button-item">Vizualizar</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-        {showModal &&
-            <div className="modal">
-                <div className="modal-content">
-                    <div className="modal-content-text"> 
-                        <p>Deseja realmente cancelar o fechamento do serviço?</p>
-                    </div>
-                    <div className="modal-content-btns">
-                        <button type="button" className="btn-confirma" onClick={cancelarFechamento}>Confirmar</button>
-                        <button type="button" className="btn-cancela" onClick={btnFecharModal}>Fechar</button>
-                    </div>
-                </div>
-            </div>
-        }
-        {showModalAviso &&
-            <div className="modal">
-                <div className="modal-content">
-                    <div className="modal-content-text"> 
-                        <p>Não é possivel cancelar. Pagamento já recebido</p>
-                    </div>
-                    <div className="modal-content-btns">
-                        <button type="button" className="btn-cancela" onClick={btnFecharModal}>Fechar</button>
-                    </div>
-                </div>
-            </div>
-        }
+        
         <button type="button" onClick={voltarHome} className="buttonBack">Voltar</button>
     </div>
     );

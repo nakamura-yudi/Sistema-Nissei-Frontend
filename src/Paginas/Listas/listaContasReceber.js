@@ -9,7 +9,9 @@ function ListarContasReceber()
 {
     const [contas,setContas] = useState([]);
     const [showModal,setShowModal]=useState(false);
+    const [showModalCancel,setShowModalCancel]=useState(false);
     const [conCod,setConCod] = useState(0);
+    const [dtPgto, setDtPgto] = useState(new Date());
     useEffect(()=>{
         listarContas();
     },[]);
@@ -18,8 +20,15 @@ function ListarContasReceber()
             setContas(response.data);
         })
     }
-
+    async function btnClickCancelarPgto(con_cod){
+        setConCod(con_cod);
+        setShowModalCancel(true);
+    }
+    async function btnFecharModalCancel(){
+        setShowModalCancel(false);
+    }
     async function btnClickConfPgto(con_cod){
+        
         setConCod(con_cod);
         setShowModal(true);
     }
@@ -31,13 +40,22 @@ function ListarContasReceber()
         await api.put('/conta',{
             con_cod: conCod,
             ser_cod: localStorage.getItem('cod_ser'),
-            con_dtPgto: new Date()
+            con_dtPgto: dtPgto
+            
+        })
+        listarContas();
+    }
+    async function cancelarPagamento(){
+        btnFecharModalCancel();
+        await api.put('/conta',{
+            con_cod: conCod,
+            ser_cod: localStorage.getItem('cod_ser'),
+            con_dtPgto: null
             
         })
         listarContas();
     }
     function voltarHome(){
-        localStorage.removeItem('cod_ser');
         history.goBack();
     }
     function getDtPgto(date){
@@ -85,7 +103,7 @@ function ListarContasReceber()
                                 <td>{getDtPgto(res.con_dtPgto)}</td>
                                 <td>
                                 <button onClick={()=>btnClickConfPgto(res.con_cod)} disabled={res.con_dtPgto!==null} className="button-item">Confirmar Pagamento</button>
-        
+                                <button onClick={()=>btnClickCancelarPgto(res.con_cod)} disabled={res.con_dtPgto===null} className="button-item">Cancelar Pagamento</button>
                                 </td>
                             </tr>
                         ))}
@@ -94,18 +112,34 @@ function ListarContasReceber()
             </div>
             <button type="button" onClick={voltarHome} className="buttonBack">Voltar</button>
             {showModal &&
-            <div className="modal">
-                <div className="modal-content">
-                    <div className="modal-content-text"> 
-                        <p>Deseja realmente confirmar pagamento?</p>
-                    </div>
-                    <div className="modal-content-btns">
-                        <button type="button" className="btn-confirma" onClick={confirmarPagamento}>Confirmar</button>
-                        <button type="button" className="btn-cancela" onClick={btnFecharModal}>Fechar</button>
+                <div className="modal">
+                    <div className="modal-content">
+                        <div className="modal-content-text"> 
+                            <p>Deseja realmente confirmar pagamento?</p>
+                            
+                            <input type="date"  value={dtPgto} onChange={e=>setDtPgto(e.target.value)} required/>
+                        </div>
+                        <div className="modal-content-btns">
+                            <button type="button" className="btn-confirma" onClick={confirmarPagamento}>Confirmar</button>
+                            <button type="button" className="btn-cancela" onClick={btnFecharModal}>Fechar</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+            {showModalCancel &&
+                <div className="modal">
+                    <div className="modal-content">
+                        <div className="modal-content-text"> 
+                            <p>Deseja realmente cancelar pagamento?</p>
+                     
+                        </div>
+                        <div className="modal-content-btns">
+                            <button type="button" className="btn-confirma" onClick={cancelarPagamento}>Confirmar</button>
+                            <button type="button" className="btn-cancela" onClick={btnFecharModalCancel}>Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            }
     </div>
 
     );

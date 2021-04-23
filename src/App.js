@@ -17,8 +17,9 @@ import ListaServicosCliente from './Paginas/Listas/listarServicosCliente'
 import CadastroPeca from './Paginas/Cadastros/cadastroPeca'
 import FechaServico from './Paginas/Servico/fechaServico'
 import ListaServicos from './Paginas/Listas/listaServicos'
-import ListaContaReceber from './Paginas/Listas/listaContasReceber'
+import ListaContaReceberServico from './Paginas/Listas/listaContasReceberServico'
 import VisualizarServiço from './Paginas/Servico/visualizarServiço'
+import ListaContaReceber from './Paginas/Listas/listaContasReceber'
 function App() {
   return (
     <Router history={history}>
@@ -39,6 +40,7 @@ function App() {
         <Route path="/listarServicosCliente" exact={true} component={ListaServicosCliente}/>
         <Route path="/fechaServico" exact={true} component={FechaServico}/>
         <Route path="/visualizarServico" exact={true} component={VisualizarServiço}/>
+        <Route path="/listaContasReceberServico" exact={true} component={ListaContaReceberServico}/>
         <Route path="/listaContasReceber" exact={true} component={ListaContaReceber}/>
       </Switch>
     </Router>

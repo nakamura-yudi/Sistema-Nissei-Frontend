@@ -45,7 +45,7 @@ function VisualizarServiço()
         });
     }
     function abrirContasReceber(){
-        history.push('/listaContasReceber');
+        history.push('/listaContasReceberServico');
     }
     function fecharServico(){
         console.log('passei');

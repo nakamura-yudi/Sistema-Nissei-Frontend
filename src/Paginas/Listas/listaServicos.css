@@ -23,7 +23,8 @@
     color: #fff;
   }
   .filtro{
-      width: 20%;
+      width: 60%;
+      color:rgb(255, 255, 255)
   }
   .filtro select{
       width: 100%;

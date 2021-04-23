@@ -3,6 +3,7 @@ import history from '../../history'
 import "./home.css"
 import api from '../../servicos/api';
 import Header from '../../Components/Header'
+
 function Home()
 {
     const [isOpen,setIsOpen] = useState(false);
@@ -41,6 +42,9 @@ function Home()
     function cadastrarPeca(){
         history.push('/cadastroPeca');
     }
+    function listarContasReceber(){
+        history.push('/listaContasReceber');
+    }
     return (
     <div className="background">
         <Header/>
@@ -50,6 +54,7 @@ function Home()
             <button type="button" onClick={cadastrarMarca} className="button-home">Marcas de carro</button>
             <button type="button" onClick={cadastrarPeca} className="button-home">Peças</button>
             <button type="button" onClick={listarServicos} className="button-home">Listar Serviço</button>
+            <button type="button" onClick={listarContasReceber} className="button-home">Listar Contas a Receber</button>
             {isOpen &&
             <>
                 <button type="button" onClick={listarFuncionarios} className="button-home">Listar Funcionarios</button> 

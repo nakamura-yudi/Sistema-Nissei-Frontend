@@ -237,13 +237,13 @@ function Formulario()
                         confere=true;
                 }
                 if(email===emailAtual || confere){
-                    const response=await api.put('/pessoa',{
+                    await api.put('/pessoa',{
                         pes_nome:nome,
                         pes_cpf:cpf,
                         pes_sexo:sexo,
                         pes_email:email
                     })
-                    const response2=await api.put('/clientes',{
+                    await api.put('/clientes',{
                         pes_cod:localStorage.getItem('cod_cli'),
                         cli_bairro:bairro,
                         cli_rua:rua,

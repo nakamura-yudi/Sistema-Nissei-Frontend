@@ -14,7 +14,9 @@ function FechaServico()
     const [total,setTotal] = useState(0);
     const [valorParcela,setValorParcela]=useState(0);
 
+    const [valorPecs,setValorPecs]=useState(0);
     const [showModal,setShowModal]=useState(false);
+    const [parcelas,setParcelas]=useState([]);
     useEffect(()=>{
         listarServico();   
     },[]);
@@ -25,6 +27,7 @@ function FechaServico()
             t+=pecsUti[i].uti_precoUni*pecsUti[i].uti_qtde;
             i++;
         }
+        setValorPecs(t);
         setTotal(t+total);
         setValorParcela(t+total);
     },[pecsUti]);
@@ -59,12 +62,47 @@ function FechaServico()
 
         history.goBack();
     }
-
+    function mudarEstruturaData(valor){
+        var date=new Date(valor);
+        let dat="";
+        if(date.getDate()<10)
+            dat+='0';
+        dat+=date.getDate()+"/";
+        if(date.getMonth()+1<10)
+            dat+='0';
+        dat+=(date.getMonth()+1)+"/";
+        dat+=date.getFullYear();
+        
+        
+        return dat;
+    }
     async function btnClickGerarConta(){
         setShowModal(true);
     }
     async function btnFecharModal(){
         setShowModal(false);
+    }
+    function btnClickVizualizar(){
+        let date = new Date();
+        
+        console.log(date);
+
+        let parcAux=[];
+        console.log("numero de parcelas: "+qtdeParcela)
+        for(var i=1;i<=qtdeParcela;i++){
+            date.setDate(date.getDate()+30);
+            let data= {
+                    cod: i,
+                    valor: valorParcela,
+                    dtVenc: date
+                
+                };
+            
+            parcAux.push(data);
+            console.log('passei '+parcAux.length);   
+        }
+   
+        setParcelas(parcAux);
     }
     async function gerarContaReceber(){
         btnFecharModal();
@@ -105,31 +143,33 @@ function FechaServico()
         <Header/>
         <div className="div-gerarConta">
             <h1>Fechar Serviço</h1>
-            <div>
-                <p>Valor da mão de obra: R$ {servico.ser_maoObra}</p>
-            </div>
+            
             <div className="divtable-pecasuti">
                         <table id="tabelaCont">
                             <thead>
                                 <tr>
+                                    <td>Descrição</td>
                                     <td>Quantidade</td>
                                     <td>Valor Uni.</td>
-                                    <td>Descrição</td>
+                                    <td>Valor total</td>
                               
                                 </tr>
                             </thead>
                             <tbody>
                                 {pecsUti.map(pec=>(
                                     <tr key={pec.pec_cod}>
+                                        <td>{pec.pec_descricao}</td>
                                         <td>{pec.uti_qtde}</td>
                                         <td>R$ {pec.uti_precoUni}</td>
-                                        <td>{pec.pec_descricao}</td>
+                                        <td>R$ {pec.uti_qtde*pec.uti_precoUni}</td>
                                    
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
             </div>
+            <p className="p-valorPecas">Valor total das peças:R$ {valorPecs}</p>
+            <p className="p-maoObra">Valor da mão de obra: R$ {servico.ser_maoObra}</p>
             <p className="p-total">Total: R$ {total}</p>
             
             <div className="div-formaPgto">
@@ -152,6 +192,28 @@ function FechaServico()
                 <label>Valor da Parcela: </label>
                 <input type="number" disabled={true} value={valorParcela} className='input-valorParcela' onChange={e=>setValorParcela(e.target.value)} />
             </div>
+            <div className="div-visucontasReceber">   
+                <table className='table-visucontasReceber'>
+                    <thead>
+                        <tr>
+                            <td className="td-cod">Nº</td>
+                            <td className="td-valor">Valor da parcela</td>
+                            <td className="td-dtVenc">Data de Vencimento</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {parcelas.map(res=>(
+                            <tr key={res.cod}>
+                                <td >{res.cod}</td>
+                                <td >R$ {res.valor}</td>
+                                <td >{mudarEstruturaData(res.dtVenc)}</td>
+ 
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" onClick={()=>btnClickVizualizar()} className="button-marca">Vizualizar conta a receber</button>
             <button type="button" onClick={()=>btnClickGerarConta()} className="button-marca">Gerar conta a receber</button>
             <button type="button" onClick={voltarHome} className="button-voltarMarca">Voltar</button>
         </div>

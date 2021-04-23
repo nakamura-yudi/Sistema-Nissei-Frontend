@@ -87,14 +87,14 @@ function ListarContasReceber()
                 <table className='table-contasReceber'>
                     <thead>
                         <tr>
-                            <td>Número da parcela</td>
-                            <td>Valor</td>
-                            <td>Data de Vencimento</td>
-                            <td>Data de Pagamento</td>
+                            <td className="td-num">Nº</td>
+                            <td className="td-valor">Valor</td>
+                            <td className="td-venc">Data de Vencimento</td>
+                            <td className="td-pgto">Data de Pagamento</td>
                             <td>Acao</td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="tbodycolor">
                         {contas.map(res=>(
                             <tr key={res.con_cod}>
                                 <td>{res.con_cod}</td>
@@ -102,8 +102,8 @@ function ListarContasReceber()
                                 <td>{mudarEstruturaData(res.con_dtVencimento)}</td>
                                 <td>{getDtPgto(res.con_dtPgto)}</td>
                                 <td>
-                                <button onClick={()=>btnClickConfPgto(res.con_cod)} disabled={res.con_dtPgto!==null} className="button-item">Confirmar Pagamento</button>
-                                <button onClick={()=>btnClickCancelarPgto(res.con_cod)} disabled={res.con_dtPgto===null} className="button-item">Cancelar Pagamento</button>
+                                <button onClick={()=>btnClickConfPgto(res.con_cod)} disabled={res.con_dtPgto!==null} className="button-item-confirma">Confirmar Pagamento</button>
+                                <button onClick={()=>btnClickCancelarPgto(res.con_cod)} disabled={res.con_dtPgto===null} className="button-item-cancela">Cancelar Pagamento</button>
                                 </td>
                             </tr>
                         ))}

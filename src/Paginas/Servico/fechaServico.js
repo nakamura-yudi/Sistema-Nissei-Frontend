@@ -86,20 +86,20 @@ function FechaServico()
         let date = new Date();
         
         console.log(date);
-
         let parcAux=[];
-        console.log("numero de parcelas: "+qtdeParcela)
+     
         for(var i=1;i<=qtdeParcela;i++){
-            date.setDate(date.getDate()+30);
+            let date2 = date.setDate(date.getDate()+30);
+  
             let data= {
                     cod: i,
                     valor: valorParcela,
-                    dtVenc: date
+                    dtVenc: date2
                 
                 };
             
             parcAux.push(data);
-            console.log('passei '+parcAux.length);   
+         
         }
    
         setParcelas(parcAux);

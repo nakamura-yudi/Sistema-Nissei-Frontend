@@ -6,6 +6,7 @@ import "./login.css"
 function Login(){
     const [user,setUser] = useState('');
     const [senha,setSenha]=useState('');
+    
     const validarUsuario = async () => {
 
       const response= await api.get(`/func/${user}/${senha}`);
@@ -33,6 +34,7 @@ function Login(){
     function irFormulario(){
         history.push('/cadastroFuncionario');
     }
+
     return (
       <div id='login' className="backgroundLogin">
           <main className="main">
@@ -52,5 +54,5 @@ function Login(){
           </main>
       </div>
     );
-} 
+}
 export default Login;

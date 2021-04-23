@@ -109,13 +109,13 @@
     width: 100%;
     border: 0;
 
-    margin-top: 5px;
-    background: #414040;
+    margin-top: 20px;
+    background: #63b86a;
     border-radius: 5px;
     padding: 15px 20px;
     font-size: 16px;
     font-weight: bold;
-    color: rgb(216, 216, 216);
+    color: rgb(26, 25, 25);
     cursor: pointer;
     transition: background 0.5s;
 }
@@ -123,8 +123,8 @@
     width: 60%;
 }
 .formularioCli button[type=submit]:hover{
-    background: #fefffe;
-    color:rgba(34, 33, 33, 0.849)
+    background: #044604;
+    color:rgba(168, 168, 168, 0.849)
 }
 
 .formularioCli button[type=button]{
@@ -174,20 +174,6 @@
     justify-content: flex-start;
 
 }
-
-.cadastroCliContato button[type=button]{
-    width: 100%;
-    border: 0;
-    margin-top: 30px;
-    background:#63f19e;
-    border-radius: 5px;
-    padding: 15px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    cursor: pointer;
-    transition: background 0.5s;
-}
 .cadastroCliContato .input-block label{
     color: #9a9a9a;
     font-size: 14px;
@@ -218,7 +204,7 @@
     transition: background 0.5s;
 }
 .formularioCli #btnFormContato:hover{
-    background: #fefffe;
+    background: #ffffff;
     color: rgba(44, 42, 42, 0.555);
 }
 .cadastroCliContato #divTable{
@@ -227,6 +213,14 @@
 #divTable{
     margin-top: 20px;
     text-align: center;
+}
+#divTable .btnExcluirCont{
+    background:rgb(248, 157, 157);
+    color: #000;
+}
+#divTable .btnExcluirCont:hover{
+    background-color: rgb(253, 56, 56);
+    color: rgb(255, 255, 255);
 }
 #tabelaCont{
     width:100%;
@@ -259,4 +253,18 @@
 .cadastroCliContato #mensagemContato p{
     margin-top: 10px;
     margin-left: 10px;
+}
+
+.modalCli{
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    padding-left: 38%;
 }

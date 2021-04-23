@@ -20,7 +20,9 @@ function Login(){
         if(user.length>0 && senha.length>0){
         var res=await validarUsuario();
         if(res.length>0){
-            localStorage.setItem('user',res[0].pes_email);
+          console.log(res);
+            localStorage.setItem('cod_user',res[0].pes_cod);
+            localStorage.setItem('nivel_user',res[0].fun_nivel);
             history.push("/home");
         }
         else
@@ -50,7 +52,7 @@ function Login(){
               </div>
               <button type="submit" className="button-login">Entrar</button>
             </form>
-            <p onClick={irFormulario} className="text-pointer">Não tem um cadastro? Cadraste-se aqui</p>
+      
           </main>
       </div>
     );

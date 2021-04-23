@@ -23,7 +23,7 @@ function CadastroContatos(){
     }
     async function Excluir(codigo)
     {
-        const response = await api.delete('/contato/'+codigo);
+        await api.delete('/contato/'+codigo);
         setContatos(contatos.filter(contatos=>contatos.cont_cod!==codigo));
     }
      function vazio(valor){
@@ -51,7 +51,7 @@ function CadastroContatos(){
 
         if(validarTelefone(numero) && !vazio(tipo)){
             
-            const response=await api.post('/contatos',{
+            await api.post('/contatos',{
                 pes_cod: cod,
                 cont_numero: numero,
                 cont_tipo: tipo
@@ -99,7 +99,7 @@ function CadastroContatos(){
                     <button type="submit" id="btnForm">Cadastrar</button>
                     <button type="button" className="btnVoltarPerf" onClick={voltarPerfil}>Voltar ao perfil</button>
                 </form>
-                <div id="divTable">
+                {contatos.length>0 && <div id="divTable">
                     <table id="tabelaCont">
                         <thead>
                             <tr>
@@ -122,7 +122,7 @@ function CadastroContatos(){
                             ))}
                         </tbody>
                     </table>
-                </div>
+                </div>}
             </aside>
             
         </div>

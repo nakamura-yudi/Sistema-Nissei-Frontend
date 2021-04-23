@@ -40,6 +40,24 @@
   background: #fefffe;
   color:rgba(34, 33, 33, 0.849)
 }
+.button-excluirItem {
+  border: none;
+  background:rgb(248, 157, 157);
+  color: #000;
+  font-weight: bold;
+  width: 170px;
+  height: 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+.button-excluirItem:hover{
+  background-color: rgb(253, 56, 56);
+  color: rgb(255, 255, 255);
+}
 .buttonBack {
   background: #414040;
   border: none;

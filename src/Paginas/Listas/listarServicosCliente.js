@@ -2,19 +2,18 @@ import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
 import '../../app.css'
-import './listarServicos.css'
+import './listarServicosCliente.css'
 import Header from '../../Components/Header'
 
-function ListaServicos()
+function ListaServicosCliente()
 {
     const [carros,setCarros]=useState([]);
     const [servicos,setServicos]=useState([]);
     const [filtro,setFiltro]=useState('todas');
     const [filtros,setFiltros]=useState([]);
-    useEffect(()=>{
-        
-        listarCarros();
 
+    useEffect(()=>{
+        listarCarros();
     },[]);
     useEffect(()=>{
         var i=0,j=0;
@@ -37,11 +36,8 @@ function ListaServicos()
    
         }
         i=0;
-     
-        listarServicos();
     },[carros]);
     useEffect(()=>{
-      
         if(filtro===null || filtro==="todas")
             listarServicos();
         else
@@ -54,13 +50,13 @@ function ListaServicos()
         history.goBack();
     }
     async function listarServicos(){
-        const response = await api.get(`/servicoCliente/${localStorage.getItem('cod_cli')}`).then((response)=>{
+        await api.get(`/servicoCliente/${localStorage.getItem('cod_cli')}`).then((response)=>{
             setServicos(response.data);
         })
 
     }
     async function listarServicosCarro(cod){
-        const response = await api.get(`/servicoCarro/${cod}`).then((response)=>{
+        await api.get(`/servicoCarro/${cod}`).then((response)=>{
             setServicos(response.data);
         })
 
@@ -73,15 +69,20 @@ function ListaServicos()
     }
     function getPlaca(cod){
         var i=0;
-        if(carros.length>0){
-            while(i<carros.length && carros[i].car_id!==cod)
-                i++;
-            
-            return carros[i].car_placa +" - "+carros[i].car_modelo;
+        if(cod!==null){
+            if(carros.length>0){
+                while(i<carros.length && carros[i].car_id!==cod)
+                    i++;
+                
+                return carros[i].car_placa +" - "+carros[i].car_modelo;
+            }
+        }
+        else{
+            return "null";
         }
     }
     function getStatus(status){
-        if(status===0)
+        if(status===1)
             return 'Em andamento';
         return 'Finalizado'; 
     }
@@ -89,6 +90,29 @@ function ListaServicos()
         localStorage.setItem('cod_ser',cod);
         history.push('/cadastroServico');
     }
+
+    
+    function mudarEstruturaData(valor){
+        var date=new Date(valor);
+        let dat="";
+        if(date.getDate()<10)
+            dat+='0';
+        dat+=date.getDate()+"/";
+        if(date.getMonth()+1<10)
+            dat+='0';
+        dat+=(date.getMonth()+1)+"/";
+        dat+=date.getFullYear();
+        
+        
+        return dat;
+    }
+
+  
+    function visualizarServico(cod){
+        localStorage.setItem('cod_ser',cod);
+        history.push('/visualizarServico');
+    }
+  
     return (
     <div id="tela" className="background">
         <Header/>
@@ -120,20 +144,23 @@ function ListaServicos()
                     {servicos.map(res=>(
                         <tr key={res.ser_cod}>
                             <td>{getPlaca(res.car_id)}</td>
-                            <td>{res.ser_inicio}</td>
-                            <td>{res.ser_total}</td>
+                            <td>{mudarEstruturaData(res.ser_inicio)}</td>
+                            <td>R$ {res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>
                             <td>
-                            <button onClick={()=>acessarServico(res.ser_cod)} className="button-item">Visualizar</button>
+                            <button onClick={()=>acessarServico(res.ser_cod)} disabled={!res.ser_status} className="button-item">Editar</button>
+    
+                            <button onClick={()=>visualizarServico(res.ser_cod)} className="button-item">Vizualizar</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
+        
         <button type="button" onClick={voltarHome} className="buttonBack">Voltar</button>
     </div>
     );
 }
 
-export default ListaServicos;
+export default ListaServicosCliente;

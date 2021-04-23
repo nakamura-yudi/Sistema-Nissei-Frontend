@@ -1,0 +1,46 @@
+.div-gerarConta {
+    background-color: rgb(0, 0, 0,.95);
+    box-shadow: 0 0 14px 0 rgba(0 , 0 , 0, 0.02);
+    border-radius: 25px;
+    padding: 15px;
+    color: #ffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 40%;
+   
+  }
+.divtable-pecasuti{
+  width: 80%;
+  text-align: center;
+}
+.select-pgto{
+  width: 20%;
+}
+.p-total{
+  text-align: right;
+  width: 80%;
+}
+/*Forma de pagamento*/
+.div-formaPgto{
+  width: 80%;
+  margin-bottom: 5px;
+}
+/*Quantidade de parcelas*/
+.div-qtdeParcela{
+  width: 80%;
+  margin-bottom: 5px;
+}
+.div-qtdeParcela .input-qtdeParcela{
+    width: 17%;
+}
+/*Valor da parcela*/
+.div-valorParcela{
+  width: 80%;
+  margin-bottom: 5px;
+}
+.div-valorParcela .input-valorParcela{
+  width: 25%;
+}

@@ -1,5 +1,6 @@
 import api from '../../servicos/api';
 import React,{useState,useEffect} from 'react';
+import ReactLoading from 'react-loading';
 import history from '../../history'
 import './cadastroServiços.css'
 import '../../app.css'
@@ -9,6 +10,7 @@ function CadastroServicos(){
     const [carros,setCarros]=useState([]);
     const [descricao,setDescricao]=useState('');
     const [dtInicio,setDtInicio]=useState('');
+    const [maoObra,setMaoObra]=useState('0');
     const [pecs,setPecs]=useState([]);
     const [func,setFunc]=useState('');
     const [funcs,setFuncs]=useState([]);
@@ -21,6 +23,7 @@ function CadastroServicos(){
 
     const [button,setButton]=useState('Salvar');
     const [titulo,setTitulo]=useState('Cadastro de serviço');
+    const [loading,setLoading]=useState(false);
     async function listarCarros(){
         await api.get(`/carroPes/${localStorage.getItem('cod_cli')}`).then((resp)=>{
             setCarros(resp.data);
@@ -28,7 +31,7 @@ function CadastroServicos(){
     }
     
     async function listarPecas(){
-        await api.get(`/peca`).then((resp)=>{
+        await api.get(`/pecafiltro/${peca}`).then((resp)=>{
             setPecs(resp.data);
         });
     }
@@ -41,28 +44,37 @@ function CadastroServicos(){
 
     useEffect(()=>{
         listarFuncionarios();
-        listarPecas();
         listarCarros();
+        if(localStorage.getItem('cod_ser')!==null){
+            alterarServico();
+            setButton("Alterar");
+            setTitulo("Alterar Serviço");
+        }
     },[]);
 
     useEffect(()=>{
-        if(pecs.length!==0)
-            if(localStorage.getItem('cod_ser')!==null){
-                alterarServico();
-                setButton("Alterar");
-                setTitulo("Alterar Serviço");
-            }
-    },[pecs]);
+        if(peca.length>=3){
+            listarPecas();
+        }
+    
+    },[peca])
 
     async function alterarServico(){
         var pecsAux = pecsUti;
 
         setPecsUti([]);
         await api.get(`/servico/${localStorage.getItem('cod_ser')}`).then((resp)=>{
-            setCarro(resp.data[0].car_id);
+            if(resp.data[0].car_id===null)
+                setCarro("");
+            else{
+                setCarro(resp.data[0].car_id);
+            }
             setDescricao(resp.data[0].ser_descricao);
-            setFunc(resp.data[0].fun_cod);
-
+            if(resp.data[0].fun_cod!=null)
+                setFunc(resp.data[0].fun_cod);
+            else
+                setFunc("");
+            setMaoObra(resp.data[0].ser_maoObra);
             var date=new Date(resp.data[0].ser_inicio);
             var dat=date.getFullYear()+"-";
             if(date.getMonth()+1<10)
@@ -73,20 +85,15 @@ function CadastroServicos(){
             dat+=date.getDate();
             setDtInicio(dat);
         });
-        var i=0,j;
+        var i=0;
         await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{ 
-            console.log("Quantidade de peças Utilizadas= "+resp.data.length);
             while(i<resp.data.length){
-                j=0;
-                while(j<pecs.length && pecs[j].pec_cod!==resp.data[i].pec_cod)
-                    j++;
-
                 var data= {
                     cod:i,
                     uti_qtde:resp.data[i].uti_qtde,
                     uti_precoUni: resp.data[i].uti_precoUni.toFixed(2),
-                    pec_desc:pecs[j].pec_descricao,
-                    pec_cod:pecs[j].pec_cod
+                    pec_desc:resp.data[i].pec_descricao,
+                    pec_cod:resp.data[i].pec_cod
                 };
                 pecsAux.push(data);
                 console.log(pecsUti);
@@ -124,8 +131,15 @@ function CadastroServicos(){
         return test;
     }
     async function cadastrarServico(e){
+        setLoading(true);
         e.preventDefault();
         var codSer;
+        let totalSer=0;
+        for(let i=0;i<pecsUti.length;i++){
+            totalSer=totalSer+pecsUti[i].uti_qtde*pecsUti[i].uti_precoUni;
+        }
+        totalSer=totalSer+maoObra;
+  
         if(ValidarCampos()){
             if(button==='Salvar'){
                 const response=await api.post('/servico',{
@@ -133,21 +147,22 @@ function CadastroServicos(){
                     fun_cod:func,
                     cli_cod:localStorage.getItem('cod_cli'),
                     ser_descricao:descricao,
-                    ser_maoObra:0,
+                    ser_maoObra:maoObra,
                     ser_inicio:dtInicio,
-                    ser_total:0,
-                    ser_status:false
+                    ser_total:totalSer,
+                    ser_status:true
                 })
                 codSer=response.data.lastId;
                 console.log(response.data);
                 for(let i=0;i<pecsUti.length;i++)
                 {
-                    await api.post('/servicopeca',{
+                    const response2=await api.post('/servicopeca',{
                         ser_cod:codSer,
                         pec_cod:pecsUti[i].pec_cod,
                         uti_precoUni:pecsUti[i].uti_precoUni,
                         uti_qtde:pecsUti[i].uti_qtde
                     })
+                    console.log(response2);
                 }
                 alert('Serviço Cadastrado');
                 history.goBack();
@@ -157,34 +172,36 @@ function CadastroServicos(){
                     ser_cod:localStorage.getItem('cod_ser'),
                     car_id:carro,
                     fun_cod:func,
-                    cli_cod:localStorage.getItem('cod_cli'),
                     ser_descricao:descricao,
-                    ser_maoObra:0,
+                    ser_maoObra:maoObra,
                     ser_inicio:dtInicio,
-                    ser_total:0,
-                    ser_status:false
+                    ser_total:totalSer,
+                    ser_status:true
                 })
                 codSer=localStorage.getItem('cod_ser');
                 for(let i=0;i<pecsUti.length;i++)
                 {
-                    await api.post('/servicopeca',{
+                    const response2=await api.post('/servicopeca',{
                         ser_cod:codSer,
                         pec_cod:pecsUti[i].pec_cod,
                         uti_precoUni:pecsUti[i].uti_precoUni,
                         uti_qtde:pecsUti[i].uti_qtde
                     })
+                    console.log(response2);
                 }
                 alert('Serviço Alterado');
+                localStorage.removeItem("cod_ser");
                 history.goBack();
             }
         }
+        setLoading(false);
     }
 
     async function addLista(){
         let mensagem = document.querySelector("#mensagemPecas");
         mensagem.innerHTML="";
         var tam;
-
+        
         if(valorPositivo(quant) && valorPositivo(valorUni) && !vazio(peca)){
             var i=0;
             while(i<pecs.length && pecs[i].pec_descricao!==peca)
@@ -313,6 +330,11 @@ function CadastroServicos(){
                                 ))}
                         </select>
                     </div>
+                    
+                    <div className="input-block block-maoObra" >
+                        <label htmlFor="maoObra">Valor Mão de Obra: </label>
+                        <input type="number" step="0.01" name="maoObra" id="maoObra" value={maoObra} onChange={e=>setMaoObra(e.target.value)} required/>
+                    </div>
 
                     <div className="input-block block-desc">
                         <label htmlFor="descricao">Descrição</label>
@@ -333,7 +355,7 @@ function CadastroServicos(){
                         {pecs && (
                             <div className="input-block block-peca">
                                 <label>Peça: </label>
-                                <input type="text" name="peca" list="pecanome" className="select-peca" value={peca} onChange={e=>setPeca(e.target.value)}/>
+                                <input type="text" autoComplete="off" name="peca" list="pecanome" className="select-peca" value={peca} placeholder="Digite pelo menos 3 letras" onChange={e=>setPeca(e.target.value)}/>
                                     <datalist id="pecanome">
                                         {pecs.map(pec=>(
                                             <option key={pec.pec_cod} value={pec.pec_descricao}></option>
@@ -382,6 +404,12 @@ function CadastroServicos(){
                 </form>
                 <button type="button" onClick={voltar}>Voltar</button>
             </aside>
+            {loading &&
+                <div className="modalSer">
+                    
+                    <ReactLoading type={"spinningBubbles"} color={"#ffffff"} height={'20%'} width={'20%'} />
+                </div>
+            }
         </div>
     );
 }

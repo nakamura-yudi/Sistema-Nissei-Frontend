@@ -13,7 +13,12 @@ import CadastroFuncionario from './Paginas/Cadastros/cadastroFuncionario'
 import InfoCliente from './Paginas/ClienteInfo/infoCliente'
 import CadastroContato from './Paginas/Cadastros/cadastroContato'
 import CadastroServicos from './Paginas/Cadastros/cadastroServiços' 
-import ListaServicos from './Paginas/Listas/listarServicos'
+import ListaServicosCliente from './Paginas/Listas/listarServicosCliente'
+import CadastroPeca from './Paginas/Cadastros/cadastroPeca'
+import FechaServico from './Paginas/Servico/fechaServico'
+import ListaServicos from './Paginas/Listas/listaServicos'
+import ListaContaReceber from './Paginas/Listas/listaContasReceber'
+import VisualizarServiço from './Paginas/Servico/visualizarServiço'
 function App() {
   return (
     <Router history={history}>
@@ -21,15 +26,20 @@ function App() {
         <Route path="/" exact={true} component={Login}/>
         <Route path="/home" exact={true} component={Home}/>
         <Route path="/listaClientes" exact={true} component={ListaClientes}/>
+        <Route path="/listaServicos" exact={true} component={ListaServicos}/>
         <Route path="/listaFuncionarios" exact={true} component={ListaFuncionarios}/>
         <Route path="/cadastroCliente" exact={true} component={CadastroCliente}/>
         <Route path="/cadastroCarro" exact={true} component={CadastroCarro}/>
         <Route path="/cadastroMarca" exact={true} component={CadastroMarca}/>
+        <Route path="/cadastroPeca" exact={true} component={CadastroPeca}/>
         <Route path="/cadastroFuncionario" exact={true} component={CadastroFuncionario}/>
         <Route path="/cadastroContato" exact={true} component={CadastroContato}/>
         <Route path="/cadastroServico" exact={true} component={CadastroServicos}/>
         <Route path="/infoCliente" exact={true} component={InfoCliente}/>
-        <Route path="/listarServicos" exact={true} component={ListaServicos}/>
+        <Route path="/listarServicosCliente" exact={true} component={ListaServicosCliente}/>
+        <Route path="/fechaServico" exact={true} component={FechaServico}/>
+        <Route path="/visualizarServico" exact={true} component={VisualizarServiço}/>
+        <Route path="/listaContasReceber" exact={true} component={ListaContaReceber}/>
       </Switch>
     </Router>
   );

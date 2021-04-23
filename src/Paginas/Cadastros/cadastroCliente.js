@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactLoading from 'react-loading';
 import api from '../../servicos/api';
 import history from '../../history'
 import './cadastroCliente.css'
@@ -25,6 +26,7 @@ function Formulario()
     const [isOpen,setIsOpen]=useState(true);
     const [button,setButton]=useState('Salvar');
     const [titulo,setTitulo]=useState('Cadastro de cliente');
+    const [loading,setLoading]=useState(false);
     useEffect(()=>{
         if(localStorage.getItem('cod_cli')!==null)
         {
@@ -41,8 +43,7 @@ function Formulario()
         const cpf_input =  document.querySelector("#cpf");
         cpf_input.disabled=true;
         setIsOpen(false);
-        console.log(localStorage.getItem('cod_cli'));
-        const response = await api.get(`/pessoaCod/${localStorage.getItem('cod_cli')}`).then((resp)=>{
+        await api.get(`/pessoaCod/${localStorage.getItem('cod_cli')}`).then((resp)=>{
             setNome(resp.data[0].pes_nome);
             setCpf(resp.data[0].pes_cpf);
             setSexo(resp.data[0].pes_sexo);
@@ -50,7 +51,7 @@ function Formulario()
             setEmailAtual(resp.data[0].pes_email);
         });
 
-        const response2 = await api.get(`/clienteCod/${localStorage.getItem('cod_cli')}`).then((resp)=>{
+        await api.get(`/clienteCod/${localStorage.getItem('cod_cli')}`).then((resp)=>{
                 setBairro(resp.data[0].cli_bairro);
                 setRua(resp.data[0].cli_rua);
                 setCidade(resp.data[0].cli_cidade);
@@ -161,6 +162,7 @@ function Formulario()
     }
 
     async function confirmarDados(e){
+        setLoading(true);
         e.preventDefault();
         let mensagem = document.querySelector(".mensagemCli");
         
@@ -272,7 +274,12 @@ function Formulario()
             if(!validarUF(uf))
             mensagem.innerHTML+="<p>UF inválido</p>";
         }
+        setLoading(false);
+    }
+    async function Excluir(codigo)
+    {
     
+        setContatos(verContatos.filter(verContatos=>verContatos.codigo!==codigo));
     }
     return (
         <div id="tela" >
@@ -357,24 +364,30 @@ function Formulario()
 
                                 </div>
                                 <button type="button" onClick={addLista} id="btnFormContato">Cadastrar Contato</button>
-                                <div id="divTable">
+                                {verContatos.length>0 && <div id="divTable">
                                     <table id="tabelaCont">
                                         <thead>
                                             <tr>
                                                 <td>Telefones</td>
                                                 <td>Tipo</td>
+                                                <td>Ação</td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {verContatos.map(contato=>(
                                                 <tr key={contato.codigo}>
                                                     <td>{contato.numero}</td>     
-                                                    <td>{contato.tipo}</td>            
+                                                    <td>{contato.tipo}</td>
+                                                    <td>
+                                                        <button id="btexcluir" className="btnExcluirCont" onClick={()=>Excluir(contato.codigo)} type="button">
+                                                            Excluir
+                                                        </button>
+                                                    </td>        
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </table>
-                                </div>
+                                </div>}
 
                             </div> 
                         }             
@@ -384,6 +397,12 @@ function Formulario()
                     <button type="button" onClick={voltar}>Voltar</button>
                 </aside>    
             </div>
+            {loading &&
+                <div className="modalCli">
+                    
+                    <ReactLoading type={"spinningBubbles"} color={"#ffffff"} height={'20%'} width={'20%'} />
+                </div>
+            }
         </div>
     );
 }

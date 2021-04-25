@@ -22,10 +22,10 @@
     background-color: rgb(104, 100, 100);
     color: #fff;
   }
-  .filtro{
+  .filtroCarro{
       width: 20%;
   }
-  .filtro select{
+  .filtroCarro select{
       width: 100%;
   }
 

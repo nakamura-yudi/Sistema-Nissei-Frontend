@@ -135,10 +135,7 @@ function CadastroServicos(){
         e.preventDefault();
         var codSer;
         let totalSer=0;
-        for(let i=0;i<pecsUti.length;i++){
-            totalSer=totalSer+pecsUti[i].uti_qtde*pecsUti[i].uti_precoUni;
-        }
-        totalSer=totalSer+maoObra;
+  
   
         if(ValidarCampos()){
             if(button==='Salvar'){
@@ -149,7 +146,7 @@ function CadastroServicos(){
                     ser_descricao:descricao,
                     ser_maoObra:maoObra,
                     ser_inicio:dtInicio,
-                    ser_total:totalSer,
+
                     ser_status:true
                 })
                 codSer=response.data.lastId;
@@ -175,7 +172,6 @@ function CadastroServicos(){
                     ser_descricao:descricao,
                     ser_maoObra:maoObra,
                     ser_inicio:dtInicio,
-                    ser_total:totalSer,
                     ser_status:true
                 })
                 codSer=localStorage.getItem('cod_ser');

@@ -116,7 +116,7 @@ function ListaServicosCliente()
     return (
     <div id="tela" className="background">
         <Header/>
-        <div className='filtro'>
+        <div className='filtroCarro'>
             <select id="select-filtro" value={filtro}  onChange={e=>setFiltro(e.target.value)}>
                 <option value="todas">
                     Todas
@@ -135,7 +135,6 @@ function ListaServicosCliente()
                     <tr>
                         <td>Carro</td>
                         <td>Data de inicio</td>
-                        <td>Total</td>
                         <td>Status</td>
                         <td>Acao</td>
                     </tr>
@@ -145,7 +144,6 @@ function ListaServicosCliente()
                         <tr key={res.ser_cod}>
                             <td>{getPlaca(res.car_id)}</td>
                             <td>{mudarEstruturaData(res.ser_inicio)}</td>
-                            <td>R$ {res.ser_total}</td>
                             <td>{getStatus(res.ser_status)}</td>
                             <td>
                             <button onClick={()=>acessarServico(res.ser_cod)} disabled={!res.ser_status} className="button-item">Editar</button>

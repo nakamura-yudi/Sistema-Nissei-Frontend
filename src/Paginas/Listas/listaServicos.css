@@ -23,11 +23,21 @@
     color: #fff;
   }
   .filtro{
+      display: flex;
+      flex-flow: row wrap;
+      flex-direction: row;
       width: 60%;
       color:rgb(255, 255, 255)
   }
   .filtro select{
       width: 100%;
+  }
+  .filtro .p-filtrar{
+    width: 100%;
+    text-align: center;
+  }
+  .filtro .button-filtrar{
+    
   }
 
   

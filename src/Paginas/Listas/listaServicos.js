@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../servicos/api';
 import history from '../../history'
 import '../../app.css'
-import './listarServicosCliente.css'
+import './listaServicos.css'
 import Header from '../../Components/Header'
 
 function ListaServicos()
@@ -91,7 +91,7 @@ function ListaServicos()
                         <option id="op-selecione" value="0">Em andamento</option>
                 </select>
             </div>
-            <button tyoe="button" onClick={()=>filtrar()}>Filtrar</button>
+            <p className="p-filtrar"><button type="button" className="button-filtrar" onClick={()=>filtrar()}>Filtrar</button></p>
         </div>
         <div className="table-servicos">   
         <table className='tableSer'>

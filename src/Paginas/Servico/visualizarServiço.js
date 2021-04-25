@@ -12,7 +12,7 @@ function VisualizarServiço()
     const [dtInicio,setDtInicio]=useState('');
     const [dtFim,setDtFim]=useState('');
     const [maoObra,setMaoObra]=useState('0');
-    const [total,setTotal]=useState('0');
+    const [total,setTotal]=useState(0);
     const [pecsUti,setPecasUti] = useState([]);
     const [status,setStatus] = useState(false);
     const [codFun,setCodFun] = useState(0);
@@ -21,7 +21,7 @@ function VisualizarServiço()
     const [showModalAviso,setShowModalAviso]=useState(false);
     useEffect(()=>{
         recuperarServico();
-        listarPecsUtiizadas();
+        
     },[])
     async function recuperarServico(){
         await api.get(`/servicoInfo/${localStorage.getItem('cod_ser')}`).then((resp)=>{
@@ -33,16 +33,23 @@ function VisualizarServiço()
             setDtInicio(resp.data[0].ser_inicio);
             setDtFim(resp.data[0].ser_fim);
             setMaoObra(resp.data[0].ser_maoObra);
-            setTotal(resp.data[0].ser_total);
             setStatus(resp.data[0].ser_status);
             setCodFun(resp.data[0].pes_cod);
-      
+            listarPecsUtiizadas(resp.data[0].ser_maoObra);
         });
+        
     }
-    async function listarPecsUtiizadas(){
+    async function listarPecsUtiizadas(valorMaoObra){
+        let t=0;
         await api.get(`/servicopeca/${localStorage.getItem('cod_ser')}`).then((resp)=>{
             setPecasUti(resp.data); 
+            for(let i=0;i<resp.data.length;i++){
+                t+=resp.data[i].uti_precoUni*resp.data[i].uti_qtde;
+                console.log(t);
+            }
         });
+        t=total+t;
+        setTotal(t+valorMaoObra);
     }
     function abrirContasReceber(){
         history.push('/listaContasReceberServico');
